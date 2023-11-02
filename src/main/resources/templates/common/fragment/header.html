@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" th:fragment="HeaderFragment">
+    <p th:replace="common/fragment/assets :: AssetsFragment"></p>
+
+    <header id="header" class="fixed-top header-inner-pages">
+        <div class="container d-flex align-items-center justify-content-lg-between">
+            <h1 class="logo me-auto me-lg-0"><a href="/">ONE<span>.A.</span>CLO</a></h1>
+
+            <div th:replace="common/fragment/nav :: NavFragment"></div>
+
+            <div class="UserMenu">
+                <a href="/loginform" class="get-started-btn scrollto">로그인</a>
+                <a href="/membershipform" class="get-started-btn scrollto">회원가입</a>
+                <a href="#about" class="get-started-btn scrollto">장바구니</a>
+                <a href="#about" class="get-started-btn scrollto">관리자</a>
+            </div>
+        </div>
+    </header>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <meta charset="UTF-8">
+        <title>One A Clo</title>
+    </head>
+
+    <body>
+        <p th:replace="common/fragment/header :: HeaderFragment"></p>
+
+        <p th:replace="common/fragment/bannerBackground :: BnBgFragment"></p>
+
+        <main id="main">
+            <section class="inner-page">
+                <div class="container">
+                    <th:block layout:fragment="Content"></th:block>
+                </div>
+            </section>
+        </main>
+
+        <p th:replace="common/fragment/footer :: FooterFragment"></p>
+    </body>
+</html>
