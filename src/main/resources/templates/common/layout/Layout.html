@@ -6,18 +6,18 @@
     </head>
 
     <body>
-        <p th:replace="common/fragment/header :: HeaderFragment"></p>
+        <p th:replace="~{common/fragment/header :: HeaderFragment}"></p>
 
-        <p th:replace="common/fragment/bannerBackground :: BnBgFragment"></p>
+        <p th:replace="~{common/fragment/bannerBackground :: BnBgFragment}"></p>
 
         <main id="main">
             <section class="inner-page">
                 <div class="container">
-                    <th:block layout:fragment="Content"></th:block>
+                    <th:block layout:fragment="~{Content}"></th:block>
                 </div>
             </section>
         </main>
 
-        <p th:replace="common/fragment/footer :: FooterFragment"></p>
+        <p th:replace="~{common/fragment/footer :: FooterFragment}"></p>
     </body>
 </html>
