@@ -298,6 +298,18 @@
     });
   });
 
+  /*
+    Banner Container Insert
+   */
+  window.addEventListener('load', () => {
+    var hostUrl = window.location.host + window.location.pathname;
+    var container = document.getElementById("bnbgContainer");
+
+    if (hostUrl === "www.oneaclo.kro.kr/" || hostUrl === "localhost:8800/") {
+      container.innerHTML = "";
+    }
+  });
+
   /**
    * Initiate Pure Counter 
    */
