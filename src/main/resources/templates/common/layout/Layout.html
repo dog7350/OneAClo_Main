@@ -8,7 +8,9 @@
     <body>
         <p th:replace="~{common/fragment/header :: HeaderFragment}"></p>
 
-        <p id="bnbgContainer" th:replace="~{common/fragment/bannerBackground :: BnBgFragment}"></p>
+        <div id="bnbgContainer">
+            <th:block th:replace="~{common/fragment/bannerBackground :: BnBgFragment}"></th:block>
+        </div>
 
         <main id="main">
             <section class="inner-page">
