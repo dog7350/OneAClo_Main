@@ -10,11 +10,11 @@
 
             <div class="UserMenu">
                 <a th:if="${session.UserInfo == null}" href="http://mypage.oneaclo.kro.kr/loginform" class="get-started-btn scrollto">로그인</a>
-                <a th:if="${session.UserInfo != null}" href="http://mypage.oneaclo.kro.kr//logout" class="get-started-btn scrollto">로그아웃</a>
-                <a th:if="${session.UserInfo == null}" href="http://mypage.oneaclo.kro.kr//joinform" class="get-started-btn scrollto">회원가입</a>
-                <a th:if="${session.UserInfo != null}" href="http://mypage.oneaclo.kro.kr//userinfo" class="get-started-btn scrollto">나의 정보 보기</a>
-                <a href="#about" class="get-started-btn scrollto">장바구니</a>
-                <a href="#about" class="get-started-btn scrollto">관리자</a>
+                <a th:if="${session.UserInfo != null}" href="http://mypage.oneaclo.kro.kr/logout" class="get-started-btn scrollto">로그아웃</a>
+                <a th:if="${session.UserInfo == null}" href="http://mypage.oneaclo.kro.kr/joinform" class="get-started-btn scrollto">회원가입</a>
+                <a th:if="${session.UserInfo != null}" href="http://mypage.oneaclo.kro.kr/userinfo" class="get-started-btn scrollto">나의 정보 보기</a>
+                <a th:if="${session.UserInfo != null}" href="http://mypage.oneaclo.kro.kr/basket" class="get-started-btn scrollto">장바구니</a>
+                <a th:if="${(session.UserInfo != null)}" href="http://admin.oneaclo.kro.kr/" class="get-started-btn scrollto">관리자</a>
             </div>
         </div>
     </header>
