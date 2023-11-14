@@ -305,9 +305,8 @@
     var hostUrl = window.location.host + window.location.pathname;
 
     if (hostUrl !== "www.oneaclo.kro.kr/" && hostUrl !== "localhost:8800/") {
-      console.log(hostUrl);
       document.getElementById("bnbgContainer").remove();
-    } else { console.log("PASS") }
+    }
   });
 
   /**
