@@ -1,21 +1,25 @@
-package kr.kro.oneaclo.www.Configure.jwt;
+package kr.kro.oneaclo.www.Configure;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
+@Setter
 @Service
 @RequiredArgsConstructor
 public class TokenProcess {
-    private final JwtProperties jwtProperties;
+    private String secretKey;
 
     private Claims getClaims (String token) {
         return Jwts.parser()
-                .setSigningKey(jwtProperties.getSecretKey())
+                .setSigningKey(secretKey)
                 .parseClaimsJws(token)
                 .getBody();
     }

@@ -60,6 +60,10 @@
         </div>
     </section><!-- End Services Section 베스트 상품 section -->
 
+    <p th:if="${session.UserInfo != null}">
+        <span th:text="${auth}"></span>
+    </p>
+
     <section id="portfolio" class="portfolio">
         <div class="container" data-aos="fade-up">
 
