@@ -29,26 +29,26 @@ public class MemberViewController {
             return "redirect:/";
     }
 
-    @GetMapping("/PasswordChange")
+    @GetMapping("/p/PasswordChange")
     public String PasswordChange() {
         return "views/mypage/info/PasswordChange";
     }
     @GetMapping("/jwtcreate")
     public String jwtcteate() {
-//        return "redirect:www.oneaclo.kro.kr";
-        return "redirect:/mypage/userinfo";
+        return "redirect:/";
+
     }
-    @GetMapping("/PhoneCh")
+    @GetMapping("/p/PhoneCh")
     public String PhoneCh() {
         return "views/mypage/info/PhoneCh";
     }
 
-    @GetMapping("/NickCh")
+    @GetMapping("/p/NickCh")
     public String NickCh() {
         return "views/mypage/info/NickCh";
     }
 
-    @GetMapping("/userinfo")
+    @GetMapping("/p/userinfo")
     public String userinfo(HttpSession session, Model model) {
         String token = (String) session.getAttribute("UserInfo");
         String[] arr = {"id","pw","name","email","nick","profile","zipcode","address","detailaddr","phone"};
@@ -58,12 +58,12 @@ public class MemberViewController {
         return "views/mypage/info/UserInfo";
     }
 
-    @GetMapping("/ProfileCh")
+    @GetMapping("/p/ProfileCh")
     public String ProfileCh() {
         return "views/mypage/info/ProfileCh";
     }
 
-    @GetMapping("/AddressCh")
+    @GetMapping("/p/AddressCh")
     public String AddressCh() {
         return "views/mypage/info/AddressCh";
     }

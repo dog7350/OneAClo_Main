@@ -94,7 +94,7 @@ public class MemberRepController {
         }
     }
 
-    @GetMapping("/PasswordCk")
+    @GetMapping("/p/PasswordCk")
     public String PasswordCk(@RequestParam String Origin,HttpSession session) {
         String token = (String) session.getAttribute("UserInfo");
         String Pwd = tokenProcess.getMembersToken(token,"pw");
@@ -105,17 +105,17 @@ public class MemberRepController {
         }
     }
 
-    @PostMapping("/NewPhoneNumber")
+    @PostMapping("/p/NewPhoneNumber")
     public void NewPhoneNumber(@RequestParam String NewPhone, HttpSession session) {
         memberInfoService.PhoneChange(NewPhone,EmailSearch(session));
     }
 
-    @PostMapping("/NewProfile")
+    @PostMapping("/p/NewProfile")
     public void ProfileChange(@RequestParam MultipartFile NewProfile, HttpSession session) {
         membersService.ProfileChange(IdSearch(session),NewProfile);
     }
 
-    @PostMapping("/NickChange")
+    @PostMapping("/p/NickChange")
     public void NickChange(@RequestParam String NickName,HttpSession session) {
         membersService.NickChange(IdSearch(session),NickName);
     }

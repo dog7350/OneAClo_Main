@@ -10,9 +10,9 @@
 
             <div class="UserMenu">
                 <a th:if="${session.UserInfo == null}" href="/mypage/loginform" class="get-started-btn scrollto">로그인</a>
-                <a th:if="${session.UserInfo != null}" href="/mypage/logout" class="get-started-btn scrollto">로그아웃</a>
+                <a th:if="${session.UserInfo != null}" href="/mypage/p/logout" class="get-started-btn scrollto">로그아웃</a>
                 <a th:if="${session.UserInfo == null}" href="/mypage/joinform" class="get-started-btn scrollto">회원가입</a>
-                <a th:if="${session.UserInfo != null}" href="/mypage/userinfo" class="get-started-btn scrollto">나의 정보 보기</a>
+                <a th:if="${session.UserInfo != null}" href="/mypage/p/userinfo" class="get-started-btn scrollto">나의 정보 보기</a>
                 <a th:if="${session.UserInfo != null}" href="/mypage/basket" class="get-started-btn scrollto">장바구니</a>
                 <a th:if="${(session.UserInfo != null)}" href="/admin/" class="get-started-btn scrollto">관리자</a>
             </div>

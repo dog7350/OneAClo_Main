@@ -8,7 +8,7 @@ function CheckPassword() {
         alert("새로운 비밀번호가 일치하지 않습니다");
     }else {
         $.ajax({
-            url : "/mypage/PasswordCk",
+            url : "/mypage/p/PasswordCk",
             type : "get",
             data : {Origin:Origin,Change:Change,Ck:Ck},
             dataType : "text",

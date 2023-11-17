@@ -2,15 +2,20 @@ package kr.kro.oneaclo.www.Configure;
 
 import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @RequiredArgsConstructor
+@EnableWebSecurity
 public class SpringSecurityConfig {
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -19,12 +24,13 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(requet->requet
-                        .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                        .requestMatchers("common/**","/mypage/joinform","/mypage/EmailCk","views/**","/",
-                                "/mypage/join","/mypage/EmailCk","/mypage/IdCk","/mypage/EmailGetList","/mypage/SendMail","/mypage/jwtcreate").permitAll()
-                        .anyRequest().authenticated()
-                )
+                .authorizeHttpRequests(req->req
+                                .requestMatchers("*/p/**").authenticated()
+                                .requestMatchers("/**").permitAll()
+
+                        );
+
+        http
                 .formLogin(login->login
                         .loginPage("/mypage/loginform")
                         .loginProcessingUrl("/login")
@@ -34,18 +40,19 @@ public class SpringSecurityConfig {
                         .permitAll()
                 )
                 .logout(logout->logout
-                        .logoutUrl("/mypage/logout")
+                        .logoutUrl("/mypage/p/logout")
                         .invalidateHttpSession(true)
                         .logoutSuccessUrl("/mypage/loginform"));
 
+
         http.csrf(AbstractHttpConfigurer::disable);
+
         return http.build();
     }
-
-    //  filterChain 주석 처리후 사용(전체페이지 허용)
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return (web)->web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-//    }
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web)->web.ignoring()
+                .requestMatchers("/common/**");
+    }
 
 }

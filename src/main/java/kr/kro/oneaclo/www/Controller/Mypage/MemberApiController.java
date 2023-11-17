@@ -40,18 +40,18 @@ public class MemberApiController {
         model.addAttribute("UserMail",email);
         return "views/mypage/join/EmailCk";
     }
-    @PostMapping("/ChangePassword")
+    @PostMapping("/p/ChangePassword")
     public String ChangePassword(@RequestParam String ChangePw, @RequestParam String CkPw, HttpSession session) {
         String token = (String) session.getAttribute("UserInfo");
         String id = tokenProcess.getMembersToken(token,"id");
         if(ChangePw.equals(CkPw)) {
             membersService.PwChange(ChangePw,id);
-            return "redirect:/mypage/logout";
+            return "redirect:/mypage/p/logout";
         }else {
-            return "redirect:/mypage/userinfo";
+            return "redirect:/mypage/p/userinfo";
         }
     }
-    @GetMapping("/UpdateSuccess")
+    @GetMapping("/p/UpdateSuccess")
     public String UpdateSuccess(HttpSession session) {
         String id = tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"),"id");
         session.removeAttribute("UserInfo");
@@ -60,20 +60,20 @@ public class MemberApiController {
         return "redirect:/";
     }
 
-    @PostMapping("/NewAddr")
+    @PostMapping("/p/NewAddr")
     public String NewAddr(HttpSession session,@RequestParam String zipcode,
                           @RequestParam String address,@RequestParam String detailaddr) {
         String token = (String) session.getAttribute("UserInfo");
         String email = tokenProcess.getMembersToken(token,"email");
         memberInfoService.AddrChange(email,zipcode,address,detailaddr);
-        return "redirect:/mypage/UpdateSuccess";
+        return "redirect:/mypage/p/UpdateSuccess";
     }
 
-    @GetMapping("/UserDel")
+    @GetMapping("/p/UserDel")
     public String UserDel(HttpSession session) {
         String token = (String) session.getAttribute("UserInfo");
         String id = tokenProcess.getMembersToken(token,"id");
         membersService.UserDel(id);
-        return "redirect:/mypage/logout";
+        return "redirect:/mypage/p/logout";
     }
 }
