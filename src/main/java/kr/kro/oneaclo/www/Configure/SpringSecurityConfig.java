@@ -41,4 +41,11 @@ public class SpringSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
+
+    //  filterChain 주석 처리후 사용(전체페이지 허용)
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return (web)->web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+//    }
+
 }
