@@ -61,7 +61,4 @@ public class Board {
     @Column(name = "indent",columnDefinition = "number(4)")
     @ColumnDefault("0")
     private int indent;
-
-    @OneToOne(mappedBy = "board",cascade = CascadeType.ALL)
-    BoardCmt boardCmtList;
 }

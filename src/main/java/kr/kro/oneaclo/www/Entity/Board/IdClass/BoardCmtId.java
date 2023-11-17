@@ -1,6 +1,7 @@
 package kr.kro.oneaclo.www.Entity.Board.IdClass;
 
 
+import kr.kro.oneaclo.www.Entity.Board.Board;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,8 +16,8 @@ import java.io.Serializable;
 public class BoardCmtId implements Serializable {
 
     @EqualsAndHashCode.Include
-    public Integer bnogroup;
+    public Board bnogroup;
 
     @EqualsAndHashCode.Include
-    public Integer cno;
+    public int cno;
 }

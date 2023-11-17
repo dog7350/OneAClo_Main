@@ -2,6 +2,7 @@ package kr.kro.oneaclo.www.Entity.Board;
 
 import jakarta.persistence.*;
 import kr.kro.oneaclo.www.Entity.Board.IdClass.BoardCmtId;
+import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
@@ -19,12 +20,12 @@ import java.time.LocalDateTime;
 public class BoardCmt {
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "bno", columnDefinition = "number(38)",nullable = false,referencedColumnName = "bnogroup")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "bno", columnDefinition = "number(38)",nullable = false,referencedColumnName = "bnogroup",unique = true)
     private Board bnogroup;
 
     @Id
-    @Column(name = "cno",columnDefinition = "number(38)",nullable = false)
+    @Column(name = "cno",columnDefinition = "number(38)",nullable = false,unique = true)
     private int cno;
 
     @Column(name = "writer", columnDefinition = "varchar(50)")
