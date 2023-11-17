@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>닉네임</title>
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <script type="text/javascript" src="/views/mypage/js/info/NickCh.js"></script>
+        <link href="/views/mypage/css/info/NickCh.css" rel="stylesheet">
+    </head>
+    <body>
+        <div>
+            <h1>닉네임 변경</h1>
+            <br>
+            <hr>
+            <br>
+            <form method="post" action="/NickChange" id="NickForm">
+                <label for="InputNick">새로운 닉네임 : </label> &nbsp;
+                <input type="text" name="NickName" id="InputNick" placeholder="새로운 닉네임">
+                <br>
+                <br>
+                <hr>
+                <br>
+                <button type="button" onclick="NickCk()">수정</button>
+                <button type="button" onclick="window.close()">취소</button>
+            </form>
+        </div>
+    </body>
+</html>

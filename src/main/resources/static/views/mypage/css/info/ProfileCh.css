@@ -1,0 +1,44 @@
+label {
+    display: inline-block;
+    padding: 5px 25px;
+    color: white;
+    font-size: 15pt;
+    vertical-align: middle;
+    background-color: rgb(128, 128, 128);
+    cursor: pointer;
+    border-radius: .25em;
+}
+
+input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+form {
+    text-align: center;
+}
+
+button {
+    width: 100px;
+    height: 44px;
+    font-size: 15pt;
+    background: rgb(128, 128, 128);
+    border: 0;
+    color: white;
+    transition: 0.4s;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: black;
+}
+
+hr {
+    border: 3px solid rgb(128, 128, 128);
+}
+

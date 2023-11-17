@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <link href="/common/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/common/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+    <link href="/views/mypage/css/login/LoginForm.css" rel="stylesheet">
+    <script type="text/javascript" src="/views/mypage/js/login/LoginForm.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+    <div>
+        <section class="contact" id="contact">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>ONE.A.MALL</h2>
+                    <p>로그인</p>
+                </div>
+
+                <div class="row mt-5" id="LoginCon">
+                    <div class="col-lg-3">
+                        <div class="info">
+                            <div class="ID">
+                                <label for="InputId"><h4>아이디 : </h4></label>
+                            </div>
+                            <div class="Password">
+                                <label for="InputPw"><h4>비밀번호 : </h4></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8 mt-5 mt-lg-0">
+
+                        <form action="/login" class="php-login-form" method="post" role="form" name="loginform">
+                            <div class="col-md-5 form-group">
+                                <input class="form-control" id="InputId" name="id" placeholder="아이디" required type="text">
+                            </div>
+                            <div class="col-md-5 form-group mt-3 mt-md-2">
+                                <input class="form-control" id="InputPw" name="pw" placeholder="비밀 번호" required
+                                       type="password">
+                            </div>
+                            <br>
+                            <div class="">
+                                <button type="button" onclick="login()">로그인</button>
+                            </div>
+                            <br>
+                            <div class="">
+                                <button type="button" onclick="location.href='/joinform'">회원 가입</button>
+                            </div>
+                            <br>
+                            <div class="">
+                                <button type="button">비회원 주문 조회</button>
+                            </div>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</html>

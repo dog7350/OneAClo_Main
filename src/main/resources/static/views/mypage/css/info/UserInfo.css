@@ -1,0 +1,60 @@
+.font25 {
+    font-size: 25pt;
+}
+
+.font20 {
+    font-size: 20pt;
+}
+.font15 {
+    font-size: 15pt;
+}
+
+#userinfotable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 10px 15px;
+
+}
+
+#userinfotable button {
+    background: rgb(128, 128, 128);
+    border: 0;
+    color: white;
+    transition: 0.4s;
+    border-radius: 4px;
+    width: 80px;
+    height: 44px;
+    font-size: 15pt;
+    float: right;
+}
+
+.FirstTh {
+    border: 5px solid #ffc451;
+    padding : 20px;
+    border-radius: 30px;
+}
+
+.ListTh {
+    border: 5px solid whitesmoke;
+    padding : 20px;
+    border-radius: 30px;
+}
+
+#userinfotable button:hover {
+    background: black;
+}
+
+.DelBtn {
+    background: rgb(128, 128, 128);
+    border: 0;
+    color: white;
+    transition: 0.4s;
+    border-radius: 4px;
+    width: 200px;
+    height: 44px;
+    font-size: 15pt;
+}
+
+.DelBtn:hover {
+    background: black;
+}

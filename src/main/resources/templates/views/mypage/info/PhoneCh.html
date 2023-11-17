@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>번호 이동</title>
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <script type="text/javascript" src="/views/mypage/js/info/PhoneCh.js"></script>
+        <link href="/views/mypage/css/info/PhoneCh.css" rel="stylesheet">
+    </head>
+    <body>
+        <div>
+            <form method="post" action="/NewPhoneNumber" id="PhoneForm">
+                <label for="InputPhone">새로운 전화 번호</label>
+                <hr>
+                <input type="tel" name="NewPhone" id="InputPhone" placeholder="새 번호 입력">
+                <hr>
+                <button type="button" onclick="FormSubmit()">수정</button> &nbsp; <button type="button" onclick="window.close()">취소</button>
+            </form>
+        </div>
+    </body>
+</html>

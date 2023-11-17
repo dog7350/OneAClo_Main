@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>프로필 변경</title>
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <script type="text/javascript" src="/views/mypage/js/info/ProfileCh.js"></script>
+        <link href="/views/mypage/css/info/ProfileCh.css" rel="stylesheet" />
+    </head>
+    <body>
+        <form action="/NewProfile" method="post" id="FileForm" enctype="multipart/form-data">
+            <div>
+                <h1>프로필 사진</h1>
+                <hr>
+                <input type="file" id="FileChange" name="NewProfile" onchange="readURL(this)">
+                <img id="preview" src="" width="150" height="170" alt="">
+                <br>
+                <label for="FileChange">사진 변경</label>
+            </div>
+            <br>
+            <hr>
+            <br>
+            <div>
+                <button type="button" onclick="FileCk()">적용</button> &nbsp; <button type="button" onclick="DelPic()" class="MenuBtn">삭제</button> &nbsp; <button type="button" onclick="window.close()">취소</button>
+            </div>
+        </form>
+    </body>
+</html>

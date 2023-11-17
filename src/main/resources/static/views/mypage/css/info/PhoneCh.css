@@ -1,0 +1,37 @@
+label {
+    font-size: 30pt;
+    text-align: center;
+    font-family: 함초롬돋움, serif;
+}
+
+input {
+    margin: auto;
+    width: 300px;
+    height: 40px;
+    text-align: center;
+    font-size: 15pt;
+}
+
+form {
+    text-align: center;
+}
+
+button {
+    width: 310px;
+    height: 44px;
+    font-size: 15pt;
+    background: rgb(128, 128, 128);
+    border: 0;
+    color: white;
+    transition: 0.4s;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: black;
+}
+
+hr {
+    border: 3px solid rgb(128, 128, 128);
+}

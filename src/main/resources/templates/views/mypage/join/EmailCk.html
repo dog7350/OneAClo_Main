@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>이메일 인증</title>
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <script type="text/javascript" src="/views/mypage/js/join/EmailCk.js"></script>
+        <link rel="stylesheet" href="/views/mypage/css/join/EmailCk.css">
+    </head>
+    <body>
+        <h1>이메일 인증</h1>
+        <hr>
+        <h3 th:text="${UserMail}"></h3>
+        <input th:value="${UserMail}" type="hidden" id="email">
+        <br>
+        <button type="button" onclick="codeSend()">인증코드받기</button>
+        <hr>
+        <p>인증코드입력</p>
+        <input type="text" id="emailCode"> <b id="countLabel">유효시간</b> &nbsp; <b id="count"></b>
+        <input type="hidden" id="CODE">
+        <hr>
+        <button type="button" onclick="checkCode()">확인</button>
+        <button type="button" onclick="cancel()">취소</button>
+    </body>
+
+</html>
