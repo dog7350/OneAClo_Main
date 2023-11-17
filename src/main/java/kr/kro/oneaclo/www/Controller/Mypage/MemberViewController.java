@@ -1,4 +1,4 @@
-package kr.kro.oneaclo.www.Controller.Member;
+package kr.kro.oneaclo.www.Controller.Mypage;
 
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.TokenProcess;

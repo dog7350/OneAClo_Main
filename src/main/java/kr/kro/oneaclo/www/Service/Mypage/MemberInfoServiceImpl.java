@@ -1,11 +1,11 @@
-package kr.kro.oneaclo.www.Service.Member;
+package kr.kro.oneaclo.www.Service.Mypage;
 
 
-import kr.kro.oneaclo.www.DTO.Member.MemberDTO;
-import kr.kro.oneaclo.www.Entity.Member.MemberInfo;
-import kr.kro.oneaclo.www.Entity.Member.Members;
-import kr.kro.oneaclo.www.Repository.Member.MemberInfoRepository;
-import kr.kro.oneaclo.www.Repository.Member.MembersRepository;
+import kr.kro.oneaclo.www.DTO.Mypage.MemberDTO;
+import kr.kro.oneaclo.www.Entity.Mypage.MemberInfo;
+import kr.kro.oneaclo.www.Entity.Mypage.Members;
+import kr.kro.oneaclo.www.Repository.Mypage.MemberInfoRepository;
+import kr.kro.oneaclo.www.Repository.Mypage.MembersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

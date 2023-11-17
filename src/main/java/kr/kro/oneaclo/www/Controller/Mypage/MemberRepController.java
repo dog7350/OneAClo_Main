@@ -1,10 +1,10 @@
-package kr.kro.oneaclo.www.Controller.Member;
+package kr.kro.oneaclo.www.Controller.Mypage;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.JWT.JwtProperties;
-import kr.kro.oneaclo.www.Service.Member.MemberInfoService;
-import kr.kro.oneaclo.www.Service.Member.MembersService;
+import kr.kro.oneaclo.www.Service.Mypage.MemberInfoService;
+import kr.kro.oneaclo.www.Service.Mypage.MembersService;
 import kr.kro.oneaclo.www.Common.TokenProcess;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

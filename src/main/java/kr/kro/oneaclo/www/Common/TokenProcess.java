@@ -2,10 +2,10 @@ package kr.kro.oneaclo.www.Common;
 
 import io.jsonwebtoken.Claims;
 import kr.kro.oneaclo.www.Common.JWT.TokenProvider;
-import kr.kro.oneaclo.www.Entity.Member.MemberInfo;
-import kr.kro.oneaclo.www.Entity.Member.Members;
-import kr.kro.oneaclo.www.Repository.Member.MemberInfoRepository;
-import kr.kro.oneaclo.www.Repository.Member.MembersRepository;
+import kr.kro.oneaclo.www.Entity.Mypage.MemberInfo;
+import kr.kro.oneaclo.www.Entity.Mypage.Members;
+import kr.kro.oneaclo.www.Repository.Mypage.MemberInfoRepository;
+import kr.kro.oneaclo.www.Repository.Mypage.MembersRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

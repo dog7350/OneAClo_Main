@@ -1,4 +1,4 @@
-package kr.kro.oneaclo.www.DTO.Member;
+package kr.kro.oneaclo.www.DTO.Mypage;
 
 import lombok.Data;
 import lombok.Getter;
