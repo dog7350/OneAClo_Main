@@ -12,4 +12,6 @@ public interface MembersService {
     void NickChange(String id,String NickName);
     void ProfileChange(String id,MultipartFile NewProfile);
     void UserDel(String id);
+
+    boolean UserCk(String UserId,String UserPw);
 }

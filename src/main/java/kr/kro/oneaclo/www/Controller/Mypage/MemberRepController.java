@@ -87,8 +87,8 @@ public class MemberRepController {
     }
 
     @PostMapping("/jwtcreate")
-    public void jwtcteate(HttpSession session, @RequestParam String UserId) {
-        if(membersService.IdCk(UserId)) {
+    public void jwtcteate(HttpSession session, @RequestParam String UserId,@RequestParam String UserPw) {
+        if(membersService.UserCk(UserId,UserPw)) {
             String UserToken = tokenProcess.createUserToken(UserId);
             session.setAttribute("UserInfo", UserToken);
         }
