@@ -1,22 +1,24 @@
-package kr.kro.oneaclo.www.Controller.Member;
+package kr.kro.oneaclo.www.Controller.Mypage;
 
 
 import jakarta.servlet.http.HttpSession;
-import kr.kro.oneaclo.www.DTO.Member.MemberDTO;
-import kr.kro.oneaclo.www.Service.Member.MemberInfoService;
-import kr.kro.oneaclo.www.Service.Member.MembersService;
+import kr.kro.oneaclo.www.DTO.Mypage.MemberDTO;
+import kr.kro.oneaclo.www.Service.Mypage.MemberInfoService;
+import kr.kro.oneaclo.www.Service.Mypage.MembersService;
 import kr.kro.oneaclo.www.Common.TokenProcess;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 
 
 @Controller
+@RequestMapping(value = "/mypage")
 @RequiredArgsConstructor
 public class MemberApiController {
 
@@ -28,9 +30,9 @@ public class MemberApiController {
         String result = membersService.MembersJoin(dto,UserProfile);
         memberInfoService.MemberInfoJoin(dto);
         if("success".equalsIgnoreCase(result)){
-            return "redirect:/loginform";
+            return "redirect:/mypage/loginform";
         }else {
-            return "redirect:http://www.oneaclo.kro.kr";
+            return "redirect:/";
         }
     }
     @GetMapping("/EmailCk")
@@ -44,9 +46,9 @@ public class MemberApiController {
         String id = tokenProcess.getMembersToken(token,"id");
         if(ChangePw.equals(CkPw)) {
             membersService.PwChange(ChangePw,id);
-            return "redirect:/logout";
+            return "redirect:/mypage/logout";
         }else {
-            return "redirect:/userinfo";
+            return "redirect:/mypage/userinfo";
         }
     }
     @GetMapping("/UpdateSuccess")
@@ -55,7 +57,7 @@ public class MemberApiController {
         session.removeAttribute("UserInfo");
         String UserToken = tokenProcess.createUserToken(id);
         session.setAttribute("UserInfo",UserToken);
-        return "redirect:http://www.oneaclo.kro.kr";
+        return "redirect:/";
     }
 
     @PostMapping("/NewAddr")
@@ -64,7 +66,7 @@ public class MemberApiController {
         String token = (String) session.getAttribute("UserInfo");
         String email = tokenProcess.getMembersToken(token,"email");
         memberInfoService.AddrChange(email,zipcode,address,detailaddr);
-        return "redirect:/UpdateSuccess";
+        return "redirect:/mypage/UpdateSuccess";
     }
 
     @GetMapping("/UserDel")
@@ -72,6 +74,6 @@ public class MemberApiController {
         String token = (String) session.getAttribute("UserInfo");
         String id = tokenProcess.getMembersToken(token,"id");
         membersService.UserDel(id);
-        return "redirect:/logout";
+        return "redirect:/mypage/logout";
     }
 }

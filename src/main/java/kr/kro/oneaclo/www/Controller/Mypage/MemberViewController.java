@@ -1,4 +1,4 @@
-package kr.kro.oneaclo.www.Controller.Member;
+package kr.kro.oneaclo.www.Controller.Mypage;
 
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.TokenProcess;
@@ -6,8 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping(value = "/mypage")
 @RequiredArgsConstructor
 public class MemberViewController {
     private final TokenProcess tokenProcess;
@@ -16,7 +18,7 @@ public class MemberViewController {
         if(session.getAttribute("UserInfo")==null) {
             return "views/mypage/login/LoginForm";
         }
-            return "redirect:http://www.oneaclo.kro.kr";
+            return "redirect:/";
     }
 
     @GetMapping("/joinform")
@@ -24,7 +26,7 @@ public class MemberViewController {
         if(session.getAttribute("UserInfo")==null) {
             return "views/mypage/join/JoinForm";
         }
-            return "redirect:http://www.oneaclo.kro.kr";
+            return "redirect:/";
     }
 
     @GetMapping("/PasswordChange")
@@ -34,7 +36,7 @@ public class MemberViewController {
     @GetMapping("/jwtcreate")
     public String jwtcteate() {
 //        return "redirect:www.oneaclo.kro.kr";
-        return "redirect:/userinfo";
+        return "redirect:/mypage/userinfo";
     }
     @GetMapping("/PhoneCh")
     public String PhoneCh() {

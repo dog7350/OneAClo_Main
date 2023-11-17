@@ -12,7 +12,7 @@ function FileCk() {
     document.forms['FileForm'].submit();
     setTimeout(function () {
         alert("프로필이 성공적으로 변경되었습니다.");
-        opener.location.replace("/UpdateSuccess");
+        opener.location.replace("/mypage/UpdateSuccess");
         window.close();
     },10);
 }

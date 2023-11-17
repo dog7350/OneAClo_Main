@@ -4,7 +4,7 @@ function codeSend() {
     setInterval(codeTimer,1000);
     $("#countLabel").show();
     $.ajax({
-        url : "/SendMail",
+        url : "/mypage/SendMail",
         data : {email:UserMail},
         type : "get",
         dataType : "json",

@@ -6,7 +6,7 @@ function FormSubmit() {
         document.forms['PhoneForm'].submit();
         setTimeout(function () {
             alert("전화 번호가 성공적으로 변경되었습니다.");
-            opener.location.replace("/UpdateSuccess");
+            opener.location.replace("/mypage/UpdateSuccess");
             window.close();
         },10);
     }

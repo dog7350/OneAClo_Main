@@ -1,7 +1,7 @@
-package kr.kro.oneaclo.www.Service.Member;
+package kr.kro.oneaclo.www.Service.Mypage;
 
 
-import kr.kro.oneaclo.www.DTO.Member.MemberDTO;
+import kr.kro.oneaclo.www.DTO.Mypage.MemberDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface MembersService {

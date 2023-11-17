@@ -1,4 +1,4 @@
-package kr.kro.oneaclo.www.Entity.Member;
+package kr.kro.oneaclo.www.Entity.Mypage;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

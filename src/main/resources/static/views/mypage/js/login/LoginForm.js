@@ -1,7 +1,7 @@
 function login() {
     const userid = document.getElementById("InputId").value;
     $.ajax({
-        url : "/jwtcreate",
+        url : "/mypage/jwtcreate",
         data : {UserId : userid},
         type : "post",
         dataType : "text",

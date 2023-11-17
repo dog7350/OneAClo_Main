@@ -2,7 +2,7 @@ function OutId() {
     const userid = document.getElementById("InputId").value;
     if(userid !== "") {
         $.ajax({
-            url : "/IdCk",
+            url : "/mypage/IdCk",
             data : { id : userid},
             type: "get",
             dataType: "json",
@@ -48,7 +48,7 @@ function EmailCk() {
     sessionStorage.setItem("EmailClick","1");
     if(!(UserMail === "")) {
         $.ajax({
-            url : "/EmailGetList",
+            url : "/mypage/EmailGetList",
             data: {email:UserMail},
             type: "get",
             dataType: "json",
@@ -56,7 +56,7 @@ function EmailCk() {
                 if(bool) {
                     alert("가입 하신 이메일 주소 입니다!!!")
                 }else {
-                    window.open("/EmailCk?email="+UserMail,"pop","width=700,height=700,left=200,top=200");
+                    window.open("/mypage/EmailCk?email="+UserMail,"pop","width=700,height=700,left=200,top=200");
                 }
             },error : () => {
                 alert("실패");

@@ -14,7 +14,7 @@
         <div class="container" data-aos="fade-up">
             <h1>주소 변경</h1>
             <hr>
-            <form action="/NewAddr" method="post" id="NewAddrForm">
+            <form action="/mypage/NewAddr" method="post" id="NewAddrForm">
                 <label for="InputZipcode"></label> &nbsp;
                 <input type="text" name="zipcode" id="InputZipcode" placeholder="지번 주소" readonly>
                 <hr>
@@ -26,7 +26,7 @@
                 <hr>
                 <button type="button" onclick="daumPost()">우편 번호 찾기</button>
                 <hr>
-                <button type="button" onclick="AddrCk()">변경</button> &nbsp; <button type="button" onclick="location.href='redirect:/userinfo'">취소</button>
+                <button type="button" onclick="AddrCk()">변경</button> &nbsp; <button type="button" onclick="location.href='redirect:/mypage/userinfo'">취소</button>
             </form>
         </div>
     </section>

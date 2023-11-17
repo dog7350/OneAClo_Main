@@ -1,18 +1,15 @@
-package kr.kro.oneaclo.www.Controller.Member;
+package kr.kro.oneaclo.www.Controller.Mypage;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.JWT.JwtProperties;
-import kr.kro.oneaclo.www.Service.Member.MemberInfoService;
-import kr.kro.oneaclo.www.Service.Member.MembersService;
+import kr.kro.oneaclo.www.Service.Mypage.MemberInfoService;
+import kr.kro.oneaclo.www.Service.Mypage.MembersService;
 import kr.kro.oneaclo.www.Common.TokenProcess;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -20,6 +17,7 @@ import java.io.PrintWriter;
 import java.util.Random;
 
 @RestController
+@RequestMapping(value = "/mypage")
 @RequiredArgsConstructor
 @Log4j2
 public class MemberRepController {
@@ -93,7 +91,6 @@ public class MemberRepController {
         if(membersService.IdCk(UserId)) {
             String UserToken = tokenProcess.createUserToken(UserId);
             session.setAttribute("UserInfo", UserToken);
-            System.out.println(session.getId());
         }
     }
 
