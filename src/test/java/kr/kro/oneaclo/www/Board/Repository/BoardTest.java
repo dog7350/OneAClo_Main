@@ -26,10 +26,13 @@ public class BoardTest {
         Optional<Board> result = boardRepository.findByBno(3);
         Board board = result.orElseThrow();
 
+        Optional<Members> result2 = membersRepository.findById("test");
+        Members members = result2.orElseThrow();
+
         BoardCmt boardCmt = BoardCmt.builder()
-                .bnogroup(board)
+                .bno(board)
                 .cno(2)
-                .writer("테스터")
+                .writer(members)
                 .content("내용")
                 .firsttime(null)
                 .lasttime(null)

@@ -21,15 +21,16 @@ public class BoardCmt {
 
     @Id
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "bno", columnDefinition = "number(38)",nullable = false,referencedColumnName = "bnogroup",unique = true)
-    private Board bnogroup;
+    @JoinColumn(name = "bno", columnDefinition = "number(38)",nullable = false,unique = true)
+    private Board bno;
 
     @Id
     @Column(name = "cno",columnDefinition = "number(38)",nullable = false,unique = true)
     private int cno;
 
-    @Column(name = "writer", columnDefinition = "varchar(50)")
-    private String writer;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "writer", columnDefinition = "varchar(50)")
+    private Members writer;
 
     @Column(name = "content", columnDefinition = "clob", nullable = false)
     private String content;

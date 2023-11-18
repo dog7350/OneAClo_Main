@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class BoardCmtId implements Serializable {
 
     @EqualsAndHashCode.Include
-    public Board bnogroup;
+    public int bno;
 
     @EqualsAndHashCode.Include
     public int cno;
