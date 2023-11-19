@@ -17,22 +17,25 @@ import java.time.LocalDateTime;
 @DynamicInsert
 @Builder
 @IdClass(BoardCmtId.class)
+@SequenceGenerator(name = "BoardCmtSeq",sequenceName = "boardcmt_seq",initialValue = 1,allocationSize = 1)
 public class BoardCmt {
 
     @Id
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "bno", columnDefinition = "number(38)",nullable = false,unique = true)
+    @ManyToOne
+    @JoinColumn(name = "bno", columnDefinition = "number(38)",nullable = false)
     private Board bno;
 
     @Id
-    @Column(name = "cno",columnDefinition = "number(38)",nullable = false,unique = true)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "BoardCmtSeq")
+    @Column(name = "cno",columnDefinition = "number(38)",nullable = false)
     private int cno;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "writer", columnDefinition = "varchar(50)")
     private Members writer;
 
     @Column(name = "content", columnDefinition = "clob", nullable = false)
+    @Lob
     private String content;
 
     @Column(name = "firsttime", columnDefinition = "timestamp(6)")

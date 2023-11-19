@@ -1,6 +1,5 @@
 package kr.kro.oneaclo.www.Entity.Board.IdClass;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,11 +11,11 @@ import java.io.Serializable;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @Data
-public class BoardCmtId implements Serializable {
+public class BoardFileId implements Serializable {
 
     @EqualsAndHashCode.Include
     public int bno;
 
     @EqualsAndHashCode.Include
-    public int cno;
+    public String filename;
 }

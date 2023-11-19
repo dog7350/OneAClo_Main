@@ -5,6 +5,7 @@ import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.engine.internal.Cascade;
 
 import java.time.LocalDateTime;
 
@@ -32,6 +33,7 @@ public class Board {
     private String title;
 
     @Column(name = "content",nullable = false,columnDefinition = "clob")
+    @Lob
     private String content;
 
     @Column(name = "firsttime",columnDefinition = "timestamp(6)")
