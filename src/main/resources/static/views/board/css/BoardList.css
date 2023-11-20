@@ -1,0 +1,16 @@
+.BoardWriteBtn {
+    float: right;
+    background: rgb(128, 128, 128);
+    border: 0;
+    color: white;
+    transition: 0.4s;
+    border-radius: 4px;
+    width: 100px;
+    height: 44px;
+    font-size: 15pt;
+    margin-top: 50px;
+}
+
+.BoardWriteBtn:hover {
+    background: black;
+}

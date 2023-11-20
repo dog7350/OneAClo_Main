@@ -1,5 +1,7 @@
 package kr.kro.oneaclo.www.DTO.Board;
 
+
+import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 public class BoardDTO {
     private int bno;
-    private String writer;
+    private Members writer;
     private String title;
     private String content;
     private LocalDateTime firsttime;

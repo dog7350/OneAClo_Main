@@ -1,5 +1,6 @@
 package kr.kro.oneaclo.www.Board.Repository;
 
+import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
 import kr.kro.oneaclo.www.Entity.Board.*;
 import kr.kro.oneaclo.www.Entity.Board.IdClass.BoardCmtId;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
@@ -8,6 +9,10 @@ import kr.kro.oneaclo.www.Repository.Mypage.MembersRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
@@ -113,5 +118,19 @@ public class BoardTest {
                 .build();
 
         boardCmtReportRepository.save(boardCmtReport);
+    }
+
+    @Test
+    public void BoardListTest() {
+        List<Board> boards = boardRepository.findAll();
+        System.out.println(boards.get(0).getWriter().getId());
+    }
+    @Test
+    public void PagingTest() {
+        Pageable pageable = PageRequest.of(0,3, Sort.by("bno").descending());
+
+        Page<Board> result = boardRepository.findAll(pageable);
+
+        System.out.println(result);
     }
 }

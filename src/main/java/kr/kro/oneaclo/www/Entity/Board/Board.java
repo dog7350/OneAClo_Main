@@ -1,6 +1,7 @@
 package kr.kro.oneaclo.www.Entity.Board;
 
 import jakarta.persistence.*;
+import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;

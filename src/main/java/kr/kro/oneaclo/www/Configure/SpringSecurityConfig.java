@@ -46,7 +46,6 @@ public class SpringSecurityConfig {
 
 
         http.csrf(AbstractHttpConfigurer::disable);
-
         return http.build();
     }
     @Bean
