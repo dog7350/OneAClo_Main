@@ -151,6 +151,9 @@ h6 {
 #header .logo img {
   max-height: 40px;
 }
+#BoardMenu {
+  margin-left: 15px;
+}
 
 /*--------------------------------------------------------------
 #  Get Startet Button
@@ -174,7 +177,7 @@ h6 {
 @media (max-width: 992px) {
   .get-started-btn {
     padding: 7px 20px 8px 20px;
-    margin-right: 15px;
+    margin-right: 10px;
   }
 }
 
@@ -1668,5 +1671,5 @@ section {
 }
 
 .UserMenu {
-  padding-left: 10%;
+  padding-left: 3%;
 }
