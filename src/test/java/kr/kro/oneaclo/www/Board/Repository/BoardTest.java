@@ -137,7 +137,17 @@ public class BoardTest {
         System.out.println(result.getSize());
     }
     @Test
-    public void test() {
-
+    public void testSearch() {
+        Pageable pageable = PageRequest.of(1,10,Sort.by("bno").descending());
+        boardRepository.search1(pageable);
+    }
+    @Test
+    public void TestSearchAll() {
+        String[] types = {"title","content","writer"};
+        String keyword = "test";
+        Pageable pageable = PageRequest.of(0,10,Sort.by("bno").descending());
+        Page<Board> result = boardRepository.searchAll(types,keyword,pageable);
+        System.out.println(result);
+        System.out.println(result.getContent().get(0).getTitle());
     }
 }

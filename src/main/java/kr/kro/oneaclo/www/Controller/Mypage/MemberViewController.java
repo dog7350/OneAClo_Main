@@ -36,7 +36,6 @@ public class MemberViewController {
     @GetMapping("/jwtcreate")
     public String jwtcteate() {
         return "redirect:/";
-
     }
     @GetMapping("/p/PhoneCh")
     public String PhoneCh() {
@@ -66,5 +65,10 @@ public class MemberViewController {
     @GetMapping("/p/AddressCh")
     public String AddressCh() {
         return "views/mypage/info/AddressCh";
+    }
+
+    @GetMapping("/BlockUser")
+    public String BlockUser() {
+        return "views/mypage/login/BlockUser";
     }
 }

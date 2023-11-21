@@ -19,7 +19,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Members> FindUser = membersRepository.findById(username);
         Members members = FindUser.orElseThrow(()->new UsernameNotFoundException("존재 하지 않는 회원 입니다"));
-
         return User.builder()
                 .username(members.getId())
                 .password(members.getPw())

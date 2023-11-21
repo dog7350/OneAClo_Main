@@ -17,6 +17,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class SpringSecurityConfig {
+
+    private final UserHandler userHandler;
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -36,8 +38,8 @@ public class SpringSecurityConfig {
                         .loginProcessingUrl("/login")
                         .usernameParameter("id")
                         .passwordParameter("pw")
-                        .defaultSuccessUrl("/mypage/jwtcreate",true)
-                        .permitAll()
+                        .successHandler(userHandler)
+
                 )
                 .logout(logout->logout
                         .logoutUrl("/mypage/p/logout")

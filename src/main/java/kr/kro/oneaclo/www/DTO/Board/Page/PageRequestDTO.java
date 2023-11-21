@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Builder
 @Data
@@ -44,13 +45,10 @@ public class PageRequestDTO {
             builder.append("page=").append(this.page);
             builder.append("&size=").append(this.size);
             if(type != null && !type.isEmpty()) {
-                builder.append("&type=" + type);
+                builder.append("&type=").append(type);
             }
             if(Keyword != null) {
-                try {
-                    builder.append("&Keyword=" + URLEncoder.encode(Keyword,"UTF-8"));
-                }catch (UnsupportedEncodingException e) {
-                }
+                builder.append("&Keyword=").append(URLEncoder.encode(Keyword, StandardCharsets.UTF_8));
             }
             link = builder.toString();
         }
