@@ -10,4 +10,5 @@ import java.util.List;
 public interface BoardService {
     List<Board> BoardGetList();
     PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO);
+    void BoardSave(String[] BoardUser,String title,String content);
 }

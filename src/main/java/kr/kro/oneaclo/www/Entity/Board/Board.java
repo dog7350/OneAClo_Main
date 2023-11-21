@@ -1,5 +1,6 @@
 package kr.kro.oneaclo.www.Entity.Board;
 
+import com.querydsl.core.annotations.QueryEntity;
 import jakarta.persistence.*;
 import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;

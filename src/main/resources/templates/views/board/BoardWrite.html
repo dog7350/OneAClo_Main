@@ -14,23 +14,23 @@
             <div class="container">
                 <div class="row-6">
                     <div class="card-body">
-                        <form action="" method="post" onsubmit="BoardCk()">
+                        <form action="/board/p/BoardSave" method="post" onsubmit="return BoardCk()">
                             <div class="input-group mb-3">
-                                <label for="InputTitle" class="input-group-text">제목</label>
-                                <input type="text" id="InputTitle" name="title" class="form-control" placeholder="제목">
+                                <label for="InputTitle" class="input-group-text fontSize">제목</label>
+                                <input type="text" id="InputTitle" name="title" class="form-control" placeholder="제목 작성">
                             </div>
 
                             <div class="input-group mb-3">
-                                <label for="InputContent" class="input-group-text">내용</label>
-                                <textarea id="InputContent" class="form-control col-sm-5" rows="20" name="content"></textarea>
+                                <label for="InputContent" class="input-group-text fontSize">내용</label>
+                                <textarea id="InputContent" class="form-control col-sm-5" rows="20" name="content" placeholder="내용 작성"></textarea>
                             </div>
 
                             <div class="input-group mb-3">
-                                <label for="InputFile" class="input-group-text">첨부 파일</label>
+                                <label for="InputFile" class="input-group-text fontSize">첨부 파일</label>
                                 <input type="file" id="InputFile" name="boardfile" onchange="readURL(this)">
-                                <input type="text" id="FileName" class="form-control" readonly>
+                                <input type="text" id="InputName" class="form-control" name="filename" readonly>
                             </div>
-                            <button type="submit">작성</button>
+                            <button type="submit">작성</button> &nbsp;
                             <button type="button" onclick="location.href='/board/list'">취소</button>
                         </form>
                     </div>

@@ -36,12 +36,16 @@ dependencies {
     implementation 'javax.xml.bind:jaxb-api:2.3.1'
     implementation 'com.sun.xml.bind:jaxb-core'
     implementation 'com.sun.xml.bind:jaxb1-impl:2.2.5.1'
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
 
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
@@ -54,3 +58,12 @@ tasks.named('test') {
 tasks.named('bootJar') {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
+
+//def querydslDir = "$buildDir/generated/querydsl"
+//
+//sourceSets {
+//    main.java.srcDirs += [ querydslDir ]
+//}
+
+
+

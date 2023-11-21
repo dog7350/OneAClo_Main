@@ -1,9 +1,15 @@
 package kr.kro.oneaclo.www.Controller.Board;
 
+import kr.kro.oneaclo.www.DTO.Board.Page.PageRequestDTO;
+import kr.kro.oneaclo.www.DTO.Board.Page.PageResponseDTO;
 import kr.kro.oneaclo.www.Entity.Board.Board;
 import kr.kro.oneaclo.www.Repository.Board.BoardRepository;
 import kr.kro.oneaclo.www.Service.Board.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

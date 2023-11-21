@@ -4,7 +4,7 @@ function readURL(input) {
         var reader = new FileReader();
         reader.readAsDataURL(file); // 읽고
         reader.onload = function(e) {
-            $('#FileName').val(file.name)
+            $('#InputName').val(file.name)
         }
     }
 }
@@ -16,6 +16,8 @@ function BoardCk() {
         if(content === "") {
             alert("내용을 입력해 주세요");
             return false;
+        }else {
+            return true;
         }
     }else {
         alert("제목을 입력해 주세요");

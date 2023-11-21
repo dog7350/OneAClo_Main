@@ -27,6 +27,7 @@
                                         <th scope="col">Title</th>
                                         <th scope="col">Writer</th>
                                         <th scope="col">Date</th>
+                                        <th scope="col">조회수</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -36,15 +37,23 @@
                                             [[${list.title}]]
                                         </td>
                                         <td>[[${list.writer.id}]]</td>
-                                        <td>[[${#temporals.format(list.firsttime,'yyyy-MM-dd')}]]</td>
+                                        <td>[[${#temporals.format(list.firsttime,'yyyy-MM-dd HH:mm:ss')}]]</td>
+                                        <td>[[${list.inquiry}]]</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div> <!--card body -->
                     </div><!-- card -->
                 </div><!-- row -->
+                <div class="float-end">
+                    <ul class="pagination flex-wrap">
+                        <li class="page-item" th:if="${list.prev}">
+                            <a class="page-link" th:data-num="${list.start -1}">Previous</a>
+                        </li>
+                    </ul>
+                </div>
                 <div>
-                    <button type="button" class="BoardWriteBtn" onclick="location.href='/board/BoardWrite'">글쓰기</button>
+                    <button type="button" class="BoardWriteBtn" onclick="location.href='/board/p/BoardWrite'">글쓰기</button>
                 </div>
             </div>
         </div>

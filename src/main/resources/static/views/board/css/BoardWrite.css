@@ -6,3 +6,26 @@ input[type="file"] {
     overflow: hidden;
     border: 0;
 }
+
+button {
+    background: rgb(128, 128, 128);
+    border: 0;
+    color: white;
+    transition: 0.4s;
+    border-radius: 4px;
+    width: 100px;
+    height: 44px;
+    font-size: 15pt;
+}
+
+button:hover {
+    background: black;
+}
+
+label {
+    font-family: 함초롬돋움, serif;
+}
+
+.fontSize {
+    font-size: 15pt;
+}

@@ -38,20 +38,21 @@ public class BoardTest {
         Optional<Members> result = membersRepository.findById("test");
         Members members = result.orElseThrow();
 
-        Board board = Board.builder()
-                .writer(members)
-                .title("제목")
-                .content("내용")
-                .firsttime(null)
-                .lasttime(null)
-                .inquiry(1)
-                .btype("d")
-                .bnogroup(1)
-                .step(1)
-                .indent(1)
-                .build();
+            Board board = Board.builder()
+                    .writer(members)
+                    .title("제목")
+                    .content("내용")
+                    .firsttime(null)
+                    .lasttime(null)
+                    .inquiry(0)
+                    .btype("c")
+                    .bnogroup(0)
+                    .step(0)
+                    .indent(0)
+                    .build();
 
-        boardRepository.save(board);
+            boardRepository.save(board);
+
     }
     @Test
     public void BoardCmtSave() {
@@ -127,10 +128,16 @@ public class BoardTest {
     }
     @Test
     public void PagingTest() {
-        Pageable pageable = PageRequest.of(0,3, Sort.by("bno").descending());
+        Pageable pageable = PageRequest.of(0,10, Sort.by("bno").descending());
 
         Page<Board> result = boardRepository.findAll(pageable);
+        System.out.println(result.getTotalElements());
+        System.out.println(result.getTotalPages());
+        System.out.println(result.getNumber());
+        System.out.println(result.getSize());
+    }
+    @Test
+    public void test() {
 
-        System.out.println(result);
     }
 }
