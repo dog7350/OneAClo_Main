@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,8 +34,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         query.where(board.title.contains("1"));
         //paging
         Objects.requireNonNull(this.getQuerydsl()).applyPagination(pageable,query);
-        List<Board> list = query.fetch();
-        long count = query.fetchCount();
+
         return null;
     }
 

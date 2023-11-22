@@ -8,7 +8,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
@@ -43,10 +42,10 @@ public class PageRequestDTO {
     public String getLink() {
         if(link == null) {
             StringBuilder builder = new StringBuilder();
-            builder.append("page=" + this.page);
-            builder.append("&size=" + this.size);
+            builder.append("page=").append(this.page);
+            builder.append("&size=").append(this.size);
             if(type != null && !type.isEmpty()) {
-                builder.append("&type=" + type);
+                builder.append("&type=").append(type);
             }
             if(Keyword != null) {
                 builder.append("&Keyword=").append(URLEncoder.encode(Keyword, StandardCharsets.UTF_8));
