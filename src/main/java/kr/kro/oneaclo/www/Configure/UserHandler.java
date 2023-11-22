@@ -9,7 +9,6 @@ import kr.kro.oneaclo.www.Common.TokenProcess;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import kr.kro.oneaclo.www.Repository.Mypage.MembersRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
