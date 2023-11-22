@@ -27,14 +27,13 @@ public class UserHandler implements AuthenticationSuccessHandler {
 
         String UserId = request.getParameter("id");
         HttpSession session = request.getSession();
-        String UserToken = tokenProcess.createUserToken(UserId);
-        session.setAttribute("UserInfo", UserToken);
         Optional<Members> result = membersRepository.findById(UserId);
         Members members = result.orElseThrow();
         if(members.getActive().equals("f")) {
             session.invalidate();
             response.sendRedirect("/mypage/BlockUser");
         }else {
+            String UserToken = tokenProcess.createUserToken(UserId);
             session.setAttribute("UserInfo", UserToken);
             response.sendRedirect("/");
         }
