@@ -85,15 +85,6 @@ public class MemberRepController {
         StringSetUp(res,code);
         membersService.send(email,title,body);
     }
-
-    @PostMapping("/jwtcreate")
-    public void jwtcteate(HttpSession session, @RequestParam String UserId,@RequestParam String UserPw) {
-        if(membersService.UserCk(UserId,UserPw)) {
-            String UserToken = tokenProcess.createUserToken(UserId);
-            session.setAttribute("UserInfo", UserToken);
-        }
-    }
-
     @GetMapping("/p/PasswordCk")
     public String PasswordCk(@RequestParam String Origin,HttpSession session) {
         String token = (String) session.getAttribute("UserInfo");
