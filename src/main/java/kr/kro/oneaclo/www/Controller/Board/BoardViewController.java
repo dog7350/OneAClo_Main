@@ -1,5 +1,6 @@
 package kr.kro.oneaclo.www.Controller.Board;
 
+import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
 import kr.kro.oneaclo.www.DTO.Board.Page.PageRequestDTO;
 import kr.kro.oneaclo.www.DTO.Board.Page.PageResponseDTO;
 import kr.kro.oneaclo.www.Entity.Board.Board;
@@ -26,8 +27,11 @@ public class BoardViewController {
     private final BoardRepository boardRepository;
 
     @GetMapping("/list")
-    public String list(Model model) {
+    public String list(Model model,PageRequestDTO pageResponseDTO) {
         model.addAttribute("boards",boardService.BoardGetList());
+
+        PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageResponseDTO);
+        model.addAttribute("BoardList",responseDTO);
         return "views/Board/BoardList";
     }
 

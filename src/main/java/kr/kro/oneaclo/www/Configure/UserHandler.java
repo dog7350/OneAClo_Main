@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import jakarta.transaction.Transactional;
+import kr.kro.oneaclo.www.Common.TokenProcess;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import kr.kro.oneaclo.www.Repository.Mypage.MembersRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +22,11 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
+@Transactional
 public class UserHandler implements AuthenticationSuccessHandler {
 
     private final MembersRepository membersRepository;
+    private final TokenProcess tokenProcess;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         String UserId = request.getParameter("id");
@@ -33,6 +37,8 @@ public class UserHandler implements AuthenticationSuccessHandler {
             response.sendRedirect("/mypage/BlockUser");
             session.invalidate();
         }else {
+            String UserToken = tokenProcess.createUserToken(UserId);
+            session.setAttribute("UserInfo", UserToken);
             response.sendRedirect("/mypage/jwtcreate");
         }
     }
