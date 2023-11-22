@@ -23,6 +23,7 @@ public class PageRequestDTO {
     @Builder.Default
     private int size = 10;
 
+
     private String type;
     private String Keyword;
 
@@ -42,10 +43,10 @@ public class PageRequestDTO {
     public String getLink() {
         if(link == null) {
             StringBuilder builder = new StringBuilder();
-            builder.append("page=").append(this.page);
-            builder.append("&size=").append(this.size);
+            builder.append("page=" + this.page);
+            builder.append("&size=" + this.size);
             if(type != null && !type.isEmpty()) {
-                builder.append("&type=").append(type);
+                builder.append("&type=" + type);
             }
             if(Keyword != null) {
                 builder.append("&Keyword=").append(URLEncoder.encode(Keyword, StandardCharsets.UTF_8));

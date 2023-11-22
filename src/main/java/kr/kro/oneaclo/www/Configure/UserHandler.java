@@ -34,12 +34,12 @@ public class UserHandler implements AuthenticationSuccessHandler {
         Members members = result.orElseThrow();
         HttpSession session = request.getSession();
         if(members.getActive().equals("f")) {
-            response.sendRedirect("/mypage/BlockUser");
             session.invalidate();
+            response.sendRedirect("/mypage/BlockUser");
         }else {
             String UserToken = tokenProcess.createUserToken(UserId);
             session.setAttribute("UserInfo", UserToken);
-            response.sendRedirect("/mypage/jwtcreate");
+            response.sendRedirect("/");
         }
     }
 }

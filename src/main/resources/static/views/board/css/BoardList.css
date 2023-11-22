@@ -14,3 +14,11 @@
 .BoardWriteBtn:hover {
     background: black;
 }
+
+.SearchForm {
+    width: 40%;
+}
+
+.Cur {
+    cursor: pointer;
+}

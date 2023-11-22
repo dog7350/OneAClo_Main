@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -52,25 +53,25 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
 
             for(String type: types) {
                 switch (type) {
-                    case "title":
+                    case "t":
                         booleanBuilder.or(board.title.contains(keyword));
                         break;
-                    case "content":
+                    case "c":
                         booleanBuilder.or(board.content.contains(keyword));
                         break;
-                    case "writer":
+                    case "w":
                         booleanBuilder.or(board.writer.id.contains(keyword));
                         break;
                 }
             }
             query.where(booleanBuilder);
         }
-        query.where(board.bno.gt(0));
+        query.where(board.bno.gt(1));
 
         //paging
         Objects.requireNonNull(this.getQuerydsl()).applyPagination(pageable,query);
         List<Board> list = query.fetch();
-        long count = query.fetchCount();
+        long count =  query.fetchCount();
         return new PageImpl<>(list,pageable,count);
     }
 }

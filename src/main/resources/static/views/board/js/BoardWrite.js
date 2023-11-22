@@ -12,15 +12,19 @@ function readURL(input) {
 function BoardCk() {
     const title = document.getElementById("InputTitle").value;
     const content = document.getElementById("InputContent").value;
+    const modal = new bootstrap.Modal(document.querySelector(".modal"));
+
     if(title !== "") {
         if(content === "") {
-            alert("내용을 입력해 주세요");
-            return false;
+            alert("내용을 입력해주세요");
         }else {
-            return true;
+            modal.show();
         }
     }else {
-        alert("제목을 입력해 주세요");
-        return false;
+        alert("제목을 입력해주세요");
     }
+}
+
+function ModalSave() {
+    document.forms['SaveForm'].submit();
 }

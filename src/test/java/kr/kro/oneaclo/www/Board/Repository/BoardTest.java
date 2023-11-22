@@ -1,12 +1,16 @@
 package kr.kro.oneaclo.www.Board.Repository;
 
 import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
+import kr.kro.oneaclo.www.DTO.Board.Page.PageRequestDTO;
+import kr.kro.oneaclo.www.DTO.Board.Page.PageResponseDTO;
 import kr.kro.oneaclo.www.Entity.Board.*;
 import kr.kro.oneaclo.www.Entity.Board.IdClass.BoardCmtId;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import kr.kro.oneaclo.www.Repository.Board.*;
 import kr.kro.oneaclo.www.Repository.Mypage.MembersRepository;
+import kr.kro.oneaclo.www.Service.Board.BoardService;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
@@ -16,6 +20,7 @@ import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @SpringBootTest
 public class BoardTest {
@@ -32,6 +37,10 @@ public class BoardTest {
     BoardReportRepository boardReportRepository;
     @Autowired
     BoardCmtReportRepository boardCmtReportRepository;
+    @Autowired
+    BoardService boardService;
+    @Autowired
+    ModelMapper modelMapper;
 
     @Test
     public void BoardSave() {
@@ -138,16 +147,25 @@ public class BoardTest {
     }
     @Test
     public void testSearch() {
-        Pageable pageable = PageRequest.of(1,10,Sort.by("bno").descending());
-        boardRepository.search1(pageable);
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .type("title")
+                .Keyword("1")
+                .page(1)
+                .size(10)
+                .build();
+        PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
+        System.out.println(responseDTO);
     }
     @Test
     public void TestSearchAll() {
-        String[] types = {"title","content","writer"};
-        String keyword = "test";
+        String[] types = {"writer"};
+        String keyword = "3";
         Pageable pageable = PageRequest.of(0,10,Sort.by("bno").descending());
         Page<Board> result = boardRepository.searchAll(types,keyword,pageable);
-        System.out.println(result);
-        System.out.println(result.getContent().get(0).getTitle());
+        List<BoardDTO> dtoList = result.getContent().stream().map(board -> modelMapper.map(board,BoardDTO.class)).collect(Collectors.toList());
+        System.out.println(dtoList);
+        System.out.println(result.getTotalElements());
+        System.out.println("========");
+        System.out.println(dtoList.size());
     }
 }

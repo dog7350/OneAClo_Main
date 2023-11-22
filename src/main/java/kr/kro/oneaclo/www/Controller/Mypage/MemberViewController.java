@@ -28,14 +28,9 @@ public class MemberViewController {
         }
             return "redirect:/";
     }
-
     @GetMapping("/p/PasswordChange")
     public String PasswordChange() {
         return "views/mypage/info/PasswordChange";
-    }
-    @GetMapping("/jwtcreate")
-    public String jwtcteate() {
-        return "redirect:/";
     }
     @GetMapping("/p/PhoneCh")
     public String PhoneCh() {
@@ -56,17 +51,14 @@ public class MemberViewController {
         }
         return "views/mypage/info/UserInfo";
     }
-
     @GetMapping("/p/ProfileCh")
     public String ProfileCh() {
         return "views/mypage/info/ProfileCh";
     }
-
     @GetMapping("/p/AddressCh")
     public String AddressCh() {
         return "views/mypage/info/AddressCh";
     }
-
     @GetMapping("/BlockUser")
     public String BlockUser() {
         return "views/mypage/login/BlockUser";

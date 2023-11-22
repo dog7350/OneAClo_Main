@@ -25,8 +25,6 @@ public class MemberRepController {
     private final MemberInfoService memberInfoService;
     private final TokenProcess tokenProcess;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final JwtProperties jwtProperties;
-
     private void BoolSetUp(HttpServletResponse res,boolean Bool) throws IOException {
         try {
             res.setContentType("application/json");
