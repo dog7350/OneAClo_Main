@@ -33,11 +33,7 @@ public class MemberViewController {
     public String PasswordChange() {
         return "views/mypage/info/PasswordChange";
     }
-    @GetMapping("/jwtcreate")
-    public String jwtcteate() {
-        return "redirect:/";
 
-    }
     @GetMapping("/p/PhoneCh")
     public String PhoneCh() {
         return "views/mypage/info/PhoneCh";
@@ -62,9 +58,12 @@ public class MemberViewController {
     public String ProfileCh() {
         return "views/mypage/info/ProfileCh";
     }
-
     @GetMapping("/p/AddressCh")
     public String AddressCh() {
         return "views/mypage/info/AddressCh";
+    }
+    @GetMapping("/BlockUser")
+    public String BlockUser() {
+        return "views/mypage/login/BlockUser";
     }
 }

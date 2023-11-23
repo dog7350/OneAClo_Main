@@ -1,17 +1,15 @@
 function login() {
     const userid = document.getElementById("InputId").value;
     const userpw = document.getElementById("InputPw").value;
-    $.ajax({
-        url : "/mypage/jwtcreate",
-        data : {UserId : userid,UserPw : userpw},
-        type : "post",
-        dataType : "text",
-        success : (data) => {
+    if(userid !=="") {
+        if(userpw === "") {
+            alert("비밀번호를 입력해주세요")
+        }else {
             document.forms['loginform'].submit();
-            },error : () => {
-            alert("실패!!!")
         }
-    })
+    }else {
+        alert("아이디를 입력해주세요");
+    }
 
 }
 
