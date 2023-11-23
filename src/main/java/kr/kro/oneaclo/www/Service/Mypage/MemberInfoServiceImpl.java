@@ -7,8 +7,13 @@ import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import kr.kro.oneaclo.www.Repository.Mypage.MemberInfoRepository;
 import kr.kro.oneaclo.www.Repository.Mypage.MembersRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,6 +58,13 @@ public class MemberInfoServiceImpl implements MemberInfoService {
         MemberInfo memberInfo = result.orElseThrow();
         memberInfo.Addrch(zipcode,address,detailaddr);
         memberInfoRepository.save(memberInfo);
+    }
+
+    public Optional<MemberInfo> findUser(String email) { return memberInfoRepository.findById(email); }
+
+    public Page<MemberInfo> AllUserPage(int pageNumber, int elementCount) {
+        Pageable pageable = PageRequest.of(pageNumber, elementCount);
+        return memberInfoRepository.findAllByOrderByIdAsc(pageable);
     }
 
 }

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}">
+    <link rel="stylesheet" href="/views/qna/css/qnaChat.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="/views/qna/js/qnaChat.js"></script>
+
+    <section id="services" class="services">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>ONE.A.CLO</h2>
+                <p>
+                    <span th:text="${site}"></span>의 Q&A
+                </p>
+            </div>
+
+            <div id="UserInfoDiv">
+                <input id="site" type="text" th:value="${site}" hidden>
+                <input id="img" type="text" th:value="${profile}" hidden>
+                <input id="id" type="text" th:value="${id}" hidden>
+                <input id="nick" type="text" th:value="${nick}" hidden>
+            </div>
+
+            <div class="row g-3">
+                <table id="ChatTable">
+                    <tr>
+                        <td colspan="2">
+                            <div id="ChatLog">
+                                <div th:if="${logs.size() >= 1}">
+                                    <div class="logRow" th:each="num : ${ #numbers.sequence(0, logs.size() - 1) }">
+                                        <div class="rightContent" th:if="${logs.get(num).getWriter() == id}">
+                                            <div class="rightInnerLDiv">
+                                                <b th:text="${logs.get(num).getNick()}"></b>&nbsp;(<b th:text="${logs.get(num).getWriter()}"></b>)<br>
+
+                                                <th:block th:if="${logs.get(num).getExt() == 'String'}"><span th:text="${logs.get(num).getContent()}"></span></th:block>
+                                                <th:block th:if="${logs.get(num).getExt() == 'Image'}"><img th:src="@{/upload/file/}+${logs.get(num).getContent()}" style="width: 300px; height: 300px;"></th:block>
+                                                <th:block th:if="${logs.get(num).getExt() == 'Video'}"><video th:src="@{/upload/file/}+${logs.get(num).getContent()}" controls /></th:block>
+                                                <th:block th:if="${logs.get(num).getExt() == 'Music'}"><audio th:src="@{/upload/file/}+${logs.get(num).getContent()}" controls /></th:block>
+                                            </div>
+                                            <div class="rightInnerRDiv">
+                                                <img th:src="@{/upload/profile/}+${logs.get(num).getImg()}"><br>
+                                                <span class="createTime" th:text="${#dates.format(logs.get(num).getCreatedAt(), 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="leftContent" th:if="${logs.get(num).getWriter() != id}">
+                                            <div class="leftInnerLDiv">
+                                                <img th:src="@{/upload/profile/}+${logs.get(num).getImg()}"><br>
+                                                <span class="createTime" th:text="${#dates.format(logs.get(num).getCreatedAt(), 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                            </div>
+                                            <div class="leftInnerRDiv">
+                                                (<b th:text="${logs.get(num).getWriter()}"></b>)&nbsp;<b th:text="${logs.get(num).getNick()}"></b><br>
+
+                                                <th:block th:if="${logs.get(num).getExt() == 'String'}"><span th:text="${logs.get(num).getContent()}"></span></th:block>
+                                                <th:block th:if="${logs.get(num).getExt() == 'Image'}"><img th:src="@{/upload/file/}+${logs.get(num).getContent()}" style="width: 300px; height: 300px;"></th:block>
+                                                <th:block th:if="${logs.get(num).getExt() == 'Video'}"><video th:src="@{/upload/file/}+${logs.get(num).getContent()}" controls /></th:block>
+                                                <th:block th:if="${logs.get(num).getExt() == 'Music'}"><audio th:src="@{/upload/file/}+${logs.get(num).getContent()}" controls /></th:block>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="largeTd" rowspan="2"><input id="ChatTxt" type="text" onkeyup="enterKey()"></td>
+                        <td class="smallTd"><button type="button" onclick="ChatSend()">Send</button></td>
+                    </tr>
+                    <tr><td class="smallTd"><input type="file" id="file" name="file" onchange="ChatFileUpload(this)"></td></tr>
+                </table>
+            </div>
+        </div>
+    </section>
+</html>

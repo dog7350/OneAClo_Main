@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}">
+    <section id="services" class="services">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>ONE.A.CLO</h2>
+                <p>관리자 메뉴</p>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-sm d-flex align-items-stretch mt-4" type="button" onclick="" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="icon-box" style="width: 300px; height: 230px;">
+                        <h4><a href="/admin/memberList?pageNumber=0">회원 관리</a></h4>
+                        <p>모든 회원의 정보를 확인할 수 있습니다.</p>
+                    </div>
+                </div>
+
+                <div class="col-sm d-flex align-items-stretch mt-4" type="button" onclick="" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="icon-box" style="width: 300px; height: 230px;">
+                        <h4><a href="/admin/productList?pageNumber=0">상품 관리</a></h4>
+                        <p>상품을 관리할 수 있습니다.</p>
+                    </div>
+                </div>
+
+                <div class="col-sm d-flex align-items-stretch mt-4" type="button" onclick="" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="icon-box" style="width: 300px; height: 230px;">
+                        <h4><a href="/admin/orderList?pageNumber=0">주문 관리</a></h4>
+                        <p>주문 정보를 관리할 수 있습니다.</p>
+                    </div>
+                </div>
+
+                <div class="col-sm d-flex align-items-stretch mt-4" data-aos="zoom-in" type="button" onclick="" data-aos-delay="400">
+                    <div class="icon-box" style="width: 300px; height: 230px;">
+                        <h4><a href="/admin/dataAnalysis">데이터 분석</a></h4>
+                        <p>회원 · 상품 분석을 확인할 수 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</html>

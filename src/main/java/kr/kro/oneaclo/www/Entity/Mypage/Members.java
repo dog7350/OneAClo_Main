@@ -48,4 +48,6 @@ public class Members {
     public void ProfileChange(String profile) {
         this.profile = profile;
     }
+    public void AuthChange(String auth) { this.auth = auth; }
+    public void ActiveChange(String active) { this.active = active; }
 }

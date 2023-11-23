@@ -5,6 +5,10 @@ import kr.kro.oneaclo.www.DTO.Mypage.MemberDTO;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import kr.kro.oneaclo.www.Repository.Mypage.MembersRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -110,5 +115,24 @@ public class MembersServiceImpl implements MembersService{
             return true;
         }
             return false;
+    }
+
+    public Page<Members> AllUserPage(int pageNumber, int elementCount) {
+        Pageable pageable = PageRequest.of(pageNumber, elementCount);
+        return membersRepository.findAllByOrderByIdAsc(pageable);
+    }
+
+    public void AuthChange(String id, String auth) {
+        Optional<Members> result = membersRepository.findById(id);
+        Members members = result.orElseThrow();
+        members.AuthChange(auth);
+        membersRepository.save(members);
+    }
+
+    public void ActiveChange(String id, String active) {
+        Optional<Members> result = membersRepository.findById(id);
+        Members members = result.orElseThrow();
+        members.ActiveChange(active);
+        membersRepository.save(members);
     }
 }

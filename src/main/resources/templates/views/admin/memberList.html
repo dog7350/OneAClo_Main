@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}">
+    <link href="/views/admin/css/memberList.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+    <section id="services" class="services">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>ONE.A.CLO</h2>
+                <p>회원 관리</p>
+            </div>
+
+            <table class="table table-light table-striped-columns table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th><th>닉네임</th><th>이름</th><th>나이</th><th>성별</th><th>E-mail</th><th>전화번호</th>
+                        <th>우편번호</th><th>주소</th><th>상세주소</th><th>권한</th><th>활성화</th><th>퇴출</th>
+                    </tr>
+                </thead>
+
+                <th:block th:if="${pages.getTotalElements() >= 1}">
+                    <tbody>
+                        <tr th:each="num : ${ #numbers.sequence(0, members.size() - 1) }">
+                            <td>
+                                <a class="adminHref" th:href="@{/qna/chat(id=${members.get(num).getId()})}" th:text="${members.get(num).getId()}"></a>
+                            </td>
+                            <td th:text="${members.get(num).getNick()}"></td>
+                            <td th:text="${memberInfos.get(num).getName()}"></td>
+                            <td th:text="${memberInfos.get(num).getAge()}"></td>
+
+                            <th:block th:if="${memberInfos.get(num).getGender() == 'male'}"><td>남자</td></th:block>
+                            <th:block th:if="${memberInfos.get(num).getGender() == 'female'}"><td>여자</td></th:block>
+
+                            <td>
+                                <a class="adminHref" th:href="@{/admin/memberMail(email=${memberInfos.get(num).getEmail()})}" th:text="${memberInfos.get(num).getEmail()}"></a>
+                            </td>
+                            <td th:text="${memberInfos.get(num).getPhone()}"></td>
+                            <td th:text="${memberInfos.get(num).getZipcode()}"></td>
+                            <td th:text="${memberInfos.get(num).getAddress()}"></td>
+                            <td th:text="${memberInfos.get(num).getDetailaddr()}"></td>
+
+                            <script>
+                                const optionClick = (e) => {
+                                    const optionDiv = e.lastElementChild;
+                                    const status = optionDiv.style.display;
+
+                                    if (status == "" || status == "none") optionDiv.style.display = "inline-block";
+                                    else optionDiv.style.display = "none";
+                                }
+                                const authFunc = (id, auth) => {
+                                    var str = "";
+
+                                    if (auth == 'a') str = "관리자"
+                                    else if (auth == 'm') str = "매니저"
+                                    else str = "사용자"
+
+                                    if (confirm(str + " 권한을 부여하시겠습니까?")) {
+                                        $.ajax({
+                                            url : "/admin/authChange",
+                                            data : {UserId : id, UserAuth : auth},
+                                            type : "POST",
+                                            dataType : "text",
+                                            success : () => {
+                                                alert("권한이 부여되었습니다.");
+                                                location.reload();
+                                            },
+                                            error : () => {
+                                                alert("업데이트 실패");
+                                            }
+                                        })
+                                    } else {
+                                        alert("취소");
+                                    }
+                                }
+
+                                const activeFunc = (id, active) => {
+                                    var str = "";
+
+                                    if (active == 't') str = "활성화";
+                                    else str = "정지";
+
+                                    if (confirm(str + "하시겠습니까?")) {
+                                        $.ajax({
+                                            url : "/admin/activeChange",
+                                            data : {UserId : id, UserActive : active},
+                                            type : "POST",
+                                            dataType : "text",
+                                            success : () => {
+                                                alert(str + "되었습니다.");
+                                                location.reload();
+                                            },
+                                            error : () => {
+                                                alert("업데이트 실패");
+                                            }
+                                        })
+                                    } else {
+                                        alert("취소");
+                                    }
+                                }
+
+                                const deleteUser = (id) => {
+                                    if (confirm("퇴출하시겠습니까?")) {
+                                        $.ajax({
+                                            url : "/admin/deleteUser",
+                                            data : {UserId : id},
+                                            type : "POST",
+                                            dataType : "text",
+                                            success : () => {
+                                                alert("퇴출되었습니다.");
+                                                location.reload();
+                                            },
+                                            error : () => {
+                                                alert("업데이트 실패");
+                                            }
+                                        })
+                                    } else {
+                                        alert("취소");
+                                    }
+                                }
+                            </script>
+                            <td class="tdBtn" onclick="optionClick(this)">
+                                <span th:if="${members.get(num).getAuth() == 'a'}">관리자</span>
+                                <span th:if="${members.get(num).getAuth() == 'm'}">매니저</span>
+                                <span th:if="${members.get(num).getAuth() == 'c'}">사용자</span>
+
+                                <div class="authOptionDiv">
+                                    <button th:id="${members.get(num).getId()}" th:onclick="|authFunc(this.getAttribute('id'), 'a')|">관리자</button>
+                                    <button th:id="${members.get(num).getId()}" th:onclick="|authFunc(this.getAttribute('id'), 'm')|">매니저</button>
+                                    <button th:id="${members.get(num).getId()}" th:onclick="|authFunc(this.getAttribute('id'), 'c')|">사용자</button>
+                                </div>
+                            </td>
+
+                            <td class="tdBtn" onclick="optionClick(this)">
+                                <span th:if="${members.get(num).getActive() == 't'}">활성화</span>
+                                <span th:if="${members.get(num).getActive() == 'f'}">정지</span>
+
+                                <div class="activeOptionDiv">
+                                    <button th:id="${members.get(num).getId()}" th:onclick="|activeFunc(this.getAttribute('id'), 't')|">활성화</button>
+                                    <button th:id="${members.get(num).getId()}" th:onclick="|activeFunc(this.getAttribute('id'), 'f')|">정지</button>
+                                </div>
+                            </td>
+
+                            <td class="tdBtn" th:id="${members.get(num).getId()}" th:onclick="|deleteUser(this.getAttribute('id'))|">퇴출</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <th:block th:if="${pages.isFirst() == true}">
+                                    <input type="button" value="<<" disabled>
+                                    <input type="button" value="<" disabled>
+                                </th:block>
+                                <th:block th:if="${pages.isFirst() == false}">
+                                    <button onclick="location.href='/admin/memberList?pageNumber=0'"><<</button>
+                                    <button th:onclick="|location.href='@{/admin/memberList?pageNumber=}${pages.getNumber() - 1}'|"><</button>
+                                </th:block>
+                            </td>
+
+                            <td colspan="11" style="text-align: center;">
+                                <div th:each="num : ${ #numbers.sequence(startPage + 1, endPage) }" style="display: inline-block;">
+                                    <button th:onclick="|location.href='@{/admin/memberList?pageNumber=}${num - 1}'|">
+                                        <span th:text="${num}"></span>
+                                    </button>
+                                </div>
+                            </td>
+
+                            <td>
+                                <th:block th:if="${pages.hasNext() == false}">
+                                    <input type="button" value=">" disabled>
+                                    <input type="button" value=">>" disabled>
+                                </th:block>
+                                <th:block th:if="${pages.hasNext() == true}">
+                                    <button th:onclick="|location.href='@{/admin/memberList?pageNumber=}${pages.getNumber() + 1}'|">></button>
+                                    <button th:onclick="|location.href='@{/admin/memberList?pageNumber=}${pages.getTotalPages() - 1}'|">>></button>
+                                </th:block>
+                            </td>
+                        </tr>
+                    </tbody>
+                </th:block>
+
+                <th:block th:if="${pages.getTotalElements() <= 0}">
+                    <tbody>
+                        <tr><td colspan="13">회원이 존재하지 않습니다.</td></tr>
+                    </tbody>
+                </th:block>
+            </table>
+        </div>
+    </section>
+</html>

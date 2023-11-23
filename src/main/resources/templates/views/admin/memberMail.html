@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}">
+    <link href="/views/mypage/css/join/JoinForm.css" rel="stylesheet">
+    <script type="text/javascript" src="/common/smart/js/HuskyEZCreator.js"></script>
+    <script type="text/javascript" src="/views/admin/js/memberMail.js"></script>
+
+    <section id="services" class="services">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>ONE.A.CLO</h2>
+                <p>
+                    <th:block th:text="${userInfo.getId().getId()}"></th:block>
+                    (<th:block th:text="${userInfo.getName()}"></th:block>)님께 메일 전송
+                </p>
+            </div>
+
+            <table class="JoinTable">
+                <form id="mailForm" action="/admin/sendMail" method="post">
+                    <tr>
+                        <th>
+                            <div style="width: 50%;">
+                                <label for="destEmail">대상</label>
+                                <input id="destEmail" name="destEmail" type="text" th:value="${userInfo.getEmail()}" style="width: 100%;" readonly>
+                            </div>
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <div style="width: 50%;">
+                                <label for="mailTitle">제목</label>
+                                <input id="mailTitle" name="title" type="text" style="width: 100%;" required>
+                            </div>
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <div style="width: 50%;">
+                                <textarea id="mailContent" name="content" maxlength="4000" rows="15" style="width: 100%;" required></textarea>
+                            </div>
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <div>
+                                <button type="button" onclick="submitForm()">전송</button>
+                            </div>
+                        </th>
+                    </tr>
+                </form>
+            </table>
+
+            </form>
+        </div>
+    </section>
+</html>
