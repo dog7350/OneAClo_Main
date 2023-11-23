@@ -51,19 +51,20 @@
                                 <!-- 댓글 부분-->
                                 <div class="input-group mb-3" th:each="Cmt:${CmtList}">
                                     <span class="input-group-text">[[${Cmt.writer.getId}]]</span>
-                                    <textarea class="form-control col-sm-5" rows="5" readonly>[[${Cmt.content}]]</textarea>
+                                    <textarea class="col-sm-5 w-100 FocusLine" rows="5" readonly>[[${Cmt.content}]]</textarea>
                                 </div>
                                 <!-- 댓글 작성 부분-->
                                 <hr>
                                 <div>
-                                    <form>
+                                    <form action="/board/p/CmtReg" method="post" name="CmtForm">
                                         <div class="input-group-text bg-body">
-                                            <input type="text" class="fs-4 border-0 bg-white FocusLine" th:value="${ActiveUser}" readonly>
+                                            <input type="hidden" name="bno" th:value="${dto.bno}" readonly>
+                                            <input type="text" class="fs-4 border-0 bg-white FocusLine" name="id" th:value="${ActiveUser}" readonly>
                                         </div>
                                         <div class="input-group">
-                                            <textarea class="form-control col-sm-5" rows="5" placeholder="댓글을 입력해주세요"></textarea>
+                                            <textarea class="form-control col-sm-5" name="content" rows="5" maxlength="100" placeholder="댓글을 입력해주세요"></textarea>
                                         </div>
-                                        <button type="button" class="btn btn-secondary float-lg-end">등록</button>
+                                        <button type="button" class="btn btn-secondary float-lg-end" onclick="reg()">등록</button>
                                     </form>
                                 </div>
                             </div>

@@ -2,6 +2,7 @@ package kr.kro.oneaclo.www.Controller.Board;
 
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.TokenProcess;
+import kr.kro.oneaclo.www.DTO.Board.BoardCmtDTO;
 import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
 import kr.kro.oneaclo.www.DTO.Board.BoardFileDTO;
 import kr.kro.oneaclo.www.Entity.Board.BoardCmt;
@@ -43,5 +44,11 @@ public class BoardApiController {
         List<BoardCmt> boardCmts = boardService.BoardCmtInfo(bno);
         model.addAttribute("CmtList",boardCmts);
         return "views/Board/BoardInfo";
+    }
+
+    @PostMapping("/p/CmtReg")
+    public String CmtReg(BoardCmtDTO boardCmtDTO) {
+        System.out.println(boardCmtDTO.getBno());
+        return "redirect:/p/BoardInfo";
     }
 }
