@@ -151,6 +151,9 @@ h6 {
 #header .logo img {
   max-height: 40px;
 }
+#BoardMenu {
+  margin-left: 15px;
+}
 
 /*--------------------------------------------------------------
 #  Get Startet Button
