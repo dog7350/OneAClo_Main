@@ -63,7 +63,9 @@ public class MemberViewController {
         return "views/mypage/info/AddressCh";
     }
     @GetMapping("/BlockUser")
-    public String BlockUser() {
-        return "views/mypage/login/BlockUser";
+    public String BlockUser(Model model) {
+        model.addAttribute("url", "/");
+        model.addAttribute("msg", "정지된 아이디 입니다.");
+        return "views/common/message";
     }
 }
