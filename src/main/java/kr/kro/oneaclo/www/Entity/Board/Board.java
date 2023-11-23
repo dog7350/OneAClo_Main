@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 public class Board {
 
     @Id
-    @Column(name = "bno",nullable = false,columnDefinition = "number(38)",unique = true)
+    @Column(name = "bno",nullable = false,columnDefinition = "number(38)")
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "BoardSeq")
     private int bno;
 

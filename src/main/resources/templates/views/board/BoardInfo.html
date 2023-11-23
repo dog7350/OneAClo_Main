@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<link rel="stylesheet" href="/views/board/css/BoardInfo.css">
+<script th:inline="javascript" th:src="@{/views/board/js/BoardInfo.js}"></script>
+
+    <section class="contact" id="contact">
+        <div class="container" data-aos="fade-up">
+            <div class="container">
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header">
+                                <br>
+                                <b class="InfoTitle">[[${dto.title}]]</b>
+                                <hr>
+                                <b>작성자 : [[${dto.writer.getId}]]</b>
+                                <b class="float-lg-end text-muted">조회수 : [[${dto.inquiry}]]</b>
+                            </div>
+                            <div class="card-body">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">내용</span>
+                                    <textarea class="form-control col-sm-5" rows="8" readonly>[[${dto.content}]]
+                                    </textarea>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">나중에 첨부파일 자리</span>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">최초 작성일</span>
+                                    <input type="text" class="form-control" th:value="${#temporals.format(dto.firsttime,'yyyy-MM-dd HH:mm:ss')}" readonly>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">최종 수정일</span>
+                                    <input type="text" class="form-control" th:value="${#temporals.format(dto.lasttime,'yyyy-MM-dd HH:mm:ss')}" readonly>
+                                </div>
+
+                                <button type="button" class="float-lg-end btn btn-secondary" onclick="BackList()">되돌아기</button>
+                                <button type="button" class="btn btn-secondary" th:if="${ActiveUser == dto.writer.getId}">수정</button>
+                                <button type="button" class="btn btn-secondary" th:if="${ActiveUser == dto.writer.getId}">삭제</button>
+                            </div>
+                            <hr>
+                            <div>
+                                <b class="p-4">댓글</b>
+                            </div>
+                            <div class="card-body">
+                                <!-- 댓글 부분-->
+                                <div class="input-group mb-3" th:each="Cmt:${CmtList}">
+                                    <span class="input-group-text">[[${Cmt.writer.getId}]]</span>
+                                    <textarea class="form-control col-sm-5" rows="5" readonly>[[${Cmt.content}]]</textarea>
+                                </div>
+                                <!-- 댓글 작성 부분-->
+                                <hr>
+                                <div>
+                                    <form>
+                                        <div class="input-group-text bg-body">
+                                            <input type="text" class="fs-4 border-0 bg-white FocusLine" th:value="${ActiveUser}" readonly>
+                                        </div>
+                                        <div class="input-group">
+                                            <textarea class="form-control col-sm-5" rows="5" placeholder="댓글을 입력해주세요"></textarea>
+                                        </div>
+                                        <button type="button" class="btn btn-secondary float-lg-end">등록</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <button type="button" class="float-lg-end btn btn-secondary">답글</button>
+        </div>
+    </section>
+</html>

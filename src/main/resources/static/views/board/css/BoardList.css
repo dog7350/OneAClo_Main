@@ -1,5 +1,4 @@
 .BoardWriteBtn {
-    float: right;
     background: rgb(128, 128, 128);
     border: 0;
     color: white;
@@ -8,7 +7,7 @@
     width: 100px;
     height: 44px;
     font-size: 15pt;
-    margin-top: 50px;
+    float: left;
 }
 
 .BoardWriteBtn:hover {
@@ -16,7 +15,7 @@
 }
 
 .SearchForm {
-    width: 40%;
+    width: 50%;
 }
 
 .Cur {

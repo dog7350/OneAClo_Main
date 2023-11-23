@@ -11,6 +11,33 @@
                 <h2>Contact</h2>
                 <p>자유 게시판</p>
             </div>
+
+            <div class="SearchForm">
+                <form action="/board/list" method="get" id="BoardSetUp">
+                    <div class="col">
+                        <input type="hidden" name="size" th:value="${pageRequestDTO.size}">
+                        <div class="input-group">
+                            <select class="form-select" name="type">
+                                <option value="">------</option>
+                                <option value="t" th:selected="${pageRequestDTO.type == 't'}">제목</option>
+                                <option value="w" th:selected="${pageRequestDTO.type == 'w'}">작성자</option>
+                                <option value="c" th:selected="${pageRequestDTO.type == 'c'}">내용</option>
+                            </select>
+                            <input type="text" class="form-control w-50" name="keyword" th:value="${pageRequestDTO.keyword}">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary searchBtn" type="submit">
+                                    검색
+                                </button>
+                                &nbsp;
+                                <button class="btn btn-outline-secondary" onclick="SearchClear()" type="button">
+                                    검색 초기화
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <hr>
             <div class="container">
                 <div class="row-6">
                     <div class="card">
@@ -34,7 +61,7 @@
                                 <tr th:each="list:${BoardList.dtoList}">
                                         <th scope="row">[[${list.bno}]]</th>
                                         <td>
-                                            <a href="#">[[${list.title}]]</a>
+                                            <a th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}">[[${list.title}]]</a>
                                         </td>
                                         <td>[[${list.writer.id}]]</td>
                                         <td>[[${#temporals.format(list.firsttime,'yyyy-MM-dd HH:mm:ss')}]]</td>
@@ -64,34 +91,6 @@
                         </li>
                     </ul>
                 </div>
-                <form action="/board/list" method="get" id="FormTest">
-                </form>
-                <div class="SearchForm">
-                    <form action="/board/list" method="get" id="BoardSetUp">
-                        <div class="col">
-                            <input type="hidden" name="size" th:value="${pageRequestDTO.size}">
-                            <div class="input-group">
-                                <select class="form-select" name="type">
-                                    <option value="">------</option>
-                                    <option value="t" th:selected="${pageRequestDTO.type == 't'}">제목</option>
-                                    <option value="w" th:selected="${pageRequestDTO.type == 'w'}">작성자</option>
-                                    <option value="c" th:selected="${pageRequestDTO.type == 'c'}">내용</option>
-                                </select>
-                                <input type="text" class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary searchBtn" type="submit">
-                                        검색
-                                    </button>
-                                    &nbsp;
-                                    <button class="btn btn-outline-secondary" onclick="SearchClear()" type="button">
-                                        검색 초기화
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <br>
                 <div>
                     <button type="button" class="BoardWriteBtn" onclick="location.href='/board/p/BoardWrite'">글쓰기</button>
                 </div>

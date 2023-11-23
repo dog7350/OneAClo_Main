@@ -1,5 +1,6 @@
 package kr.kro.oneaclo.www.Board.Repository;
 
+import kr.kro.oneaclo.www.DTO.Board.BoardCmtDTO;
 import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
 import kr.kro.oneaclo.www.DTO.Board.Page.PageRequestDTO;
 import kr.kro.oneaclo.www.DTO.Board.Page.PageResponseDTO;
@@ -65,7 +66,7 @@ public class BoardTest {
     }
     @Test
     public void BoardCmtSave() {
-        Optional<Board> result = boardRepository.findByBno(3);
+        Optional<Board> result = boardRepository.findByBno(4);
         Board board = result.orElseThrow();
 
         Optional<Members> result2 = membersRepository.findById("test");
@@ -129,22 +130,6 @@ public class BoardTest {
 
         boardCmtReportRepository.save(boardCmtReport);
     }
-
-    @Test
-    public void BoardListTest() {
-        List<Board> boards = boardRepository.findAll();
-        System.out.println(boards.get(0).getWriter().getId());
-    }
-    @Test
-    public void PagingTest() {
-        Pageable pageable = PageRequest.of(0,10, Sort.by("bno").descending());
-
-        Page<Board> result = boardRepository.findAll(pageable);
-        System.out.println(result.getTotalElements());
-        System.out.println(result.getTotalPages());
-        System.out.println(result.getNumber());
-        System.out.println(result.getSize());
-    }
     @Test
     public void testSearch() {
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
@@ -167,5 +152,12 @@ public class BoardTest {
         System.out.println(result.getTotalElements());
         System.out.println("========");
         System.out.println(dtoList.size());
+    }
+    @Test
+    public void CmtTest() {
+        int bno=4;
+        Optional<Board> result = boardRepository.findByBno(bno);
+        Board board = result.orElseThrow();
+
     }
 }
