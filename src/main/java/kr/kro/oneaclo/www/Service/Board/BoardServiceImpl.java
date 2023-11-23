@@ -1,12 +1,10 @@
 package kr.kro.oneaclo.www.Service.Board;
 
-import kr.kro.oneaclo.www.DTO.Board.BoardCmtDTO;
 import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
 import kr.kro.oneaclo.www.DTO.Board.Page.PageRequestDTO;
 import kr.kro.oneaclo.www.DTO.Board.Page.PageResponseDTO;
 import kr.kro.oneaclo.www.Entity.Board.Board;
 import kr.kro.oneaclo.www.Entity.Board.BoardCmt;
-import kr.kro.oneaclo.www.Entity.Board.IdClass.BoardCmtId;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import kr.kro.oneaclo.www.Repository.Board.BoardCmtRepository;
 import kr.kro.oneaclo.www.Repository.Board.BoardRepository;

@@ -1,13 +1,10 @@
 package kr.kro.oneaclo.www.Entity.Board;
 
-import com.querydsl.core.annotations.QueryEntity;
 import jakarta.persistence.*;
-import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.engine.internal.Cascade;
 
 import java.time.LocalDateTime;
 
