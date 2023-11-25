@@ -60,6 +60,6 @@ public class MemberViewController {
     }
     @GetMapping("/BlockUser")
     public String BlockUser() {
-        return "views/mypage/login/BlockUser";
+        return "";
     }
 }

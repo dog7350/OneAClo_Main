@@ -47,21 +47,21 @@
                             </div>
                             <div class="card-body" id="CmtBody">
                                 <!-- 댓글 부분-->
-<!--                                <div th:each="Cmt:${CmtList.dtoList}">-->
-<!--                                    <div class="input-group mb-4" id="Reset">-->
-<!--                                        <div class="input-group mb-4" th:id="CmtContent+${CmtStat.count}">-->
-<!--                                            <input type="hidden" th:id="CmtCno+${CmtStat.count}" th:value="${Cmt.cno}">-->
-<!--                                            <p class="input-group-text">[[${Cmt.writer.getId}]]</p>-->
-<!--                                            <textarea class="col-sm-5 w-100 FocusLine" rows="5" type="text" readonly>[[${Cmt.content}]]</textarea> &nbsp;-->
-<!--                                            <span>[[${#temporals.format(Cmt.lasttime,'yyyy-MM-dd HH:mm:ss')}]]</span>-->
-<!--                                            <button th:if="${id == Cmt.writer.getId || auth == 'a'}" th:data-num="${CmtStat.count}" type="button" class="btn btn-secondary" onclick="CmtModify()">수정</button> &nbsp;-->
-<!--                                            <button th:if="${id == Cmt.writer.getId || auth == 'a'}" type="button" class="btn btn-secondary">삭제</button>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div th:id="CmtModify+${CmtStat.count}">-->
+                                <div th:each="Cmt:${CmtList}">
+                                    <div class="input-group mb-4" id="Reset">
+                                        <div class="input-group mb-4" th:id="CmtContent+${CmtStat.count}">
+                                            <input type="hidden" th:id="CmtCno+${CmtStat.count}" th:value="${Cmt.cno}">
+                                            <p class="input-group-text">[[${Cmt.writer.getId}]]</p>
+                                            <textarea class="col-sm-5 w-100 FocusLine" rows="5" type="text" readonly>[[${Cmt.content}]]</textarea> &nbsp;
+                                            <span>[[${#temporals.format(Cmt.lasttime,'yyyy-MM-dd HH:mm:ss')}]]</span>
+                                            <button th:if="${id == Cmt.writer.getId || auth == 'a'}" th:data-num="${CmtStat.count}" type="button" class="btn btn-secondary" onclick="CmtModify()">수정</button> &nbsp;
+                                            <button th:if="${id == Cmt.writer.getId || auth == 'a'}" type="button" class="btn btn-secondary">삭제</button>
+                                        </div>
+                                    </div>
+                                    <div th:id="CmtModify+${CmtStat.count}">
 
-<!--                                    </div>-->
-<!--                                </div>-->
+                                    </div>
+                                </div>
                             </div>
                             <hr class="border-5">
                             <br>

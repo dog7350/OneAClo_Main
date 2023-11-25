@@ -41,7 +41,7 @@ public class BoardViewController {
     }
 
     @GetMapping("/p/BoardInfo")
-    public String BoardInfo(@RequestParam int bno, Model model, HttpSession session,PageRequestDTO pageRequestDTO) {
+    public String BoardInfo(@RequestParam int bno, Model model, HttpSession session) {
         BoardDTO dto = boardService.BoardInfo(bno);
         model.addAttribute("dto",dto);
 
@@ -50,8 +50,8 @@ public class BoardViewController {
             UserModelInfo(session, model, list);
         }
 
-        PageResponseDTO<BoardCmtDTO> responseDTO = boardCmtService.Cmtlist(pageRequestDTO);
-        model.addAttribute("CmtList",responseDTO);
+        List<BoardCmt> boardCmts = boardCmtService.BoardCmtInfo(bno);
+        model.addAttribute("CmtList",boardCmts);
         return "views/Board/BoardInfo";
     }
     @GetMapping("/p/BoardWrite")

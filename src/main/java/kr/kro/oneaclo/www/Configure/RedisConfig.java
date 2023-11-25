@@ -28,11 +28,12 @@ public class RedisConfig {
     private String password;
     */
 
-    @Bean RedisConnectionFactory redisConnectionFactory() {
-        LettuceClientConfiguration clientConfig = LettuceClientConfiguration.builder().readFrom(ReadFrom.MASTER_PREFERRED).build();
-        RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(host, port);
+    @Bean
+    public RedisConnectionFactory redisConnectionFactory() {
+        LettuceClientConfiguration cConfig = LettuceClientConfiguration.builder().readFrom(ReadFrom.MASTER_PREFERRED).build();
+        RedisStandaloneConfiguration sConfig = new RedisStandaloneConfiguration(host, port);
         // config.setPassword(password);
-        return new LettuceConnectionFactory(config, clientConfig);
+        return new LettuceConnectionFactory(sConfig, cConfig);
     }
     @Bean
     public RedisTemplate<String, Object> redisTemplate() {

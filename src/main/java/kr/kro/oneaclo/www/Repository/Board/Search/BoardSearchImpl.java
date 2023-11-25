@@ -60,21 +60,4 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         long count =  query.fetchCount();
         return new PageImpl<>(list,pageable,count);
     }
-
-    @Override
-    public Page<BoardCmt> searchCmtAll(Pageable pageable) {
-        QBoardCmt boardCmt = QBoardCmt.boardCmt;
-        QBoard board = QBoard.board;
-
-        JPQLQuery<BoardCmt> query = from(boardCmt);
-        query.where(board.bno.gt(0));
-        query.orderBy(boardCmt.cno.desc());
-
-        Objects.requireNonNull(this.getQuerydsl()).applyPagination(pageable,query);
-        List<BoardCmt> list = query.fetch();
-        long count = query.fetchCount();
-        return new PageImpl<>(list,pageable,count);
-    }
-
-
 }

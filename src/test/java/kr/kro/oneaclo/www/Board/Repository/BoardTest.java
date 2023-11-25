@@ -8,6 +8,7 @@ import kr.kro.oneaclo.www.Entity.Board.IdClass.BoardCmtId;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import kr.kro.oneaclo.www.Repository.Board.*;
 import kr.kro.oneaclo.www.Repository.Mypage.MembersRepository;
+import kr.kro.oneaclo.www.Service.Board.BoardCmtService;
 import kr.kro.oneaclo.www.Service.Board.BoardService;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
@@ -37,6 +38,8 @@ public class BoardTest {
     BoardReportRepository boardReportRepository;
     @Autowired
     BoardCmtReportRepository boardCmtReportRepository;
+    @Autowired
+    BoardCmtService boardCmtService;
     @Autowired
     BoardService boardService;
     @Autowired
@@ -153,16 +156,17 @@ public class BoardTest {
         Pageable pageable = PageRequest.of(0,10,Sort.by("bno").descending());
         Page<Board> result = boardRepository.searchAll(types,keyword,pageable);
         List<BoardDTO> dtoList = result.getContent().stream().map(board -> modelMapper.map(board,BoardDTO.class)).collect(Collectors.toList());
-        System.out.println(dtoList);
-        System.out.println(result.getTotalElements());
-        System.out.println("========");
-        System.out.println(dtoList.size());
-    }
-    @Test
-    public void CmtTest() {
-        int bno=4;
-        Optional<Board> result = boardRepository.findByBno(bno);
-        Board board = result.orElseThrow();
 
+    }
+
+    @Test
+    public void TestSearch2() {
+        int bno = 306;
+        Pageable pageable = PageRequest.of(0,900,Sort.by("cno").descending());
+        List<BoardCmt> boardCmts = boardCmtService.BoardCmtInfo(bno);
+        System.out.println(boardCmts);
+        for(int i=0;i<boardCmts.size();i++) {
+            System.out.println(boardCmts.get(i).getCno());
+        }
     }
 }

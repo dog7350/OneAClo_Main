@@ -12,6 +12,5 @@ public interface BoardService {
     PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO);
     void BoardSave(String BoardUser,String title,String content,String btype);
     BoardDTO BoardInfo(int bno);
-    List<BoardCmt> BoardCmtInfo(int bno);
     void BoardModify(BoardDTO boardDTO);
 }

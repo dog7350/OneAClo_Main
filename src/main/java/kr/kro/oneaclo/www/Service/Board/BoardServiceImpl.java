@@ -49,11 +49,6 @@ public class BoardServiceImpl implements BoardService{
         Board board = result.orElseThrow();
         return modelMapper.map(board, BoardDTO.class);
     }
-    public List<BoardCmt> BoardCmtInfo(int bno) {
-        Optional<Board> result = boardRepository.findByBno(bno);
-        Board board = result.orElseThrow();
-        return boardCmtRepository.findByBno(board);
-    }
     public void BoardModify(BoardDTO boardDTO) {
         Optional<Board> result = boardRepository.findByBno(boardDTO.getBno());
         Board board = result.orElseThrow();
