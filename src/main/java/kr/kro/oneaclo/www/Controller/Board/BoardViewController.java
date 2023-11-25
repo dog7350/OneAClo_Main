@@ -3,11 +3,9 @@ package kr.kro.oneaclo.www.Controller.Board;
 
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.TokenProcess;
-import kr.kro.oneaclo.www.DTO.Board.BoardCmtDTO;
 import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
 import kr.kro.oneaclo.www.DTO.Board.Page.PageRequestDTO;
 import kr.kro.oneaclo.www.DTO.Board.Page.PageResponseDTO;
-import kr.kro.oneaclo.www.Entity.Board.Board;
 import kr.kro.oneaclo.www.Entity.Board.BoardCmt;
 import kr.kro.oneaclo.www.Service.Board.BoardCmtService;
 import kr.kro.oneaclo.www.Service.Board.BoardService;
@@ -18,8 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller

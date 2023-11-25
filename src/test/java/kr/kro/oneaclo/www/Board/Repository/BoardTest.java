@@ -150,19 +150,8 @@ public class BoardTest {
         System.out.println(responseDTO);
     }
     @Test
-    public void TestSearchAll() {
-        String[] types = {"writer"};
-        String keyword = "3";
-        Pageable pageable = PageRequest.of(0,10,Sort.by("bno").descending());
-        Page<Board> result = boardRepository.searchAll(types,keyword,pageable);
-        List<BoardDTO> dtoList = result.getContent().stream().map(board -> modelMapper.map(board,BoardDTO.class)).collect(Collectors.toList());
-
-    }
-
-    @Test
     public void TestSearch2() {
         int bno = 306;
-        Pageable pageable = PageRequest.of(0,900,Sort.by("cno").descending());
         List<BoardCmt> boardCmts = boardCmtService.BoardCmtInfo(bno);
         System.out.println(boardCmts);
         for(int i=0;i<boardCmts.size();i++) {

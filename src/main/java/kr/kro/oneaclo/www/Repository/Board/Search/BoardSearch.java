@@ -1,7 +1,6 @@
 package kr.kro.oneaclo.www.Repository.Board.Search;
 
 import kr.kro.oneaclo.www.Entity.Board.Board;
-import kr.kro.oneaclo.www.Entity.Board.BoardCmt;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

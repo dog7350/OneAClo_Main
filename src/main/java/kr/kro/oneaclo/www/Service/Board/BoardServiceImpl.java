@@ -4,7 +4,6 @@ import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
 import kr.kro.oneaclo.www.DTO.Board.Page.PageRequestDTO;
 import kr.kro.oneaclo.www.DTO.Board.Page.PageResponseDTO;
 import kr.kro.oneaclo.www.Entity.Board.Board;
-import kr.kro.oneaclo.www.Entity.Board.BoardCmt;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import kr.kro.oneaclo.www.Repository.Board.BoardCmtRepository;
 import kr.kro.oneaclo.www.Repository.Board.BoardRepository;
@@ -25,7 +24,6 @@ import java.util.stream.Collectors;
 public class BoardServiceImpl implements BoardService{
 
     private final BoardRepository boardRepository;
-    private final BoardCmtRepository boardCmtRepository;
     private final MembersRepository membersRepository;
     private final ModelMapper modelMapper;
 
