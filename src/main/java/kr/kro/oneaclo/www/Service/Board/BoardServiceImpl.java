@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,18 +28,16 @@ public class BoardServiceImpl implements BoardService{
     private final BoardCmtRepository boardCmtRepository;
     private final MembersRepository membersRepository;
     private final ModelMapper modelMapper;
-    public List<Board> BoardGetList() {
-        return boardRepository.findAll();
-    }
 
-    public void BoardSave(String[] BoardUser,String title,String content) {
-        Optional<Members> result = membersRepository.findById(BoardUser[0]);
+
+    public void BoardSave(String BoardUser,String title,String content,String btype) {
+        Optional<Members> result = membersRepository.findById(BoardUser);
         Members members = result.orElseThrow();
         Board board = Board.builder()
                 .writer(members)
                 .firsttime(null)
                 .lasttime(null)
-                .btype(BoardUser[1])
+                .btype(btype)
                 .title(title)
                 .content(content)
                 .build();
@@ -55,7 +54,12 @@ public class BoardServiceImpl implements BoardService{
         Board board = result.orElseThrow();
         return boardCmtRepository.findByBno(board);
     }
-
+    public void BoardModify(BoardDTO boardDTO) {
+        Optional<Board> result = boardRepository.findByBno(boardDTO.getBno());
+        Board board = result.orElseThrow();
+        board.BoardChange(boardDTO.getTitle(),boardDTO.getContent(), LocalDateTime.now());
+        boardRepository.save(board);
+    }
     @Override
     public PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO) {
         String[] types = pageRequestDTO.getTypes();
@@ -72,4 +76,5 @@ public class BoardServiceImpl implements BoardService{
                 .total((int)result.getTotalElements())
                 .build();
     }
+
 }

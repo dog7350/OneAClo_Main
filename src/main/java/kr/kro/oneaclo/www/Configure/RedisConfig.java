@@ -1,11 +1,13 @@
 package kr.kro.oneaclo.www.Configure;
 
+import io.lettuce.core.ReadFrom;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
@@ -26,13 +28,12 @@ public class RedisConfig {
     private String password;
     */
 
-    @Bean
-    public RedisConnectionFactory redisConnectionFactory() {
+    @Bean RedisConnectionFactory redisConnectionFactory() {
+        LettuceClientConfiguration clientConfig = LettuceClientConfiguration.builder().readFrom(ReadFrom.MASTER_PREFERRED).build();
         RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(host, port);
         // config.setPassword(password);
-        return new LettuceConnectionFactory(config);
+        return new LettuceConnectionFactory(config, clientConfig);
     }
-
     @Bean
     public RedisTemplate<String, Object> redisTemplate() {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();

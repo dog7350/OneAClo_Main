@@ -59,14 +59,16 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="list:${BoardList.dtoList}">
-                                        <th scope="row">[[${list.bno}]]</th>
+                                        <th th:if="${list.btype =='n'}" scope="row">[[${list.bno}]]</th>
+                                        <th th:if="${list.btype =='a'}" class="text-danger" scope="row">공지글</th>
                                         <td>
-                                            <a th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}">[[${list.title}]]</a>
+                                            <a th:if="${list.btype =='n'}" th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" class="text-secondary">[[${list.title}]] [<span>[[${list.inquiry}]]</span>]</a>
+                                            <a th:if="${list.btype =='a'}" th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" class="text-danger">[[${list.title}]] [<span>[[${list.inquiry}]]</span>]</a>
                                         </td>
                                         <td>[[${list.writer.id}]]</td>
                                         <td>[[${#temporals.format(list.firsttime,'yyyy-MM-dd HH:mm:ss')}]]</td>
                                         <td>[[${list.inquiry}]]</td>
-                                    </tr>
+                                </tr>
                                 </tbody>
                             </table>
                         </div> <!--card body -->

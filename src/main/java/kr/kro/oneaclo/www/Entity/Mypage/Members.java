@@ -48,4 +48,8 @@ public class Members {
     public void ProfileChange(String profile) {
         this.profile = profile;
     }
+
+    public void admin(String auth) {
+        this.auth = auth;
+    }
 }

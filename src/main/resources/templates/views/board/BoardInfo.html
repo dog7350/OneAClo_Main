@@ -4,7 +4,6 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <link rel="stylesheet" href="/views/board/css/BoardInfo.css">
 <script th:inline="javascript" th:src="@{/views/board/js/BoardInfo.js}"></script>
-
     <section class="contact" id="contact">
         <div class="container" data-aos="fade-up">
             <div class="container">
@@ -38,35 +37,47 @@
                                     <span class="input-group-text">최종 수정일</span>
                                     <input type="text" class="form-control" th:value="${#temporals.format(dto.lasttime,'yyyy-MM-dd HH:mm:ss')}" readonly>
                                 </div>
-
-                                <button type="button" class="float-lg-end btn btn-secondary" onclick="BackList()">되돌아기</button>
-                                <button type="button" class="btn btn-secondary" th:if="${ActiveUser == dto.writer.getId}">수정</button>
-                                <button type="button" class="btn btn-secondary" th:if="${ActiveUser == dto.writer.getId}">삭제</button>
+                                <button type="button" class="float-lg-end btn btn-secondary" onclick="BackList()">목록</button>
+                                <button type="button" class="btn btn-secondary" th:if="${id == dto.writer.getId || auth == 'a'}" onclick="ModifyForm()">수정</button>
+                                <button type="button" class="btn btn-secondary" th:if="${id == dto.writer.getId || auth == 'a'}">삭제</button>
                             </div>
                             <hr>
                             <div>
                                 <b class="p-4">댓글</b>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" id="CmtBody">
                                 <!-- 댓글 부분-->
-                                <div class="input-group mb-3" th:each="Cmt:${CmtList}">
-                                    <span class="input-group-text">[[${Cmt.writer.getId}]]</span>
-                                    <textarea class="col-sm-5 w-100 FocusLine" rows="5" readonly>[[${Cmt.content}]]</textarea>
-                                </div>
-                                <!-- 댓글 작성 부분-->
-                                <hr>
-                                <div>
-                                    <form action="/board/p/CmtReg" method="post" name="CmtForm">
-                                        <div class="input-group-text bg-body">
-                                            <input type="hidden" name="bno" th:value="${dto.bno}" readonly>
-                                            <input type="text" class="fs-4 border-0 bg-white FocusLine" name="id" th:value="${ActiveUser}" readonly>
-                                        </div>
-                                        <div class="input-group">
-                                            <textarea class="form-control col-sm-5" name="content" rows="5" maxlength="100" placeholder="댓글을 입력해주세요"></textarea>
-                                        </div>
-                                        <button type="button" class="btn btn-secondary float-lg-end" onclick="reg()">등록</button>
-                                    </form>
-                                </div>
+<!--                                <div th:each="Cmt:${CmtList.dtoList}">-->
+<!--                                    <div class="input-group mb-4" id="Reset">-->
+<!--                                        <div class="input-group mb-4" th:id="CmtContent+${CmtStat.count}">-->
+<!--                                            <input type="hidden" th:id="CmtCno+${CmtStat.count}" th:value="${Cmt.cno}">-->
+<!--                                            <p class="input-group-text">[[${Cmt.writer.getId}]]</p>-->
+<!--                                            <textarea class="col-sm-5 w-100 FocusLine" rows="5" type="text" readonly>[[${Cmt.content}]]</textarea> &nbsp;-->
+<!--                                            <span>[[${#temporals.format(Cmt.lasttime,'yyyy-MM-dd HH:mm:ss')}]]</span>-->
+<!--                                            <button th:if="${id == Cmt.writer.getId || auth == 'a'}" th:data-num="${CmtStat.count}" type="button" class="btn btn-secondary" onclick="CmtModify()">수정</button> &nbsp;-->
+<!--                                            <button th:if="${id == Cmt.writer.getId || auth == 'a'}" type="button" class="btn btn-secondary">삭제</button>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div th:id="CmtModify+${CmtStat.count}">-->
+
+<!--                                    </div>-->
+<!--                                </div>-->
+                            </div>
+                            <hr class="border-5">
+                            <br>
+                            <br>
+                            <!-- 댓글 작성 부분-->
+                            <div>
+                                <form action="/board/p/CmtReg" method="post" name="CmtForm">
+                                    <div class="input-group-text bg-body">
+                                        <input type="hidden" name="bno" id="Bno" th:value="${dto.bno}" readonly>
+                                        <input type="text" class="fs-4 border-0 bg-white FocusLine border-5" name="writer" id="UserId" th:value="${id}" readonly>
+                                    </div>
+                                    <div class="input-group">
+                                        <textarea id="AreaContent" class="form-control col-sm-5" name="content" rows="5" maxlength="100" placeholder="댓글을 입력해주세요"></textarea>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary float-lg-end" onclick="reg()">등록</button>
+                                </form>
                             </div>
                         </div>
                     </div>

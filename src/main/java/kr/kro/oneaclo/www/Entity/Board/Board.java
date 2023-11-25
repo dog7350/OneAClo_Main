@@ -62,4 +62,10 @@ public class Board {
     @Column(name = "indent",columnDefinition = "number(4)")
     @ColumnDefault("0")
     private int indent;
+
+    public void BoardChange(String title,String content,LocalDateTime lasttime) {
+        this.title=title;
+        this.content=content;
+        this.lasttime=lasttime;
+    }
 }

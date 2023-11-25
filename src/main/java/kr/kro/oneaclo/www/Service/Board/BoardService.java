@@ -9,10 +9,9 @@ import kr.kro.oneaclo.www.Entity.Board.BoardCmt;
 import java.util.List;
 
 public interface BoardService {
-    List<Board> BoardGetList();
     PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO);
-    void BoardSave(String[] BoardUser,String title,String content);
-
+    void BoardSave(String BoardUser,String title,String content,String btype);
     BoardDTO BoardInfo(int bno);
     List<BoardCmt> BoardCmtInfo(int bno);
+    void BoardModify(BoardDTO boardDTO);
 }

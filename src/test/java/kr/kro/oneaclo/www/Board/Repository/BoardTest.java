@@ -46,22 +46,28 @@ public class BoardTest {
     public void BoardSave() {
         Optional<Members> result = membersRepository.findById("test");
         Members members = result.orElseThrow();
+            for(int i=0; i<99; i++) {
+                Board board = Board.builder()
+                        .writer(members)
+                        .title("제목")
+                        .content("내용")
+                        .firsttime(null)
+                        .lasttime(null)
+                        .inquiry(0)
+                        .bnogroup(0)
+                        .step(0)
+                        .indent(0)
+                        .build();
 
-            Board board = Board.builder()
-                    .writer(members)
-                    .title("제목")
-                    .content("내용")
-                    .firsttime(null)
-                    .lasttime(null)
-                    .inquiry(0)
-                    .btype("c")
-                    .bnogroup(0)
-                    .step(0)
-                    .indent(0)
-                    .build();
-
-            boardRepository.save(board);
-
+                boardRepository.save(board);
+            }
+    }
+    @Test
+    public void admin() {
+        Optional<Members> result = membersRepository.findById("test2");
+        Members members = result.orElseThrow();
+        members.admin("a");
+        membersRepository.save(members);
     }
     @Test
     public void BoardCmtSave() {

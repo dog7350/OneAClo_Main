@@ -3,7 +3,9 @@ package kr.kro.oneaclo.www.Repository.Board.Search;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQuery;
 import kr.kro.oneaclo.www.Entity.Board.Board;
+import kr.kro.oneaclo.www.Entity.Board.BoardCmt;
 import kr.kro.oneaclo.www.Entity.Board.QBoard;
+import kr.kro.oneaclo.www.Entity.Board.QBoardCmt;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -17,24 +19,9 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         super(Board.class);
     }
 
+    //Override 필수
     @Override
     public Page<Board> search1(Pageable pageable) {
-        QBoard board = QBoard.board;
-        JPQLQuery<Board> query = from(board);
-
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
-
-        booleanBuilder.or(board.title.contains("11")); // title like
-
-        booleanBuilder.or(board.content.contains("11")); // content like
-
-        query.where(booleanBuilder);
-        query.where(board.bno.gt(0));
-
-        query.where(board.title.contains("1"));
-        //paging
-        Objects.requireNonNull(this.getQuerydsl()).applyPagination(pageable,query);
-
         return null;
     }
 
@@ -64,7 +51,8 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
             }
             query.where(booleanBuilder);
         }
-        query.where(board.bno.gt(1));
+        query.where(board.bno.gt(0));
+        query.orderBy(board.btype.asc());
 
         //paging
         Objects.requireNonNull(this.getQuerydsl()).applyPagination(pageable,query);
@@ -72,4 +60,21 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         long count =  query.fetchCount();
         return new PageImpl<>(list,pageable,count);
     }
+
+    @Override
+    public Page<BoardCmt> searchCmtAll(Pageable pageable) {
+        QBoardCmt boardCmt = QBoardCmt.boardCmt;
+        QBoard board = QBoard.board;
+
+        JPQLQuery<BoardCmt> query = from(boardCmt);
+        query.where(board.bno.gt(0));
+        query.orderBy(boardCmt.cno.desc());
+
+        Objects.requireNonNull(this.getQuerydsl()).applyPagination(pageable,query);
+        List<BoardCmt> list = query.fetch();
+        long count = query.fetchCount();
+        return new PageImpl<>(list,pageable,count);
+    }
+
+
 }

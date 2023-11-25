@@ -6,6 +6,7 @@ import kr.kro.oneaclo.www.DTO.Board.BoardCmtDTO;
 import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
 import kr.kro.oneaclo.www.DTO.Board.BoardFileDTO;
 import kr.kro.oneaclo.www.Entity.Board.BoardCmt;
+import kr.kro.oneaclo.www.Service.Board.BoardCmtService;
 import kr.kro.oneaclo.www.Service.Board.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,30 +25,29 @@ public class BoardApiController {
 
     private final TokenProcess tokenProcess;
     private final BoardService boardService;
+    private final BoardCmtService boardCmtService;
 
+    private void UserModelInfo(HttpSession session, Model model, String want) {model.addAttribute(want, tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"), want));}
+    private String UserString(HttpSession session,String want) {return tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"),want);}
     @PostMapping("/p/BoardSave")
     private String BoardSave(BoardDTO DTO, BoardFileDTO FileDTO, HttpSession session) {
-        String[] BoardUserinfo = {tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"),"id"),
-                        tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"),"auth")};
-        boardService.BoardSave(BoardUserinfo,DTO.getTitle(), DTO.getContent());
+        boardService.BoardSave(UserString(session,"id"),DTO.getTitle(), DTO.getContent(),DTO.getBtype());
         return "redirect:/board/list";
     }
-    @GetMapping("/p/BoardInfo")
-    public String BoardInfo(@RequestParam int bno, Model model, HttpSession session) {
-        BoardDTO dto = boardService.BoardInfo(bno);
-        model.addAttribute("dto",dto);
-
-        String ActiveUser = tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"),"id");
-        model.addAttribute("ActiveUser",ActiveUser);
-
-        List<BoardCmt> boardCmts = boardService.BoardCmtInfo(bno);
-        model.addAttribute("CmtList",boardCmts);
-        return "views/Board/BoardInfo";
-    }
-
     @PostMapping("/p/CmtReg")
     public String CmtReg(BoardCmtDTO boardCmtDTO) {
-        System.out.println(boardCmtDTO.getBno());
-        return "redirect:/p/BoardInfo";
+        boardCmtService.CmtSave(boardCmtDTO);
+        return "redirect:/board/p/BoardInfo?bno="+boardCmtDTO.getBno().getBno();
+    }
+    @PostMapping("/p/CmtModify")
+    public String CmtModify(BoardCmtDTO boardCmtDTO) {
+        boardCmtService.CmtModify(boardCmtDTO);
+        return "redirect:/board/p/BoardInfo?bno="+boardCmtDTO.getBno().getBno();
+    }
+
+    @PostMapping("/p/BoardModifySave")
+    public String BoardModifySave(BoardDTO boardDTO) {
+        boardService.BoardModify(boardDTO);
+        return "redirect:/board/p/BoardInfo?bno="+boardDTO.getBno();
     }
 }

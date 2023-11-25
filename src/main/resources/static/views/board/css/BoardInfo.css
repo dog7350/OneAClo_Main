@@ -7,4 +7,8 @@
 
 .FocusLine {
     outline: none;
+    resize: none;
 }
+
+
+

@@ -54,4 +54,9 @@ public class BoardCmt {
 
     @Column(name = "indent", columnDefinition = "number(4)")
     private int indent;
+
+    public void change(String content,LocalDateTime lasttime) {
+        this.content = content;
+        this.lasttime = lasttime;
+    }
 }

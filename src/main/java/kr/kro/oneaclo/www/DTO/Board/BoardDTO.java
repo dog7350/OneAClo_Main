@@ -19,7 +19,7 @@ public class BoardDTO {
     private LocalDateTime firsttime;
     private LocalDateTime lasttime;
     private int inquiry;
-    private String bytpe;
+    private String btype;
     private int bnogroup;
     private int step;
     private int indent;

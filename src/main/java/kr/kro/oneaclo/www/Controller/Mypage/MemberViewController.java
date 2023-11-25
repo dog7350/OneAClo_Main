@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class MemberViewController {
     private final TokenProcess tokenProcess;
+    private void UserModelInfo(HttpSession session, Model model, String want) {model.addAttribute(want, tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"), want));}
     @GetMapping("/loginform")
     public String loginform(HttpSession session) {
         if(session.getAttribute("UserInfo")==null) {
@@ -20,7 +21,6 @@ public class MemberViewController {
         }
             return "redirect:/";
     }
-
     @GetMapping("/joinform")
     public String joinform(HttpSession session) {
         if(session.getAttribute("UserInfo")==null) {
@@ -44,10 +44,9 @@ public class MemberViewController {
 
     @GetMapping("/p/userinfo")
     public String userinfo(HttpSession session, Model model) {
-        String token = (String) session.getAttribute("UserInfo");
         String[] arr = {"id","pw","name","email","nick","profile","zipcode","address","detailaddr","phone"};
         for (String list:arr) {
-            model.addAttribute(list, tokenProcess.getMembersToken(token,list));
+            UserModelInfo(session,model,list);
         }
         return "views/mypage/info/UserInfo";
     }

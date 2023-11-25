@@ -25,6 +25,7 @@ public class MemberApiController {
     private final MembersService membersService;
     private final MemberInfoService memberInfoService;
     private final TokenProcess tokenProcess;
+    private String UserString(HttpSession session,String want) {return tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"),want);}
     @PostMapping(value = "/join")
     public String join(MemberDTO dto,@RequestParam MultipartFile UserProfile) throws Exception{
         String result = membersService.MembersJoin(dto,UserProfile);
@@ -42,10 +43,8 @@ public class MemberApiController {
     }
     @PostMapping("/p/ChangePassword")
     public String ChangePassword(@RequestParam String ChangePw, @RequestParam String CkPw, HttpSession session) {
-        String token = (String) session.getAttribute("UserInfo");
-        String id = tokenProcess.getMembersToken(token,"id");
         if(ChangePw.equals(CkPw)) {
-            membersService.PwChange(ChangePw,id);
+            membersService.PwChange(ChangePw,UserString(session,"id"));
             return "redirect:/mypage/p/logout";
         }else {
             return "redirect:/mypage/p/userinfo";
@@ -53,27 +52,23 @@ public class MemberApiController {
     }
     @GetMapping("/p/UpdateSuccess")
     public String UpdateSuccess(HttpSession session) {
-        String id = tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"),"id");
+        String id = UserString(session,"id");
         session.removeAttribute("UserInfo");
         String UserToken = tokenProcess.createUserToken(id);
         session.setAttribute("UserInfo",UserToken);
-        return "redirect:/";
+        return "redirect:/mypage/p/userinfo";
     }
 
     @PostMapping("/p/NewAddr")
     public String NewAddr(HttpSession session,@RequestParam String zipcode,
                           @RequestParam String address,@RequestParam String detailaddr) {
-        String token = (String) session.getAttribute("UserInfo");
-        String email = tokenProcess.getMembersToken(token,"email");
-        memberInfoService.AddrChange(email,zipcode,address,detailaddr);
+        memberInfoService.AddrChange(UserString(session,"email"),zipcode,address,detailaddr);
         return "redirect:/mypage/p/UpdateSuccess";
     }
 
     @GetMapping("/p/UserDel")
     public String UserDel(HttpSession session) {
-        String token = (String) session.getAttribute("UserInfo");
-        String id = tokenProcess.getMembersToken(token,"id");
-        membersService.UserDel(id);
+        membersService.UserDel(UserString(session,"id"));
         return "redirect:/mypage/p/logout";
     }
 }
