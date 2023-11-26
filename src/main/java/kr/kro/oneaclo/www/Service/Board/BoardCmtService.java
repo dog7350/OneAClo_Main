@@ -9,4 +9,5 @@ public interface BoardCmtService {
     void CmtSave(BoardCmtDTO boardCmtDTO);
     void CmtModify(BoardCmtDTO boardCmtDTO);
     List<BoardCmt> BoardCmtInfo(int bno);
+    void CmtDel(int bno,int cno);
 }

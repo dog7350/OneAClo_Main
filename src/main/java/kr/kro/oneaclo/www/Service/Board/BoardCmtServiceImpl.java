@@ -47,4 +47,7 @@ public class BoardCmtServiceImpl implements BoardCmtService{
         Pageable pageable = PageRequest.of(0,900,Sort.by("cno").descending());
         return boardCmtRepository.findAllByBno(board,pageable);
     }
+    public void CmtDel(int bno, int cno) {
+        boardCmtRepository.deleteById(new BoardCmtId(bno,cno));
+    }
 }

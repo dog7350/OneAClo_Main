@@ -50,4 +50,17 @@ public class BoardApiController {
         boardService.BoardModify(boardDTO);
         return "redirect:/board/p/BoardInfo?bno="+boardDTO.getBno();
     }
+
+    @GetMapping("/p/BoardDel")
+    public String BoardDel(@RequestParam int bno) {
+        boardService.BoardDel(bno);
+        return "redirect:/board/list";
+    }
+
+    @GetMapping("/p/BoardCmtDel")
+    public String BoardCmtDel(@RequestParam int cno,@RequestParam int bno) {
+        boardCmtService.CmtDel(bno,cno);
+        return "redirect:/board/p/BoardInfo?bno="+bno;
+    }
+
 }

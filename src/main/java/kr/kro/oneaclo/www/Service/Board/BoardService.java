@@ -9,4 +9,5 @@ public interface BoardService {
     void BoardSave(String BoardUser,String title,String content,String btype);
     BoardDTO BoardInfo(int bno);
     void BoardModify(BoardDTO boardDTO);
+    void BoardDel(int bno);
 }

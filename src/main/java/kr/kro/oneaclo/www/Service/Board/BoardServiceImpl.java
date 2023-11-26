@@ -53,6 +53,9 @@ public class BoardServiceImpl implements BoardService{
         board.BoardChange(boardDTO.getTitle(),boardDTO.getContent(), LocalDateTime.now());
         boardRepository.save(board);
     }
+    public void BoardDel(int bno) {
+        boardRepository.deleteById(bno);
+    }
     @Override
     public PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO) {
         String[] types = pageRequestDTO.getTypes();

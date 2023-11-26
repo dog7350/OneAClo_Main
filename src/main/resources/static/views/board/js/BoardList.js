@@ -9,6 +9,10 @@ function PageMove() {
     FormObj.submit();
 }
 
+function inqUp() {
+    document.getElementById()
+}
+
 
 
 
