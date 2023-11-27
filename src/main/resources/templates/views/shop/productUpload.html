@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}">
+    <link href="/views/mypage/css/join/JoinForm.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="/common/smart/js/HuskyEZCreator.js"></script>
+    <script type="text/javascript" src="/views/shop/js/productUpload.js"></script>
+
+    <section id="services" class="services">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>ONE.A.CLO</h2>
+                <p>상품 업로드</p>
+            </div>
+
+            <table class="JoinTable">
+                <form id="productForm" action="/shop/productUpload" method="post" enctype="multipart/form-data">
+                    <tr>
+                        <th>
+                            <div style="width: 50%;">
+                                <label for="productTitle">상품명</label>
+                                <input id="productTitle" name="pname" type="text" style="width: 100%;" required>
+                            </div>
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <div style="width: 50%;">
+                                <label for="productContent">상품 설명</label>
+                                <textarea id="productContent" name="content" maxlength="4000" rows="15" style="width: 100%;" required></textarea>
+                            </div>
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <div style="display: flex; width: 50%;">
+                                <div style="margin: auto; width: 33.3333%;">
+                                    <label for="bC" style="width: 100px;">대분류</label>
+                                    <select id="bC" class="form-select" name="bcategory" onchange="bChanged()">
+                                        <option value="#" selected>========================================</option>
+                                        <option value="상의">상의</option>
+                                        <option value="하의">하의</option>
+                                        <option value="신발">신발</option>
+                                        <option value="아우터">아우터</option>
+                                        <option value="원피스">원피스</option>
+                                        <option value="스커트">스커트</option>
+                                    </select>
+                                </div>
+                                <div style="margin: auto; width: 33.3333%;">
+                                    <label for="mC" style="width: 100px;">중분류</label>
+                                    <select id="mC" class="form-select" name="mcategory" onchange="mChanged()" disabled>
+                                        <option value="#" selected>========================================</option>
+                                    </select>
+                                </div>
+                                <div style="margin: auto; width: 33.3333%;">
+                                    <label for="sC" style="width: 100px;">소분류</label>
+                                    <select id="sC" class="form-select" name="scategory" disabled>
+                                        <option value="#" selected>========================================</option>
+                                        <option value="male">남성</option>
+                                        <option value="female">여성</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <div style="width: 50%;">
+                                <label for="price">가격</label>
+                                <input id="price" type="text" name="price" placeholder="가격" />
+                            </div>
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <div style="display: flex; width: 50%;">
+                                <div style="width: 49.9999%;">
+                                    <label for="productImg" style="width: 100px;">상품 대표<br>이미지</label>
+                                    <input id="productImg" type="file" name="thumbnail" />
+                                </div>
+                                <br>
+                                <div style="width: 49.9999%;">
+                                    <label for="productFiles" style="width: 100px;">상품 설명<br>이미지</label>
+                                    <input id="productFiles" type="file" name="files" multiple />
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <div style="width: 50%;">
+                                <button type="button" onclick="submitProduct()">작성</button>
+                            </div>
+                        </th>
+                    </tr>
+                </form>
+            </table>
+        </div>
+    </section>
+</html>

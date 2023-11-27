@@ -2,52 +2,42 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" th:fragment="NavFragment">
     <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-            <li class="dropdown"><a href="#"><span>상의</span> <i class="bi bi-chevron-down"></i></a>
+            <li class="dropdown"><a href="/shop/list?searchOption=bcategory&searchValue=상의"><span>상의</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
-                    <li><a href="#">니트/스웨터</a></li>
-                    <li><a href="#">후드</a></li>
-                    <li><a href="#">긴소매</a></li>
-                    <li><a href="#">반소매</a></li>
+                    <li><a href="/shop/list?searchOption=mcategory&searchValue=니트/스웨터">니트/스웨터</a></li>
+                    <li><a href="/shop/list?searchOption=mcategory&searchValue=후드">후드</a></li>
+                    <li><a href="/shop/list?searchOption=mcategory&searchValue=긴소매">긴소매</a></li>
+                    <li><a href="/shop/list?searchOption=mcategory&searchValue=반소매">반소매</a></li>
                 </ul>
             </li>
 
-            <li class="dropdown"><a href="#"><span>바지</span> <i class="bi bi-chevron-down"></i></a>
+            <li class="dropdown"><a href="/shop/list?searchOption=bcategory&searchValue=하의"><span>바지</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
-                    <li><a href="#">팬츠</a></li>
-                    <!--                                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>-->
-                    <!--                                    <ul>-->
-                    <!--                                        <li><a href="#">Deep Drop Down 1</a></li>-->
-                    <!--                                        <li><a href="#">Deep Drop Down 2</a></li>-->
-                    <!--                                        <li><a href="#">Deep Drop Down 3</a></li>-->
-                    <!--                                        <li><a href="#">Deep Drop Down 4</a></li>-->
-                    <!--                                        <li><a href="#">Deep Drop Down 5</a></li>-->
-                    <!--                                    </ul>-->
-                    <!--                                </li>-->
-                    <li><a href="#">슬랙스</a></li>
-                    <li><a href="#">레깅스</a></li>
+                    <li><a href="/shop/list?searchOption=mcategory&searchValue=팬츠">팬츠</a></li>
+                    <li><a href="/shop/list?searchOption=mcategory&searchValue=슬랙스">슬랙스</a></li>
+                    <li><a href="/shop/list?searchOption=mcategory&searchValue=레깅스">레깅스</a></li>
                 </ul>
             </li>
 
-            <li class="dropdown"><a href="#"><span>신발</span> <i class="bi bi-chevron-down"></i></a>
+            <li class="dropdown"><a href="/shop/list?searchOption=bcategory&searchValue=신발"><span>신발</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
-                    <li><a href="#">구두</a></li>
-                    <li><a href="#">운동화</a></li>
-                    <li><a href="#">샌들</a></li>
-                    <li><a href="#">슬리퍼</a></li>
+                    <li><a href="/shop/list?searchOption=mcategory&searchValue=구두">구두</a></li>
+                    <li><a href="/shop/list?searchOption=mcategory&searchValue=운동화">운동화</a></li>
+                    <li><a href="/shop/list?searchOption=mcategory&searchValue=샌들">샌들</a></li>
+                    <li><a href="/shop/list?searchOption=mcategory&searchValue=슬리퍼">슬리퍼</a></li>
                 </ul>
             </li>
 
-            <li class="dropdown"><a href="#"><span>아우터</span> <i class="bi bi-chevron-down"></i></a>
+            <li class="dropdown"><a href="/shop/list?searchOption=bcategory&searchValue=아우터"><span>아우터</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
-                    <li><a href="#">후드</a></li>
-                    <li><a href="#">고어텍스자켓</a></li>
-                    <li><a href="#">패딩자켓</a></li>
-                    <li><a href="#">베스트</a></li>
+                    <li><a href="/shop/list?searchOption=mcategory&searchValue=고어텍스자켓">고어텍스자켓</a></li>
+                    <li><a href="/shop/list?searchOption=mcategory&searchValue=패딩자켓">패딩자켓</a></li>
                 </ul>
             </li>
 
-            <li><a class="nav-link scrollto" href="#contact">원피스</a></li>
-            <li><a class="nav-link scrollto" href="#contact">스커트</a></li>
+            <li><a class="nav-link scrollto" href="/shop/list?searchOption=bcategory&searchValue=원피스">원피스</a></li>
+            <li><a class="nav-link scrollto" href="/shop/list?searchOption=bcategory&searchValue=스커트">스커트</a></li>
+
             <li id="BoardMenu" class="dropdown"><a href="#">게시판<i class="bi bi-chevron-down"></i></a>
                 <ul>
                     <li><a href="/board/list">자유 게시판</a></li>

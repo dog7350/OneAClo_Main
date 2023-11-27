@@ -17,4 +17,5 @@ public interface MemberInfoService {
 
     Optional<MemberInfo> findUser(String email);
     Page<MemberInfo> AllUserPage(int pageNumber, int elementCount);
+    Page<MemberInfo> SearchUserPage(int pageNumber, int elementCount, String searchOption, String searchValue);
 }

@@ -117,11 +117,6 @@ public class MembersServiceImpl implements MembersService{
             return false;
     }
 
-    public Page<Members> AllUserPage(int pageNumber, int elementCount) {
-        Pageable pageable = PageRequest.of(pageNumber, elementCount);
-        return membersRepository.findAllByOrderByIdAsc(pageable);
-    }
-
     public void AuthChange(String id, String auth) {
         Optional<Members> result = membersRepository.findById(id);
         Members members = result.orElseThrow();

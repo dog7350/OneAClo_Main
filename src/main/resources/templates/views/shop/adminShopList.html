@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}">
+    <section id="services" class="services">
+        <div class="container" data-aos="fade-up">
+            <div class="section-title">
+                <h2>ONE.A.CLO</h2>
+                <p>상품 관리</p>
+
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 30%;">
+                            <form action="/admin/productList" method="get">
+                                <div style="display: flex;">
+                                    <select class="form-select" name="searchOption" aria-label="Default select example" style="width: 50%;">
+                                        <option value="pname" selected>상품명</option>
+                                        <option value="bcategory">대분류</option>
+                                        <option value="mcategory">중분류</option>
+                                        <option value="scategory">소분류</option>
+                                    </select>
+                                    <input class="form-control me-2" type="search" name="searchValue" th:value="${searchValue}" placeholder="Search" />
+                                    <input class="btn btn-outline-success" type="submit" value="검색" />
+                                </div>
+                            </form>
+                        </td> <!-- 검색 -->
+
+                        <td style="width: 10%;">
+                            <th:block th:if="${pages.isFirst() == true}">
+                                <input class="btn btn-outline-secondary" type="button" value="<<" disabled>
+                                <input class="btn btn-outline-secondary" type="button" value="<" disabled>
+                            </th:block>
+                            <th:block th:if="${pages.isFirst() == false}">
+                                <button class="btn btn-outline-primary" th:onclick="|location.href='@{/admin/productList(pageNumber=0, searchOption=${searchOption}, searchValue=${searchValue})}'|"><<</button>
+                                <button class="btn btn-outline-primary" th:onclick="|location.href='@{/admin/productList(pageNumber=${pages.getNumber() - 1}, searchOption=${searchOption}, searchValue=${searchValue})}'|"><</button>
+                            </th:block>
+                        </td>
+
+                        <td style="width: 39.9999%; text-align: center;">
+                            <div th:if="${pages.getTotalElements() >= 1}">
+                                <div th:each="num : ${ #numbers.sequence(startPage + 1, endPage) }" style="display: inline-block;">
+                                    <div th:if="${num.toString() == #numbers.formatInteger(pageNumber + 1, 0)}">
+                                        <button class="btn btn-outline-secondary" th:onclick="|location.href='@{/admin/productList(pageNumber=${num - 1}, searchOption=${searchOption}, searchValue=${searchValue})}'|" disabled>
+                                            <span th:text="${num}"></span>
+                                        </button>
+                                    </div>
+                                    <div th:if="${num.toString() != #numbers.formatInteger(pageNumber + 1, 0)}">
+                                        <button class="btn btn-outline-info" th:onclick="|location.href='@{/admin/productList(pageNumber=${num - 1}, searchOption=${searchOption}, searchValue=${searchValue})}'|">
+                                            <span th:text="${num}"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td style="width: 10%;">
+                            <th:block th:if="${pages.hasNext() == false}">
+                                <input class="btn btn-outline-secondary" type="button" value=">" disabled>
+                                <input class="btn btn-outline-secondary" type="button" value=">>" disabled>
+                            </th:block>
+                            <th:block th:if="${pages.hasNext() == true}">
+                                <button class="btn btn-outline-primary" th:onclick="|location.href='@{/admin/productList(pageNumber=${pages.getNumber() + 1}, searchOption=${searchOption}, searchValue=${searchValue})}'|">></button>
+                                <button class="btn btn-outline-primary" th:onclick="|location.href='@{/admin/productList(pageNumber=${pages.getTotalPages() - 1}, searchOption=${searchOption}, searchValue=${searchValue})}'|">>></button>
+                            </th:block>
+                        </td> <!-- 페이징 -->
+
+                        <td style="width: 10%;">
+                            <input class="btn btn-primary" type="button" value="상품 업로드" onclick="location.href='/shop/productUpload'" style="float: right;">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="row">
+
+                <th:block th:if="${pages.getTotalElements() >= 1}">
+                    <div th:if="${pages.getTotalElements() >= 1}" th:each="num : ${ #numbers.sequence(0, products.size() - 1) }" class="col-lg-4 col-md-6 d-flex align-items-stretch" type="button" th:onclick="|location.href='@{/shop/detail?pno=}${products.get(num).getPno()}'|" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="icon-box" style="width: 100%; height: 100%;">
+                            <div class="icon"><img th:src="@{/upload/file/}+${products.get(num).getImg()}" style="width: 200px; height: 200px;"></div>
+                            <br><br>
+                            <h4><a th:href="@{/shop/detail(pno=${products.get(num).getPno()})}" th:text="${products.get(num).getPname()}"></a></h4>
+
+                            <p><span th:text="${products.get(num).getBcategory()}"></span> / <span th:text="${products.get(num).getMcategory()}"></span></p>
+                            <p>성별 : <span th:text="${products.get(num).getScategory()}"></span></p>
+                            <p>가격 : <span th:text="${products.get(num).getPrice()}"></span></p>
+                        </div>
+                    </div>
+                </th:block>
+
+                <th:block th:if="${pages.getTotalElements() <= 0}">
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch" type="button" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="icon-box" style="width: 100%; height: 100%;">
+                            <div class="icon"><i class="">없음</i></div>
+                            <br><br>
+                            <h4><a href=""></a>상품 없음</h4>
+                        </div>
+                    </div>
+                </th:block>
+
+            </div>
+        </div>
+    </section>
+</html>

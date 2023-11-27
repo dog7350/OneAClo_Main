@@ -11,6 +11,4 @@ import java.util.Optional;
 public interface MembersRepository extends JpaRepository<Members,String> {
     Optional<Members> findById(String id);
     void deleteById(String id);
-
-    Page<Members> findAllByOrderByIdAsc(Pageable pageable);
 }

@@ -14,4 +14,6 @@ public interface MemberInfoRepository extends JpaRepository<MemberInfo,String> {
     Optional<MemberInfo> findMemberInfoById(Members id);
 
     Page<MemberInfo> findAllByOrderByIdAsc(Pageable pageable);
+    Page<MemberInfo> findById_IdLikeOrderByIdAsc(Pageable pageable, String id);
+    Page<MemberInfo> findByNameLikeOrderByIdAsc(Pageable pageable, String name);
 }

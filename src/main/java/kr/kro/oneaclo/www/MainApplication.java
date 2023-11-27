@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @SpringBootApplication
-@EnableRedisHttpSession
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 3600)
 @EnableJpaAuditing
 @EnableMongoAuditing
 @EnableReactiveMongoRepositories
