@@ -67,4 +67,16 @@ public class MemberInfoServiceImpl implements MemberInfoService {
         return memberInfoRepository.findAllByOrderByIdAsc(pageable);
     }
 
+    public Page<MemberInfo> SearchUserPage(int pageNumber, int elementCount, String searchOption, String searchValue) {
+        Pageable pageable = PageRequest.of(pageNumber, elementCount);
+        Page<MemberInfo> pages;
+
+        String value = "%" + searchValue + "%";
+
+        if (searchOption.equals("id")) pages = memberInfoRepository.findById_IdLikeOrderByIdAsc(pageable, value);
+        else pages = memberInfoRepository.findByNameLikeOrderByIdAsc(pageable, value);
+
+        return pages;
+    }
+
 }

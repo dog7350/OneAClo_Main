@@ -4,8 +4,10 @@ import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.TokenProcess;
 import kr.kro.oneaclo.www.Entity.Mypage.MemberInfo;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
+import kr.kro.oneaclo.www.Entity.Shop.Product;
 import kr.kro.oneaclo.www.Service.Mypage.MemberInfoService;
 import kr.kro.oneaclo.www.Service.Mypage.MembersService;
+import kr.kro.oneaclo.www.Service.Shop.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,7 @@ public class AdminController {
     private final TokenProcess tokenProcess;
     private final MembersService membersService;
     private final MemberInfoService memberInfoService;
+    private final ProductService productService;
 
     private String[] arr = {"id", "nick", "profile", "auth"};
     private String auth;
@@ -55,16 +58,20 @@ public class AdminController {
     }
 
     @GetMapping("/memberList")
-    public String MemberList(HttpSession session, Model model, @RequestParam String pageNumber) {
+    public String MemberList(HttpSession session, Model model, @RequestParam(defaultValue = "0") String pageNumber,
+                             @RequestParam(defaultValue = "id") String searchOption, @RequestParam(defaultValue = "%") String searchValue) {
         String token = (String) session.getAttribute("UserInfo");
 
         for (String str : arr) model.addAttribute(str, TokenList(token).get(str));
 
         if (auth.equals("a") || auth.equals("m")) {
-            if (pageNumber == null) pageNumber = "0";
+            Page<MemberInfo> pages = null;
 
             int elementCount = 15;
-            Page<Members> pages = membersService.AllUserPage(Integer.parseInt(pageNumber), elementCount);
+
+            if (searchOption == "id" && searchValue == "%") pages = memberInfoService.AllUserPage(Integer.parseInt(pageNumber), elementCount);
+            else pages = memberInfoService.SearchUserPage(Integer.parseInt(pageNumber), elementCount, searchOption, searchValue);
+
             int blockPage = 10;
             int startPage = (Integer.parseInt(pageNumber) / blockPage) * blockPage;
             int endPage = Math.min((startPage + blockPage), pages.getTotalPages());
@@ -77,9 +84,13 @@ public class AdminController {
                 시작 페이지 여부 : pages.isFirst()
             */
 
-            model.addAttribute("members", pages.getContent());
-            model.addAttribute("memberInfos", memberInfoService.AllUserPage(Integer.parseInt(pageNumber), elementCount).getContent());
+            model.addAttribute("memberinfos", pages.getContent());
             model.addAttribute("pages", pages);
+
+            model.addAttribute("pageNumber", pageNumber);
+            model.addAttribute("searchOption", searchOption);
+            if (searchValue == "%") searchValue = "";
+            model.addAttribute("searchValue", searchValue);
 
             model.addAttribute("startPage", startPage);
             model.addAttribute("endPage", endPage);
@@ -117,12 +128,37 @@ public class AdminController {
     }
 
     @GetMapping("/productList")
-    public String ProductList(HttpSession session, Model model) {
+    public String ProductList(HttpSession session, Model model, @RequestParam(defaultValue = "0") String pageNumber,
+                              @RequestParam(defaultValue = "pname") String searchOption, @RequestParam(defaultValue = "%") String searchValue) {
         String token = (String) session.getAttribute("UserInfo");
 
         for (String str : arr) model.addAttribute(str, TokenList(token).get(str));
 
-        if (auth.equals("a") || auth.equals("m")) return "views/admin/admin";
+        if (auth.equals("a") || auth.equals("m")) {
+            Page<Product> pages = null;
+
+            int elementCount = 6;
+
+            if (searchOption == "pname" && searchValue == "%") pages = productService.AllProductPage(Integer.parseInt(pageNumber), elementCount);
+            else pages = productService.SearchProductPage(Integer.parseInt(pageNumber), elementCount, searchOption, searchValue);
+
+            int blockPage = 10;
+            int startPage = (Integer.parseInt(pageNumber) / blockPage) * blockPage;
+            int endPage = Math.min((startPage + blockPage), pages.getTotalPages());
+
+            model.addAttribute("products", pages.getContent());
+            model.addAttribute("pages", pages);
+
+            model.addAttribute("pageNumber", pageNumber);
+            model.addAttribute("searchOption", searchOption);
+            if (searchValue == "%") searchValue = "";
+            model.addAttribute("searchValue", searchValue);
+
+            model.addAttribute("startPage", startPage);
+            model.addAttribute("endPage", endPage);
+
+            return "views/shop/adminShopList";
+        }
         else {
             model.addAttribute("url", "/");
             model.addAttribute("msg", "관리자가 아닙니다.");

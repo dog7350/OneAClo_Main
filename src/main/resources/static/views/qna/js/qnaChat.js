@@ -61,6 +61,8 @@ window.onload = () => {
             }
         })
     }
+
+    $('#ChatLog').scrollTop($('#ChatLog')[0].scrollHeight);
 }
 
 window.onbeforeunload = () => {
@@ -131,8 +133,6 @@ const ChatFileUpload = (e) => {
             const str = `${site}|${img}|${id}|${ext}|${nick}: ${content}`;
 
             socket.send(str);
-
-            location.reload();
         },
         error : (e) => {
 
