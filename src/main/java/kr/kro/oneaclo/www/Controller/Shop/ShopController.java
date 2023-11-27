@@ -92,7 +92,6 @@ public class ShopController {
 
         model.addAttribute("product", productService.ProductDetail(pno));
         model.addAttribute("files", productFileService.ProductDetail(pno));
-        System.out.println(productFileService.ProductDetail(pno));
 
         return "views/shop/productDetail";
     }
