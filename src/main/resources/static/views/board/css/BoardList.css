@@ -21,3 +21,46 @@
 .Cur {
     cursor: pointer;
 }
+
+#StepIcon1 {
+    margin-left: 15%;
+}
+
+#StepIcon2 {
+    margin-left: 25%;
+}
+
+#StepIcon3 {
+    margin-left: 35%;
+}
+
+#StepIcon4 {
+    margin-left: 45%;
+}
+
+#StepIcon5 {
+    margin-left: 55%;
+}
+
+#StepIcon6 {
+    margin-left: 65%;
+}
+
+#StepTitle1 {
+    margin-left: 10%;
+}
+#StepTitle2 {
+    margin-left: 17%;
+}
+#StepTitle3 {
+    margin-left: 24%;
+}
+#StepTitle4 {
+    margin-left: 31%;
+}
+#StepTitle5 {
+    margin-left: 38%;
+}
+#StepTitle6 {
+    margin-left: 45%;
+}

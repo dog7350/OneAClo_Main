@@ -56,6 +56,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
 
 
 
+
         //paging
         Objects.requireNonNull(this.getQuerydsl()).applyPagination(pageable,query);
         List<Board> list = query.fetch();

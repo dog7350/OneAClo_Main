@@ -16,4 +16,5 @@ public interface BoardService {
     BoardDTO GetBoard(int bno);
     void BoardGroup(int bno,String btype);
     int StepMax();
+
 }
