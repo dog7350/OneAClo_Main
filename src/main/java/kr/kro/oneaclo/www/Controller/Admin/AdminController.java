@@ -166,6 +166,24 @@ public class AdminController {
         }
     }
 
+    @GetMapping("/shopModify")
+    public String shopModify(HttpSession session, Model model, @RequestParam String pno) {
+        String token = (String) session.getAttribute("UserInfo");
+
+        for (String str : arr) model.addAttribute(str, TokenList(token).get(str));
+
+        if (auth.equals("a") || auth.equals("m")) {
+            model.addAttribute("product", productService.ProductDetail(Integer.parseInt(pno)));
+
+            return "views/shop/adminShopModify";
+        }
+        else {
+            model.addAttribute("url", "/");
+            model.addAttribute("msg", "관리자가 아닙니다.");
+            return "views/common/message";
+        }
+    }
+
     @GetMapping("/orderList")
     public String OrderList(HttpSession session, Model model) {
         String token = (String) session.getAttribute("UserInfo");

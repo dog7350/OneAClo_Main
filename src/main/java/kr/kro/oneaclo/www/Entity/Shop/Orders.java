@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 
 @Table(name = "orders")
 @Entity
+@SequenceGenerator(name = "ORDERS_GENERATOR", sequenceName = "ORDERS_SEQ", allocationSize = 1)
 @Getter
 @NoArgsConstructor
 @DynamicInsert
@@ -17,6 +18,7 @@ import java.sql.Timestamp;
 @Builder
 public class Orders {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORDERS_GENERATOR")
     @Column(name = "ono", nullable = false, updatable = false, unique = true)
     private int ono;
 
@@ -28,9 +30,15 @@ public class Orders {
     @JoinColumn(name = "orderer", nullable = false, columnDefinition = "VARCHAR2(50)")
     private Members orderer;
 
+    @Column(name = "email", nullable = false, columnDefinition = "varchar2(500)")
+    private String email;
+
     @Column(name = "ocount")
     @ColumnDefault("1")
     private int ocount;
+
+    @Column(name = "totalprice")
+    private int totalprice;
 
     @Column(name = "otime", columnDefinition = "TIMESTAMP")
     @ColumnDefault("SYSDATE")
@@ -42,6 +50,9 @@ public class Orders {
 
     @Column(name = "receiver", nullable = false, columnDefinition = "VARCHAR2(50)")
     private String receiver;
+
+    @Column(name = "phone",nullable = false,columnDefinition = "varchar2(50)")
+    private String phone;
 
     @Column(name = "zipcode", nullable = false, columnDefinition = "VARCHAR2(50)")
     private String zipcode;

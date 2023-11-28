@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <link href="/views/mypage/css/join/JoinForm.css" rel="stylesheet">
+  <script src="/views/mypage/js/join/JoinForm.js" type="text/javascript"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+  <section class="contact" id="contact">
+    <div class="container" data-aos="fade-up">
+      <div class="section-title">
+        <h2>Order</h2>
+        <p>주문/결제</p>
+      </div>
+      <hr style="border: 3px solid black">
+      <div>
+        <table class="JoinTable">
+          <form action="/order/payment" id="orderForm" method="post" name="UserJoinForm">
+            <tr>
+              <th>
+                <h1>주문자</h1>
+                <div>
+                  <label for="InputId">주문자</label>
+                  <input id="InputId" name="orderer" th:value="${id}" placeholder="50자 이내" type="text" readonly>
+                </div>
+                <div>
+                  <label for="InputOrderName">이름</label>
+                  <input id="InputOrderName" name="name" th:value="${name}" placeholder="50자 이내" type="text" readonly>
+                </div>
+                <div>
+                  <label for="InputOrderPhone">전화번호</label>
+                  <input id="InputOrderPhone" name="orderPhone" th:value="${phone}" placeholder="50자 이내" type="text" readonly>
+                </div>
+                <div>
+                  <label for="OrderEmail">주문자 이메일</label>
+                  <input id="OrderEmail" th:value="${email}" placeholder="E-Mail" type="text" readonly>
+                </div>
+
+                <input id="OrderZipCode" th:value="${zipcode}" hidden>
+                <input id="OrderAddress" th:value="${address}" hidden>
+                <input id="OrderDetailAddr" th:value="${detailaddr}" hidden>
+                <input name="pno" th:value="${product.getPno()}" hidden>
+              </th>
+            </tr>
+
+            <tr>
+              <th>
+                <h1>배송지</h1>
+                <p>
+                  <label for="oreqaul">주문자 정보와 동일</label>
+                  <input id="oreqaul" type="checkbox" onchange="orequal(this)">
+                </p>
+                <div>
+                  <label for="InputName">수령인</label>
+                  <input id="InputName" name="receiver" placeholder="50자 이내" type="text">
+                </div>
+                <div>
+                  <label for="InputPhone">전화번호</label>
+                  <input id="InputPhone" name="phone" placeholder="50자 이내" type="text">
+                </div>
+                <div>
+                  <label for="InputEmail">수령자 이메일</label>
+                  <input id="InputEmail" name="email" placeholder="E-Mail" type="text">
+                </div>
+                <hr>
+                <div>
+                  <label for="InputZipcode">배송지</label>
+                  <input id="InputZipcode" name="zipcode" placeholder="우편 번호" readonly type="text">
+                  &nbsp
+                  <button onclick="daumPost()" type="button">우편 번호</button><br>
+                  <label for="InputAddress"></label>
+                  <input id="InputAddress" name="address" placeholder="주소" readonly type="text"><br>
+                  <label for="InputDetailAddr"></label>
+                  <input id="InputDetailAddr" name="detailaddr" placeholder="상세 주소" type="text">
+                </div>
+              </th>
+            </tr>
+
+            <tr>
+              <th>
+                <h1>상품 정보</h1>
+                <div>
+                </div>
+                <div>
+                  <p>카테고리 : <span th:text="${product.getBcategory()}"></span> > <span th:text="${product.getMcategory()}"></span> > <span th:text="${product.getScategory()}"></span></p>
+                  <p>
+                    <img th:src="@{/upload/file/}+${product.getImg()}" style="width: 200px; height: 200px;">&nbsp;&nbsp;&nbsp;
+                    <span id="pname" th:text="${product.getPname()}"></span>
+                  </p>
+                  <p>단가 : <span th:text="${product.getPrice()}"></span></p>
+                  <hr>
+                  <label for="InputCount">주문 갯수</label>
+                  <input id="InputCount" name="ocount" th:value="${count}" placeholder="50자 이내" type="text" readonly><br>
+                  <label for="InputTotalValue">총 결제 금액</label>
+                  <input id="InputTotalValue" name="totalprice" th:value="${count * product.getPrice()}" type="text" readonly>
+                </div>
+              </th>
+            </tr>
+
+            <tr>
+              <th>
+                <div class="ResultBtn">
+                  <button class="JoinButton" type="button" onclick="buyBtn()">결제</button>
+                  <button class="JoinButton" type="button" onclick="history.back()">취소하기</button>
+                </div>
+              </th>
+            </tr>
+          </form>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <script src="/views/shop/js/buyPage.js"></script>
+</html>

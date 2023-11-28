@@ -25,7 +25,6 @@
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
-
                 </div>
 
                 <div class="col-lg-4">
@@ -42,12 +41,12 @@
                     </div>
                     <div class="portfolio-description">
                         <th:block th:if="${auth == 'a' || auth == 'm'}">
-                            <input class="btn btn-outline-danger" type="button" value="상품삭제" th:onclick="|location.href='@{/admin/shopDelete(pno=${product.getPno()})}'|">
+                            <input class="btn btn-outline-danger" type="button" value="상품삭제" th:pno="${product.getPno()}" th:onclick="deleteProduct(this.getAttribute('pno'))">
                             <input class="btn btn-outline-success" type="button" value="상품수정" th:onclick="|location.href='@{/admin/shopModify(pno=${product.getPno()})}'|">
                             <hr>
                         </th:block>
                         <button class="btn btn-warning" type="button">장바구니</button>
-                        <button class="btn btn-success" type="button">바로구매</button>
+                        <button class="btn btn-success" type="button" th:pno="${product.getPno()}" th:onclick="buy(this.getAttribute('pno'))">바로구매</button>
                     </div>
                 </div>
             </div>

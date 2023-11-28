@@ -1,6 +1,9 @@
 package kr.kro.oneaclo.www.Controller.Shop;
 
+import com.siot.IamportRestClient.IamportClient;
+import kr.kro.oneaclo.www.DTO.Shop.OrdersDTO;
 import kr.kro.oneaclo.www.DTO.Shop.ProductDTO;
+import kr.kro.oneaclo.www.Entity.Shop.Orders;
 import kr.kro.oneaclo.www.Service.Shop.ProductFileService;
 import kr.kro.oneaclo.www.Service.Shop.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +29,13 @@ public class ShopRestController {
         productService.ProductUpload(dto, thumbnail);
         productFileService.ProductFileUpload(dto.getPname(), files);
 
-        return "views/shop/adminShopList";
+        return "redirect:/admin/productList";
+    }
+
+    @PostMapping("/payment")
+    public String Payment(OrdersDTO dto) {
+        System.out.println(dto);
+
+        return "redirect:/mypage/p/userinfo";
     }
 }

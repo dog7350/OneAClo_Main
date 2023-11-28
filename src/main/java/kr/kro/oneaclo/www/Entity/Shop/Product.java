@@ -51,4 +51,6 @@ public class Product {
     @Column(name = "inquiry")
     @ColumnDefault("0")
     private int inquiry;
+
+    public void ThumbnailChange(String thumbnail) { this.img = thumbnail; }
 }

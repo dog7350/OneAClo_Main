@@ -18,4 +18,5 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     Page<Product> findByScategoryLikeOrderByPnoDesc(Pageable pageable, String scategory);
 
     Optional<Product> findByPno(int pno);
+    void deleteByPno(int pno);
 }
