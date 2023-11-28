@@ -1,17 +1,21 @@
 package kr.kro.oneaclo.www.Entity.Board;
 
+import com.querydsl.core.annotations.QueryEntity;
 import jakarta.persistence.*;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.GeneratedColumn;
 
+import java.lang.reflect.Member;
 import java.time.LocalDateTime;
 
 
 @Table(name = "board")
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @DynamicInsert
@@ -67,5 +71,15 @@ public class Board {
         this.title=title;
         this.content=content;
         this.lasttime=lasttime;
+    }
+    public void InqUp() {
+        this.inquiry++;
+    }
+
+    public void GroupUp(int bno,LocalDateTime firsttime,LocalDateTime lasttime,String btype) {
+        this.bnogroup=bno;
+        this.firsttime=firsttime;
+        this.lasttime=lasttime;
+        this.btype=btype;
     }
 }

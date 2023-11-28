@@ -6,8 +6,14 @@ import kr.kro.oneaclo.www.DTO.Board.Page.PageResponseDTO;
 
 public interface BoardService {
     PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO);
-    void BoardSave(String BoardUser,String title,String content,String btype);
+    int BoardSave(String BoardUser,String title,String content,String btype);
     BoardDTO BoardInfo(int bno);
     void BoardModify(BoardDTO boardDTO);
     void BoardDel(int bno);
+    void InqUp(int bno);
+    void BoardReport(String id,int bno);
+    void BoardReplySave(BoardDTO boardDTO,String id);
+    BoardDTO GetBoard(int bno);
+    void BoardGroup(int bno,String btype);
+    int StepMax();
 }

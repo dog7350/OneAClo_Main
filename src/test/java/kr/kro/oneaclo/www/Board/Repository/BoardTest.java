@@ -1,8 +1,6 @@
 package kr.kro.oneaclo.www.Board.Repository;
 
-import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
-import kr.kro.oneaclo.www.DTO.Board.Page.PageRequestDTO;
-import kr.kro.oneaclo.www.DTO.Board.Page.PageResponseDTO;
+import com.querydsl.jpa.JPQLQuery;
 import kr.kro.oneaclo.www.Entity.Board.*;
 import kr.kro.oneaclo.www.Entity.Board.IdClass.BoardCmtId;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
@@ -14,14 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @SpringBootTest
 public class BoardTest {
@@ -49,22 +42,27 @@ public class BoardTest {
     public void BoardSave() {
         Optional<Members> result = membersRepository.findById("test");
         Members members = result.orElseThrow();
-            for(int i=0; i<99; i++) {
-                Board board = Board.builder()
-                        .writer(members)
-                        .title("제목")
-                        .content("내용")
-                        .firsttime(null)
-                        .lasttime(null)
-                        .inquiry(0)
-                        .bnogroup(0)
-                        .step(0)
-                        .indent(0)
-                        .build();
+        for(int i = 0; i <100;i++) {
+            Board board = Board.builder()
+                    .writer(members)
+                    .title("새글")
+                    .content("====================")
+                    .firsttime(null)
+                    .lasttime(null)
+                    .inquiry(0)
+                    .step(0)
+                    .indent(0)
+                    .build();
 
-                boardRepository.save(board);
-            }
+            boardRepository.save(board);
+
+            Optional<Board> result2 = boardRepository.findByBno(board.getBno());
+            Board board1 = result2.orElseThrow();
+            board1.setBnogroup(board.getBno());
+            boardRepository.save(board1);
+        }
     }
+
     @Test
     public void admin() {
         Optional<Members> result = membersRepository.findById("test2");
@@ -72,6 +70,7 @@ public class BoardTest {
         members.admin("a");
         membersRepository.save(members);
     }
+
     @Test
     public void BoardCmtSave() {
         Optional<Board> result = boardRepository.findByBno(4);
@@ -86,7 +85,7 @@ public class BoardTest {
                 .content("내용")
                 .firsttime(null)
                 .lasttime(null)
-                .cnogroup(3)
+                .cnogroup(0)
                 .step(0)
                 .indent(0)
                 .build();
@@ -128,7 +127,7 @@ public class BoardTest {
         Optional<Members> result2 = membersRepository.findById("test");
         Members members = result2.orElseThrow();
 
-        Optional<BoardCmt> result3 = boardCmtRepository.findById(new BoardCmtId(3,1));
+        Optional<BoardCmt> result3 = boardCmtRepository.findById(new BoardCmtId(3, 1));
         BoardCmt boardCmt = result3.orElseThrow();
 
         BoardCmtReport boardCmtReport = BoardCmtReport.builder()
@@ -138,24 +137,11 @@ public class BoardTest {
 
         boardCmtReportRepository.save(boardCmtReport);
     }
+
     @Test
-    public void testSearch() {
-        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
-                .type("title")
-                .Keyword("1")
-                .page(1)
-                .size(10)
-                .build();
-        PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
-        System.out.println(responseDTO);
+    public void queryTest() {
+        System.out.println(boardRepository.StepMax());
     }
-    @Test
-    public void TestSearch2() {
-        int bno = 306;
-        List<BoardCmt> boardCmts = boardCmtService.BoardCmtInfo(bno);
-        System.out.println(boardCmts);
-        for(int i=0;i<boardCmts.size();i++) {
-            System.out.println(boardCmts.get(i).getCno());
-        }
-    }
+
+
 }

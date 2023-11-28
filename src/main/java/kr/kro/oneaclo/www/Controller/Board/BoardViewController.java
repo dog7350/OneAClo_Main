@@ -27,12 +27,16 @@ public class BoardViewController {
     private final TokenProcess tokenProcess;
     private final BoardCmtService boardCmtService;
 
+
     private void UserModelInfo(HttpSession session, Model model, String want) {model.addAttribute(want, tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"), want));}
     private String UserString(HttpSession session,String want) {return tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"),want);}
     @GetMapping("/list")
     public String list(Model model, PageRequestDTO pageRequestDTO) {
         PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
         model.addAttribute("BoardList",responseDTO);
+
+        int step = boardService.StepMax();
+        model.addAttribute("StepValue",step);
         return "views/board/BoardList";
     }
 
@@ -62,5 +66,12 @@ public class BoardViewController {
         BoardDTO boardDTO = boardService.BoardInfo(bno);
         model.addAttribute("dto",boardDTO);
         return "views/board/BoardModify";
+    }
+
+    @GetMapping("/p/BoardReply")
+    public String BoardReply(@RequestParam int bno,Model model) {
+        BoardDTO boardDTO = boardService.GetBoard(bno);
+        model.addAttribute("dto",boardDTO);
+        return "views/board/BoardReply";
     }
 }

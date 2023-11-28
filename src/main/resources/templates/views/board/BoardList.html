@@ -59,15 +59,29 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="list:${BoardList.dtoList}">
-                                        <th th:if="${list.btype =='n'}" scope="row">[[${list.bno}]]</th>
-                                        <th th:if="${list.btype =='a'}" class="text-danger" scope="row">공지글</th>
+                                    <th scope="row" th:if="${list.btype =='n' && list.step == 0}">[[${list.bno}]]</th>
+                                    <th class="text-danger" scope="row" th:if="${list.btype =='a'}">공지글</th>
+
+                                    <th:block th:each="num : ${#numbers.sequence(1,StepValue)}">
+                                        <th scope="row" th:if="${list.btype =='n' && list.step == num}">
+                                            [[${num}]]번째 답글들
+                                        </th>
                                         <td>
-                                            <a th:if="${list.btype =='n'}" th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" onclick="inqUp()" class="text-secondary">[[${list.title}]] [<span>[[${list.inquiry}]]</span>]</a>
-                                            <a th:if="${list.btype =='a'}" th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" class="text-danger">[[${list.title}]] [<span>[[${list.inquiry}]]</span>]</a>
+                                            <a class="text-secondary" onclick="inqUp()" th:data-Bno="${list.bno}" th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" th:if="${list.btype =='n' && list.step == num}">[[${list.title}]]</a>
                                         </td>
-                                        <td>[[${list.writer.id}]]</td>
-                                        <td>[[${#temporals.format(list.firsttime,'yyyy-MM-dd HH:mm:ss')}]]</td>
-                                        <td>[[${list.inquiry}]]</td>
+
+                                    </th:block>
+
+
+                                    <td>
+                                        <a class="text-secondary" onclick="inqUp()" th:data-Bno="${list.bno}" th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" th:if="${list.btype =='n' && list.step == 0}">[[${list.title}]]</a>
+                                        <a class="text-danger"
+                                           th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" th:if="${list.btype =='a'}">[[${list.title}]]
+                                            [<span>[[${list.inquiry}]]</span>]</a>
+                                    </td>
+                                    <td>[[${list.writer.id}]]</td>
+                                    <td>[[${#temporals.format(list.firsttime,'yyyy-MM-dd HH:mm:ss')}]]</td>
+                                    <td>[[${list.inquiry}]]</td>
                                 </tr>
                                 </tbody>
                             </table>

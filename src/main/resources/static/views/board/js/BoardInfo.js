@@ -81,3 +81,23 @@ function ModalCmtDel() {
     const cno = document.getElementById("CmtCno"+number).value;
     location.href="/board/p/BoardCmtDel?cno="+cno+"&bno="+bno;
 }
+
+function BoardReport() {
+    const bno = document.getElementById("Bno").value;
+
+    $.ajax({
+        url: "/board/p/BoardReport",
+        type: "get",
+        data: {bno:bno},
+        success:()=> {
+            alert("신고가 접수 되었습니다!!!")
+        },error:()=> {
+            alert("문제 발생");
+        }
+    });
+}
+
+function BoardReply() {
+    const bno = document.getElementById("Bno").value;
+    location.href="/board/p/BoardReply?bno="+bno;
+}

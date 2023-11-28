@@ -10,8 +10,22 @@ function PageMove() {
 }
 
 function inqUp() {
-    document.getElementById()
+    const target= event.target;
+    const num = target.getAttribute("data-Bno");
+
+    $.ajax({
+        url: "/board/p/BoardInqUp",
+        data : {bno:num},
+        type : "get",
+        success : () => {
+
+        },error : () => {
+            alert("실패")
+        }
+    })
 }
+
+
 
 
 

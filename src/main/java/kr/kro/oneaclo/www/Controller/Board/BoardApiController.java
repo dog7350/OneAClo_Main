@@ -1,5 +1,6 @@
 package kr.kro.oneaclo.www.Controller.Board;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.TokenProcess;
 import kr.kro.oneaclo.www.DTO.Board.BoardCmtDTO;
@@ -31,7 +32,12 @@ public class BoardApiController {
     private String UserString(HttpSession session,String want) {return tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"),want);}
     @PostMapping("/p/BoardSave")
     private String BoardSave(BoardDTO DTO, BoardFileDTO FileDTO, HttpSession session) {
-        boardService.BoardSave(UserString(session,"id"),DTO.getTitle(), DTO.getContent(),DTO.getBtype());
+        int Bno = boardService.BoardSave(UserString(session,"id"),DTO.getTitle(), DTO.getContent(),DTO.getBtype());
+        String Btype = "n";
+        if(UserString(session,"auth").equals("a")){
+            Btype = "a";
+        }
+        boardService.BoardGroup(Bno,Btype);
         return "redirect:/board/list";
     }
     @PostMapping("/p/CmtReg")
@@ -63,4 +69,9 @@ public class BoardApiController {
         return "redirect:/board/p/BoardInfo?bno="+bno;
     }
 
+    @PostMapping("/p/BoardReplySave")
+    public String BoardReplySave(BoardDTO DTO,HttpSession session) {
+        boardService.BoardReplySave(DTO,UserString(session,"id"));
+        return "redirect:/board/list";
+    }
 }

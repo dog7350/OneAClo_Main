@@ -9,4 +9,6 @@ import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board,Integer>, BoardSearch {
     Optional<Board> findByBno(int bno);
+    Optional<Board> findBoardByBno(int bno);
+
 }

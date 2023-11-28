@@ -50,7 +50,11 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
             query.where(booleanBuilder);
         }
         query.where(board.bno.gt(0));
+        query.orderBy(board.bnogroup.desc());
+        query.orderBy(board.step.asc());
         query.orderBy(board.btype.asc());
+
+
 
         //paging
         Objects.requireNonNull(this.getQuerydsl()).applyPagination(pageable,query);
@@ -58,4 +62,17 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         long count =  query.fetchCount();
         return new PageImpl<>(list,pageable,count);
     }
+
+    @Override
+    public Integer StepMax() {
+        QBoard board = QBoard.board;
+        JPQLQuery<Board> query = from(board);
+
+        int num = query
+                .select(board.step.max())
+                .from(board)
+                .fetchOne();
+        return num;
+    }
+
 }

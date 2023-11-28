@@ -38,8 +38,10 @@
                                     <input type="text" class="form-control" th:value="${#temporals.format(dto.lasttime,'yyyy-MM-dd HH:mm:ss')}" readonly>
                                 </div>
                                 <button type="button" class="float-lg-end btn btn-secondary" onclick="BackList()">목록</button>
-                                <button type="button" class="btn btn-secondary" th:if="${id == dto.writer.getId || auth == 'a'}" onclick="ModifyForm()">수정</button>
+                                <button type="button" class="btn btn-secondary" th:if="${id == dto.writer.getId}" onclick="ModifyForm()">수정</button>
                                 <button type="button" class="btn btn-secondary" th:if="${id == dto.writer.getId || auth == 'a'}" onclick="BoardDel()">삭제</button>
+                                <button type="button" class="btn btn-secondary" th:if="${id != dto.writer.getId && dto.btype == 'n'}" onclick="BoardReport()">신고</button>
+                                <button type="button" class="btn btn-secondary" onclick="BoardReply()">답글</button>
                             </div>
                             <hr>
                             <div>
@@ -54,7 +56,7 @@
                                             <p class="input-group-text">[[${Cmt.writer.getId}]]</p>
                                             <textarea class="col-sm-5 w-100 FocusLine" rows="5" type="text" th:id="${Cmt.cno}" readonly>[[${Cmt.content}]]</textarea> &nbsp;
                                             <span>[[${#temporals.format(Cmt.lasttime,'yyyy-MM-dd HH:mm:ss')}]]</span>
-                                            <button th:if="${id == Cmt.writer.getId || auth == 'a'}" th:data-num="${CmtStat.count}" type="button" class="btn btn-secondary" onclick="CmtModify()">수정</button> &nbsp;
+                                            <button th:if="${id == Cmt.writer.getId}" th:data-num="${CmtStat.count}" type="button" class="btn btn-secondary" onclick="CmtModify()">수정</button> &nbsp;
                                             <button th:if="${id == Cmt.writer.getId || auth == 'a'}" th:data-num2="${CmtStat.count}" type="button" class="btn btn-secondary" onclick="CmtDel()">삭제</button>
                                         </div>
                                     </div>
@@ -117,8 +119,6 @@
                     </div>
                 </div>
             </div>
-            <hr>
-            <button type="button" class="float-lg-end btn btn-secondary">답글</button>
         </div>
     </section>
 </html>
