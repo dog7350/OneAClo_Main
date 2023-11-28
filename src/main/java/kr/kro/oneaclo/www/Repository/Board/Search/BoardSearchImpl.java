@@ -3,7 +3,9 @@ package kr.kro.oneaclo.www.Repository.Board.Search;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQuery;
 import kr.kro.oneaclo.www.Entity.Board.Board;
+import kr.kro.oneaclo.www.Entity.Board.BoardCmt;
 import kr.kro.oneaclo.www.Entity.Board.QBoard;
+import kr.kro.oneaclo.www.Entity.Board.QBoardCmt;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -50,12 +52,9 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
             query.where(booleanBuilder);
         }
         query.where(board.bno.gt(0));
+        query.orderBy(board.btype.asc());
         query.orderBy(board.bnogroup.desc());
         query.orderBy(board.step.asc());
-        query.orderBy(board.btype.asc());
-
-
-
 
         //paging
         Objects.requireNonNull(this.getQuerydsl()).applyPagination(pageable,query);
@@ -75,5 +74,4 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
                 .fetchOne();
         return num;
     }
-
 }

@@ -3,6 +3,7 @@ package kr.kro.oneaclo.www.Controller.Board;
 
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.TokenProcess;
+import kr.kro.oneaclo.www.DTO.Board.BoardCmtDTO;
 import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
 import kr.kro.oneaclo.www.DTO.Board.Page.PageRequestDTO;
 import kr.kro.oneaclo.www.DTO.Board.Page.PageResponseDTO;
@@ -10,6 +11,7 @@ import kr.kro.oneaclo.www.Entity.Board.BoardCmt;
 import kr.kro.oneaclo.www.Service.Board.BoardCmtService;
 import kr.kro.oneaclo.www.Service.Board.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +43,7 @@ public class BoardViewController {
     }
 
     @GetMapping("/p/BoardInfo")
-    public String BoardInfo(@RequestParam int bno, Model model, HttpSession session) {
+    public String BoardInfo(@RequestParam int bno, Model model, HttpSession session,PageRequestDTO pageRequestDTO) {
         BoardDTO dto = boardService.BoardInfo(bno);
         model.addAttribute("dto",dto);
 
@@ -49,9 +51,8 @@ public class BoardViewController {
         for(String list:arr) {
             UserModelInfo(session, model, list);
         }
-
-        List<BoardCmt> boardCmts = boardCmtService.BoardCmtInfo(bno);
-        model.addAttribute("CmtList",boardCmts);
+        PageResponseDTO<BoardCmtDTO> responseDTO = boardCmtService.BoardCmtList(pageRequestDTO,bno);
+        model.addAttribute("CmtList",responseDTO);
         return "views/Board/BoardInfo";
     }
     @GetMapping("/p/BoardWrite")

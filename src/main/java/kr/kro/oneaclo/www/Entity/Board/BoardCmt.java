@@ -59,4 +59,10 @@ public class BoardCmt {
         this.content = content;
         this.lasttime = lasttime;
     }
+
+    public void CnoGroup(int cno) {
+        this.cnogroup = cno;
+        this.firsttime = LocalDateTime.now();
+        this.lasttime = LocalDateTime.now();
+    }
 }

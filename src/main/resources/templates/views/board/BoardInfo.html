@@ -49,7 +49,8 @@
                             </div>
                             <div class="card-body" id="CmtBody">
                                 <!-- 댓글 부분-->
-                                <div th:each="Cmt:${CmtList}">
+
+                                <div th:each="Cmt:${CmtList.dtoList}">
                                     <div class="input-group mb-4" id="Reset">
                                         <div class="input-group mb-4" th:id="CmtContent+${CmtStat.count}">
                                             <input type="hidden" th:id="CmtCno+${CmtStat.count}" th:value="${Cmt.cno}">
@@ -62,6 +63,9 @@
                                         </div>
                                     </div>
                                     <div th:id="CmtModify+${CmtStat.count}">
+
+                                    </div>
+                                    <div th:id="CmtComment+${CmtStat.count}">
 
                                     </div>
                                 </div>

@@ -12,6 +12,10 @@ import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
@@ -140,7 +144,9 @@ public class BoardTest {
 
     @Test
     public void queryTest() {
-        System.out.println(boardRepository.StepMax());
+//        Pageable pageable = PageRequest.of(0,100, Sort.by("cno").descending());
+//        Page<BoardCmt> boardCmts = boardCmtRepository.searchCmt(pageable);
+//        System.out.println(boardCmts);
     }
 
 

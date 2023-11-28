@@ -74,4 +74,10 @@ public class BoardApiController {
         boardService.BoardReplySave(DTO,UserString(session,"id"));
         return "redirect:/board/list";
     }
+
+    @PostMapping("/p/CmtComment")
+    public String CmtComment(BoardCmtDTO boardCmtDTO,HttpSession session) {
+        boardCmtService.BoardCmtComment(boardCmtDTO,UserString(session,"id"));
+        return "redirect:/board/p/BoardInfo?bno="+boardCmtDTO.getBno().getBno();
+    }
 }
