@@ -82,7 +82,6 @@ public class BoardCmtServiceImpl implements BoardCmtService{
             num = boardCmtDTO.getCnogroup();
             boardCmtDTO.setIndent(boardCmtDTO.getIndent()+1);
         }
-        System.out.println(num);
         BoardCmt boardCmt = BoardCmt.builder()
                 .bno(boardCmtDTO.getBno())
                 .writer(members)

@@ -8,6 +8,7 @@ import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
 import kr.kro.oneaclo.www.DTO.Board.BoardFileDTO;
 import kr.kro.oneaclo.www.Entity.Board.BoardCmt;
 import kr.kro.oneaclo.www.Service.Board.BoardCmtService;
+import kr.kro.oneaclo.www.Service.Board.BoardFileService;
 import kr.kro.oneaclo.www.Service.Board.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -27,17 +29,21 @@ public class BoardApiController {
     private final TokenProcess tokenProcess;
     private final BoardService boardService;
     private final BoardCmtService boardCmtService;
+    private final BoardFileService boardFileService;
 
     private void UserModelInfo(HttpSession session, Model model, String want) {model.addAttribute(want, tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"), want));}
     private String UserString(HttpSession session,String want) {return tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"),want);}
     @PostMapping("/p/BoardSave")
-    private String BoardSave(BoardDTO DTO, BoardFileDTO FileDTO, HttpSession session) {
+    private String BoardSave(BoardDTO DTO, BoardFileDTO FileDTO, HttpSession session, @RequestParam MultipartFile boardfile) {
         int Bno = boardService.BoardSave(UserString(session,"id"),DTO.getTitle(), DTO.getContent(),DTO.getBtype());
-        String Btype = "n";
+        String Btype = "f";
         if(UserString(session,"auth").equals("a")){
-            Btype = "a";
+            Btype = DTO.getBtype();
         }
         boardService.BoardGroup(Bno,Btype);
+        FileDTO.setBno(Bno);
+        boardFileService.FilaNameSave(FileDTO);
+        System.out.println(boardfile);
         return "redirect:/board/list";
     }
     @PostMapping("/p/CmtReg")

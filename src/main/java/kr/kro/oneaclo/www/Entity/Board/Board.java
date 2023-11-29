@@ -52,7 +52,7 @@ public class Board {
     private int inquiry;
 
     @Column(name = "btype",columnDefinition = "varchar2(50)")
-    @ColumnDefault("'n'")
+    @ColumnDefault("'f'")
     private String btype;
 
     @Column(name = "bnogroup",columnDefinition = "number(4)")

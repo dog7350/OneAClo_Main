@@ -27,7 +27,7 @@ function CmtModify() {
     data = $('#CmtContent'+num).hide();
 
     const change = document.querySelector("#CmtModify"+num);
-    change.innerHTML = '<form action="/board/p/CmtModify" method="post" name="CmtModifyForm" id="ModifyForm">\n' +
+    change.innerHTML = '<form action="/board/p/CmtModify" method="post" name="CmtModifyForm" id="ModifyForm" target="CmtModifyTarget">\n' +
         '<div class="input-group-text bg-body">\n' +
         '<input type="hidden" name="cno" value='+cno+'>\n' +
         '<input type="hidden" name="bno" value='+bno+'>\n' +
@@ -39,6 +39,7 @@ function CmtModify() {
         '<button type="button" class="btn btn-secondary float-lg-end" onclick="CmtReset()">취소</button>\n' +
         '<button type="button" class="btn btn-secondary float-lg-end" onclick="CmtModifySave()">수정</button>\n' +
         '</form>';
+    focus();
 }
 function CmtModifySave() {
     const content = document.getElementById("ModifyContent").value;
@@ -46,6 +47,9 @@ function CmtModifySave() {
         alert("수정 내용을 입력해주세요");
     }else {
         document.forms['CmtModifyForm'].submit();
+        setTimeout(function (){
+            $('#CmtBody').load(location.href+' #CmtBody');
+        },10)
     }
 }
 
@@ -113,7 +117,7 @@ function CmtComment() {
     const cnogroup = document.getElementById("CmtGroup"+num).value;
 
     const change = document.querySelector("#CmtComment" + num);
-    change.innerHTML = '<form class="ms-4" action="/board/p/CmtComment" method="post" name="CCmtForm" id="CommentForm">\n' +
+    change.innerHTML = '<form class="ms-4" action="/board/p/CmtComment" method="post" name="CCmtForm" id="CommentForm" target="CmtTarget">\n' +
         '<div class="input-group-text bg-body">\n' +
         '<input type="hidden" name="cno" value='+ cno +'>\n' +
         '<input type="hidden" name="bno" value=' + bno + '>\n' +
@@ -137,6 +141,9 @@ function CommentSave() {
         alert("내용을 입력해주세요");
     }else {
         document.forms['CCmtForm'].submit();
+        setTimeout(function (){
+            $('#CmtBody').load(location.href+' #CmtBody');
+        },10)
     }
 }
 
