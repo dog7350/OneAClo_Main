@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}">
+    <link rel="stylesheet" type="text/css" href="/views/shop/css/orderList.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+    <section id="services" class="services">
+        <div class="container" data-aos="fade-up">
+            <div class="section-title">
+                <h2>ONE.A.CLO</h2>
+                <p>주문 관리</p>
+    
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 30%;">
+                            <form action="/admin/orderList" method="get">
+                                <div style="display: flex;">
+                                    <select class="form-select" name="searchOption" aria-label="Default select example" style="width: 50%;">
+                                        <option value="oid" selected>주문자 ID</option>
+                                        <option value="ono">주문 번호</option>
+                                        <option value="pno">상품 번호</option>
+                                    </select>
+                                    <input class="form-control me-2" type="search" name="searchValue" th:value="${searchValue}" placeholder="Search" />
+                                    <input class="btn btn-outline-success" type="submit" value="검색" />
+                                </div>
+                            </form>
+                        </td> <!-- 검색 -->
+    
+                        <td style="width: 10%;">
+                            <th:block th:if="${pages.isFirst() == true}">
+                                <input class="btn btn-outline-secondary" type="button" value="<<" disabled>
+                                <input class="btn btn-outline-secondary" type="button" value="<" disabled>
+                            </th:block>
+                            <th:block th:if="${pages.isFirst() == false}">
+                                <button class="btn btn-outline-primary" th:onclick="|location.href='@{/admin/orderList(pageNumber=0, searchOption=${searchOption}, searchValue=${searchValue})}'|"><<</button>
+                                <button class="btn btn-outline-primary" th:onclick="|location.href='@{/admin/orderList(pageNumber=${pages.getNumber() - 1}, searchOption=${searchOption}, searchValue=${searchValue})}'|"><</button>
+                            </th:block>
+                        </td>
+    
+                        <td style="width: 39.9999%; text-align: center;">
+                            <div th:if="${pages.getTotalElements() >= 1}">
+                                <div th:each="num : ${ #numbers.sequence(startPage + 1, endPage) }" style="display: inline-block;">
+                                    <div th:if="${num.toString() == #numbers.formatInteger(pageNumber + 1, 0)}">
+                                        <button class="btn btn-outline-secondary" th:onclick="|location.href='@{/admin/orderList(pageNumber=${num - 1}, searchOption=${searchOption}, searchValue=${searchValue})}'|" disabled>
+                                            <span th:text="${num}"></span>
+                                        </button>
+                                    </div>
+                                    <div th:if="${num.toString() != #numbers.formatInteger(pageNumber + 1, 0)}">
+                                        <button class="btn btn-outline-info" th:onclick="|location.href='@{/admin/orderList(pageNumber=${num - 1}, searchOption=${searchOption}, searchValue=${searchValue})}'|">
+                                            <span th:text="${num}"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+    
+                        <td style="width: 10%;">
+                            <th:block th:if="${pages.hasNext() == false}">
+                                <input class="btn btn-outline-secondary" type="button" value=">" disabled>
+                                <input class="btn btn-outline-secondary" type="button" value=">>" disabled>
+                            </th:block>
+                            <th:block th:if="${pages.hasNext() == true}">
+                                <button class="btn btn-outline-primary" th:onclick="|location.href='@{/admin/orderList(pageNumber=${pages.getNumber() + 1}, searchOption=${searchOption}, searchValue=${searchValue})}'|">></button>
+                                <button class="btn btn-outline-primary" th:onclick="|location.href='@{/admin/orderList(pageNumber=${pages.getTotalPages() - 1}, searchOption=${searchOption}, searchValue=${searchValue})}'|">>></button>
+                            </th:block>
+                        </td> <!-- 페이징 -->
+                    </tr>
+                </table>
+            </div>
+    
+            <div class="row">
+
+                <th:block th:if="${pages.getTotalElements() >= 1}">
+                    <div th:if="${pages.getTotalElements() >= 1}" th:each="num : ${ #numbers.sequence(0, orders.size() - 1) }" class="d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="icon-box" style="width: 100%;">
+                            <div style="display: flex;" type="button" th:onclick="|location.href='@{/shop/detail?pno=}${orders.get(num).getPno().getPno()}'|">
+                                <img th:src="@{/upload/file/}+${orders.get(num).getPno().getImg()}" style="margin-right: 10px; width: 200px; height: 200px;">
+                                <p class="innerPtag">
+                                    <span class="innerTitle">상품 정보</span><br><br>
+                                    <b>상품 번호</b> : <span th:text="${orders.get(num).getPno().getPno()}"></span><br>
+                                    <b>상품명</b> : <span th:text="${orders.get(num).getPno().getPname()}"></span><br>
+                                    <b>카테고리</b> : <span th:text="${orders.get(num).getPno().getBcategory()}"></span> > <span th:text="${orders.get(num).getPno().getMcategory()}"></span> > <span th:text="${(orders.get(num).getPno().getScategory() == 'male') ? '남성' : '여성'}"></span><br>
+                                    <b>가격</b> : <span th:text="${orders.get(num).getPno().getPrice()}"></span><br>
+                                    <b>주문 개수</b> : <span th:text="${orders.get(num).getOcount()}"></span><br>
+                                    <b>총합</b> : <span th:text="${orders.get(num).getTotalprice()}"></span>
+                                </p>
+                                <p class="innerPtag">
+                                    <span class="innerTitle">주문 정보</span><br><br>
+                                    <b>주문 번호</b> : <span th:text="${orders.get(num).getOno()}"></span><br>
+                                    <b>주문 시간</b> : <span th:text="${orders.get(num).getOtime()}"></span><br>
+                                    <b>주문자 ID</b> : <span th:text="${orders.get(num).getOid().getId()}"></span><br>
+                                    <b>현재 주문 상태</b> : <span th:text="${sMap.get(orders.get(num).getOstatus())}"></span>
+                                </p>
+                                <p class="innerPtag">
+                                    <span class="innerTitle">수령자 정보</span><br><br>
+                                    <b>수령자</b> : <span th:text="${orders.get(num).getReceiver()}"></span><br>
+                                    <b>전화번호</b> : <span th:text="${orders.get(num).getPhone()}"></span><br>
+                                    <b>이메일</b> : <span th:text="${orders.get(num).getEmail()}"></span><br>
+                                    <b>주소</b> : <span th:text="${orders.get(num).getZipcode()}"></span>&nbsp;&nbsp;
+                                    <span th:text="${orders.get(num).getAddress()}"></span>,&nbsp;<span th:text="${orders.get(num).getDetailaddr()}"></span>
+                                </p>
+                            </div>
+                            <hr>
+                            <div th:if="${!orders.get(num).getOstatus().equals('Complate') && !orders.get(num).getOstatus().equals('Return')}">
+                                <div th:if="${#lists.contains(s1, orders.get(num).getOstatus())}" style="margin: auto; width: 100%;">
+                                    <label><input type="radio" name="statusGroup" value="Checking">결제 확인중</label> &nbsp;&nbsp;&nbsp;
+                                    <label><input type="radio" name="statusGroup" value="Ready">배송 준비중</label> &nbsp;&nbsp;&nbsp;
+                                    <label><input type="radio" name="statusGroup" value="Running">배송중</label> &nbsp;&nbsp;&nbsp;
+                                    <label><input type="radio" name="statusGroup" value="Complate">배송 완료</label>
+                                </div>
+                                <div th:if="${#lists.contains(s2, orders.get(num).getOstatus())}" style="margin: auto; width: 100%;">
+                                    <label><input type="radio" name="statusGroup" value="ReturnChecking">교환 확인중</label> &nbsp;&nbsp;&nbsp;
+                                    <label><input type="radio" name="statusGroup" value="ReturnReady">교환 대기</label> &nbsp;&nbsp;&nbsp;
+                                    <label><input type="radio" name="statusGroup" value="Return">교환 완료</label>
+                                </div>
+                                <div th:if="${#lists.contains(s3, orders.get(num).getOstatus())}" style="margin: auto; width: 100%;">
+                                    <label><input type="radio" name="statusGroup" value="DeleteChecking">환불 확인중</label> &nbsp;&nbsp;&nbsp;
+                                    <label><input type="radio" name="statusGroup" value="Delete">환불 완료</label>
+                                </div>
+                                <hr>
+                                <div>
+                                    <input th:if="${orders.get(num).getOstatus() == 'DeleteChecking'}" class="btn btn-danger" type="button" value="환불"
+                                            th:ouid="${orders.get(num).getOuid()}" th:price="${orders.get(num).getTotalprice()}" th:onclick="cancelPay(this.getAttribute('ouid'), this.getAttribute('price'))" >
+                                    <input class="btn btn-success" type="button" value="상태 변경" th:ono="${orders.get(num).getOno()}" th:status="${orders.get(num).getOstatus()}" th:onclick="statusBtn(this.getAttribute('status'), this.getAttribute('ono'))">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+    
+                <th:block th:if="${pages.getTotalElements() <= 0}">
+                    <div class="d-flex align-items-stretch" type="button" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="icon-box" style="width: 100%;">
+                            <div class="icon"><i class="">없음</i></div>
+                            <br><br>
+                            <h4><a href=""></a>주문 없음</h4>
+                        </div>
+                    </div>
+                </th:block>
+    
+            </div>
+        </div>
+    </section>
+
+    <script src="/views/admin/js/orderList.js"></script>
+</html>

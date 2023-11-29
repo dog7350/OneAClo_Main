@@ -117,6 +117,10 @@ public class MembersServiceImpl implements MembersService{
             return false;
     }
 
+    public Members SearchUser(String UserId) {
+        return membersRepository.findById(UserId).get();
+    }
+
     public void AuthChange(String id, String auth) {
         Optional<Members> result = membersRepository.findById(id);
         Members members = result.orElseThrow();

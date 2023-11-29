@@ -63,7 +63,7 @@ public class ShopController {
 
         int elementCount = 9;
 
-        if (searchOption == "pname" && searchValue == "%") pages = productService.AllProductPage(Integer.parseInt(pageNumber), elementCount);
+        if (searchOption.equals("pname") && searchValue.equals("%")) pages = productService.AllProductPage(Integer.parseInt(pageNumber), elementCount);
         else pages = productService.SearchProductPage(Integer.parseInt(pageNumber), elementCount, searchOption, searchValue);
 
         int blockPage = 10;
@@ -75,7 +75,7 @@ public class ShopController {
 
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("searchOption", searchOption);
-        if (searchValue == "%") searchValue = "";
+        if (searchValue.equals("%")) searchValue = "";
         model.addAttribute("searchValue", searchValue);
 
         model.addAttribute("startPage", startPage);

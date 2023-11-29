@@ -21,4 +21,6 @@ public class ProductFile {
     @Id
     @Column(name = "filename", columnDefinition = "VARCHAR2(500)")
     private String filename;
+
+    public void FileNameChange(String filename) { this.filename = filename; }
 }
