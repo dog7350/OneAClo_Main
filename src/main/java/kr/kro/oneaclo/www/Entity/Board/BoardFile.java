@@ -24,4 +24,7 @@ public class BoardFile {
     @Column(name = "filename",columnDefinition = "varchar2(500)",nullable = false)
     private String filename;
 
+    public void FileChange(String filename) {
+        this.filename = filename;
+    }
 }

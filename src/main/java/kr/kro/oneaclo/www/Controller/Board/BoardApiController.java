@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -42,8 +43,10 @@ public class BoardApiController {
         }
         boardService.BoardGroup(Bno,Btype);
         FileDTO.setBno(Bno);
-        boardFileService.FilaNameSave(FileDTO);
-        System.out.println(boardfile);
+        if(!Objects.equals(FileDTO.getFilename(), "")) {
+            boardFileService.FilaNameSave(FileDTO);
+            boardFileService.FileSave(Bno,boardfile);
+        }
         return "redirect:/board/list";
     }
     @PostMapping("/p/CmtReg")
@@ -58,8 +61,21 @@ public class BoardApiController {
     }
 
     @PostMapping("/p/BoardModifySave")
-    public String BoardModifySave(BoardDTO boardDTO) {
+    public String BoardModifySave(BoardDTO boardDTO,BoardFileDTO boardFileDTO,@RequestParam MultipartFile boardfile) {
         boardService.BoardModify(boardDTO);
+        BoardFileDTO dto = boardFileService.BoardFileInfo(boardDTO.getBno());
+
+        if(dto != null) {
+            if(!dto.getFilename().equals(boardFileDTO.getBno()+boardFileDTO.getFilename())) {
+                boardFileService.FileNameModify(boardFileDTO);
+                boardFileService.FileModify(boardfile,boardDTO.getBno());
+            }
+        }else {
+            if(!Objects.equals(boardFileDTO.getFilename(), "")) {
+                boardFileService.FilaNameSave(boardFileDTO);
+                boardFileService.FileSave(boardDTO.getBno(),boardfile);
+            }
+        }
         return "redirect:/board/p/BoardInfo?bno="+boardDTO.getBno();
     }
 

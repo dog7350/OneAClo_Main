@@ -144,9 +144,7 @@ public class BoardTest {
 
     @Test
     public void queryTest() {
-//        Pageable pageable = PageRequest.of(0,100, Sort.by("cno").descending());
-//        Page<BoardCmt> boardCmts = boardCmtRepository.searchCmt(pageable);
-//        System.out.println(boardCmts);
+
     }
 
 

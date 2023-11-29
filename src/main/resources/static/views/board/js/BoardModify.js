@@ -16,6 +16,7 @@ function ModalSave() {
 function DelPic() {
     $("#InputFile").val("");
     $("#InputName").val("");
+    $("#InputName2").val("");
 }
 
 function ModifySave() {
