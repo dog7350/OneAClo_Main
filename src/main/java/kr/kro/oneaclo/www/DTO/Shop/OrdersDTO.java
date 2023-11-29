@@ -24,12 +24,13 @@ public class OrdersDTO {
 
     // ORDERS
     private int ono;
-    private String orderer;
+    private String oid;
     private String email;
     private int ocount;
     private int totalprice;
     private Timestamp otime;
     private String ostatus;
+    private String ouid;
     private String receiver;
     private String phone;
     private String zipcode;

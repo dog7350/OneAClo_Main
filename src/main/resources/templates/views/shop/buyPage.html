@@ -21,7 +21,7 @@
                 <h1>주문자</h1>
                 <div>
                   <label for="InputId">주문자</label>
-                  <input id="InputId" name="orderer" th:value="${id}" placeholder="50자 이내" type="text" readonly>
+                  <input id="InputId" name="oid" th:value="${id}" placeholder="50자 이내" type="text" readonly>
                 </div>
                 <div>
                   <label for="InputOrderName">이름</label>
@@ -39,7 +39,7 @@
                 <input id="OrderZipCode" th:value="${zipcode}" hidden>
                 <input id="OrderAddress" th:value="${address}" hidden>
                 <input id="OrderDetailAddr" th:value="${detailaddr}" hidden>
-                <input name="pno" th:value="${product.getPno()}" hidden>
+                <input id="ProductNumber" name="pno" th:value="${product.getPno()}" hidden>
               </th>
             </tr>
 
@@ -80,9 +80,7 @@
               <th>
                 <h1>상품 정보</h1>
                 <div>
-                </div>
-                <div>
-                  <p>카테고리 : <span th:text="${product.getBcategory()}"></span> > <span th:text="${product.getMcategory()}"></span> > <span th:text="${product.getScategory()}"></span></p>
+                  <p>카테고리 : <span th:text="${product.getBcategory()}"></span> > <span th:text="${product.getMcategory()}"></span> > <span th:text="${(product.getScategory() == 'male') ? '남성' : '여성'}"></span></p>
                   <p>
                     <img th:src="@{/upload/file/}+${product.getImg()}" style="width: 200px; height: 200px;">&nbsp;&nbsp;&nbsp;
                     <span id="pname" th:text="${product.getPname()}"></span>
@@ -93,6 +91,18 @@
                   <input id="InputCount" name="ocount" th:value="${count}" placeholder="50자 이내" type="text" readonly><br>
                   <label for="InputTotalValue">총 결제 금액</label>
                   <input id="InputTotalValue" name="totalprice" th:value="${count * product.getPrice()}" type="text" readonly>
+                </div>
+              </th>
+            </tr>
+
+            <tr>
+              <th>
+                <h1>결제 방식</h1>
+                <div>
+                  <input type="radio" name="payGroup" value="kakao"> 카카오페이<br>
+                  <input type="radio" name="payGroup" value="nhn"> NHN KCP<br>
+                  <input type="radio" name="payGroup" value="inicis"> KG 이니시스<br>
+                  <input type="radio" name="payGroup" value="mobilians"> KG 모빌리언스<br>
                 </div>
               </th>
             </tr>

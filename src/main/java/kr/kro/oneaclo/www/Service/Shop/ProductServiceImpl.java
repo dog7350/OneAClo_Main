@@ -1,5 +1,6 @@
 package kr.kro.oneaclo.www.Service.Shop;
 
+import jakarta.transaction.Transactional;
 import kr.kro.oneaclo.www.Common.FileUtils;
 import kr.kro.oneaclo.www.DTO.Shop.ProductDTO;
 import kr.kro.oneaclo.www.Entity.Shop.Product;
@@ -64,6 +65,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByPno(pno).get();
     }
 
+    @Transactional
     public void ProductDelete(int pno) { productRepository.deleteByPno(pno); }
 
     public void ProductUpdate(ProductDTO dto, MultipartFile thumbnail, List<MultipartFile> files) {

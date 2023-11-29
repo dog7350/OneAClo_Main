@@ -1,5 +1,6 @@
 package kr.kro.oneaclo.www.Controller.Admin;
 
+import jakarta.servlet.http.HttpServletResponse;
 import kr.kro.oneaclo.www.DTO.Shop.ProductDTO;
 import kr.kro.oneaclo.www.Service.Mypage.MembersService;
 import kr.kro.oneaclo.www.Service.Shop.ProductService;
@@ -32,16 +33,24 @@ public class AdminRestController {
     }
 
     @GetMapping("/productDelete")
-    public String productDelete(@RequestParam String pno) {
+    public void productDelete(@RequestParam String pno, HttpServletResponse res) {
         productService.ProductDelete(Integer.parseInt(pno));
 
-        return "redirect:/admin/productList";
+        try {
+            res.sendRedirect("http://www.oneaclo.kro.kr/admin/productList");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @PostMapping("/productModify")
-    public String productModify(ProductDTO dto, @RequestParam("thumbnail") MultipartFile thumbnail, @RequestParam(value = "files", required = false) List<MultipartFile> files) {
+    public void productModify(ProductDTO dto, @RequestParam("thumbnail") MultipartFile thumbnail, @RequestParam(value = "files", required = false) List<MultipartFile> files, HttpServletResponse res) {
         productService.ProductUpdate(dto, thumbnail, files);
 
-        return "redirect:/shop/detail?pno=" + dto.getPno();
+        try {
+            res.sendRedirect("http://www.oneaclo.kro.kr/shop/detail?pno=" + dto.getPno());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -27,8 +27,8 @@ public class Orders {
     private Product pno;
 
     @ManyToOne
-    @JoinColumn(name = "orderer", nullable = false, columnDefinition = "VARCHAR2(50)")
-    private Members orderer;
+    @JoinColumn(name = "oid", nullable = false, columnDefinition = "VARCHAR2(50)")
+    private Members oid;
 
     @Column(name = "email", nullable = false, columnDefinition = "varchar2(500)")
     private String email;
@@ -48,6 +48,9 @@ public class Orders {
     @ColumnDefault("Checking")
     private String ostatus;
 
+    @Column(name = "ouid", columnDefinition = "varchar2(500)")
+    private String ouid;
+
     @Column(name = "receiver", nullable = false, columnDefinition = "VARCHAR2(50)")
     private String receiver;
 
@@ -62,4 +65,6 @@ public class Orders {
 
     @Column(name = "detailaddr", columnDefinition = "VARCHAR2(500)")
     private String detailaddr;
+
+    public void StatusChange(String status) { ostatus = status; }
 }

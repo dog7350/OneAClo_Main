@@ -4,7 +4,7 @@
         <div class="container">
             <br>
             <div class="section-title">
-                <h2><span th:text="${product.getBcategory()}"></span> > <span th:text="${product.getMcategory()}"></span> > <span th:text="${product.getScategory()}"></span></h2>
+                <h2><span th:text="${product.getBcategory()}"></span> > <span th:text="${product.getMcategory()}"></span> > <span th:text="${(product.getScategory() == 'male') ? '남성' : '여성'}"></span></h2>
                 <p th:text="${product.getPname()}"></p>
             </div>
 
