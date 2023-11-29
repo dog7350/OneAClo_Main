@@ -1,6 +1,5 @@
 package kr.kro.oneaclo.www.Board.Repository;
 
-import com.querydsl.jpa.JPQLQuery;
 import kr.kro.oneaclo.www.Entity.Board.*;
 import kr.kro.oneaclo.www.Entity.Board.IdClass.BoardCmtId;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
@@ -12,12 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
-import java.util.List;
+
 import java.util.Optional;
 
 @SpringBootTest

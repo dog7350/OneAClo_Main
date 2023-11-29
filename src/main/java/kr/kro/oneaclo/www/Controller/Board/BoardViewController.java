@@ -8,19 +8,16 @@ import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
 import kr.kro.oneaclo.www.DTO.Board.BoardFileDTO;
 import kr.kro.oneaclo.www.DTO.Board.Page.PageRequestDTO;
 import kr.kro.oneaclo.www.DTO.Board.Page.PageResponseDTO;
-import kr.kro.oneaclo.www.Entity.Board.BoardCmt;
 import kr.kro.oneaclo.www.Service.Board.BoardCmtService;
 import kr.kro.oneaclo.www.Service.Board.BoardFileService;
 import kr.kro.oneaclo.www.Service.Board.BoardService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor

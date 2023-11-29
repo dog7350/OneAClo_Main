@@ -1,12 +1,10 @@
 package kr.kro.oneaclo.www.Controller.Board;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.TokenProcess;
 import kr.kro.oneaclo.www.DTO.Board.BoardCmtDTO;
 import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
 import kr.kro.oneaclo.www.DTO.Board.BoardFileDTO;
-import kr.kro.oneaclo.www.Entity.Board.BoardCmt;
 import kr.kro.oneaclo.www.Service.Board.BoardCmtService;
 import kr.kro.oneaclo.www.Service.Board.BoardFileService;
 import kr.kro.oneaclo.www.Service.Board.BoardService;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
 import java.util.Objects;
 
 @Controller
