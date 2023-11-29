@@ -26,6 +26,7 @@ public class BoardCmtSearchImpl extends QuerydslRepositorySupport implements Boa
         query.where(boardCmt.bno.bno.eq(bno));
         query.orderBy(boardCmt.cnogroup.desc());
         query.orderBy(boardCmt.step.asc());
+        query.orderBy(boardCmt.cno.desc());
 
         Objects.requireNonNull(this.getQuerydsl()).applyPagination(pageable,query);
         List<BoardCmt> list = query.fetch();

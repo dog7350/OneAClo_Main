@@ -77,6 +77,9 @@ public class BoardApiController {
 
     @PostMapping("/p/CmtComment")
     public String CmtComment(BoardCmtDTO boardCmtDTO,HttpSession session) {
+        if(boardCmtDTO.getStep() > 0) {
+            boardCmtDTO.setContent("@"+boardCmtDTO.getWriter().getId()+"   "+boardCmtDTO.getContent());
+        }
         boardCmtService.BoardCmtComment(boardCmtDTO,UserString(session,"id"));
         return "redirect:/board/p/BoardInfo?bno="+boardCmtDTO.getBno().getBno();
     }

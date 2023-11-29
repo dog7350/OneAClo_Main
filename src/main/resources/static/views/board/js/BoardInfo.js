@@ -106,15 +106,19 @@ function CmtComment() {
     const target = event.target
     const num = target.getAttribute("data-num");
 
-    const Id = document.getElementById("UserId").value;
+    const Id = document.getElementById("CmtWriter"+num).value;
     const bno = document.getElementById("Bno").value;
     const cno = document.getElementById("CmtCno"+num).value;
+    const step = document.getElementById("CmtStep"+num).value;
+    const cnogroup = document.getElementById("CmtGroup"+num).value;
 
     const change = document.querySelector("#CmtComment" + num);
-    change.innerHTML = '<form action="/board/p/CmtComment" method="post" name="CCmtForm" id="CommentForm">\n' +
+    change.innerHTML = '<form class="ms-4" action="/board/p/CmtComment" method="post" name="CCmtForm" id="CommentForm">\n' +
         '<div class="input-group-text bg-body">\n' +
         '<input type="hidden" name="cno" value='+ cno +'>\n' +
         '<input type="hidden" name="bno" value=' + bno + '>\n' +
+        '<input type="hidden" name="step" value=' + step + '>\n' +
+        '<input type="hidden" name="cnogroup" value=' + cnogroup + '>\n' +
         '<input type="text" class="fs-4 border-0 bg-white FocusLine" name="writer" id="UserId" value=' + Id + ' readonly>\n' +
         '</div>\n' +
         '<div class="input-group">\n' +

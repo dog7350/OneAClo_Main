@@ -59,7 +59,7 @@ public class BoardCmtServiceImpl implements BoardCmtService{
 //    }
 
     public PageResponseDTO<BoardCmtDTO> BoardCmtList(PageRequestDTO pageRequestDTO,int bno) {
-        Pageable pageable = PageRequest.of(pageRequestDTO.getPage() <=0? 0: pageRequestDTO.getPage()-1, pageRequestDTO.getSize(), Sort.by("cno").ascending());
+        Pageable pageable = PageRequest.of(pageRequestDTO.getPage() <=0? 0: pageRequestDTO.getPage()-1, 100, Sort.by("cno").ascending());
 
         Page<BoardCmt> result = boardCmtRepository.searchCmt(pageable,bno);
         List<BoardCmtDTO> dtoList = result.getContent().stream().map(boardCmt -> modelMapper.map(boardCmt,BoardCmtDTO.class)).collect(Collectors.toList());
@@ -77,18 +77,28 @@ public class BoardCmtServiceImpl implements BoardCmtService{
     public void BoardCmtComment(BoardCmtDTO boardCmtDTO,String id) {
         Optional<Members> result = membersRepository.findById(id);
         Members members = result.orElseThrow();
+        int num = 0;
+        if(boardCmtDTO.getStep() > 0) {
+            num = boardCmtDTO.getCnogroup();
+            boardCmtDTO.setIndent(boardCmtDTO.getIndent()+1);
+        }
+        System.out.println(num);
         BoardCmt boardCmt = BoardCmt.builder()
                 .bno(boardCmtDTO.getBno())
                 .writer(members)
                 .content(boardCmtDTO.getContent())
                 .step(boardCmtDTO.getStep()+1)
                 .indent(boardCmtDTO.getIndent()+1)
+                .cnogroup(num)
                 .lasttime(null)
                 .firsttime(null)
                 .build();
+
         boardCmtRepository.save(boardCmt);
 
-        boardCmt.CnoGroup(boardCmtDTO.getCno());
-        boardCmtRepository.save(boardCmt);
+        if(boardCmt.getStep() < 2) {
+            boardCmt.CnoGroup(boardCmtDTO.getCno());
+            boardCmtRepository.save(boardCmt);
+        }
     }
 }

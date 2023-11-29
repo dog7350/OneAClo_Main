@@ -51,13 +51,18 @@
                                 <!-- 댓글 부분-->
 
                                 <div th:each="Cmt:${CmtList.dtoList}">
-                                    <div class="input-group mb-4" id="Reset">
-                                        <div class="input-group mb-4" th:id="CmtContent+${CmtStat.count}">
+                                    <div class="input-group" id="Reset">
+                                        <div class="input-group" th:id="CmtContent+${CmtStat.count}">
                                             <input type="hidden" th:id="CmtCno+${CmtStat.count}" th:value="${Cmt.cno}">
-                                            <p class="input-group-text">[[${Cmt.writer.getId}]]</p>
-                                            <textarea class="col-sm-5 w-100 FocusLine" rows="5" type="text" th:id="${Cmt.cno}" readonly>[[${Cmt.content}]]</textarea> &nbsp;
-                                            <span>[[${#temporals.format(Cmt.lasttime,'yyyy-MM-dd HH:mm:ss')}]]</span>
-                                            <button th:if="${id == Cmt.writer.getId}" th:data-num="${CmtStat.count}" type="button" class="btn btn-secondary" onclick="CmtComment()">답글 달기</button> &nbsp;
+                                            <input type="hidden" th:id="CmtStep+${CmtStat.count}" th:value="${Cmt.step}">
+                                            <input type="hidden" th:id="CmtGroup+${CmtStat.count}" th:value="${Cmt.cnogroup}">
+                                            <input type="hidden" th:id="CmtIndent+${CmtStat.count}" th:value="${Cmt.indent}">
+                                            <input type="hidden" th:id="CmtWriter+${CmtStat.count}" th:value="${Cmt.writer.getId}">
+                                            <i th:if="${Cmt.step != 0}" class="bi-arrow-return-right ms-4"></i>
+                                            <b th:class="${Cmt.step == 0?'input-group-text':'input-group-text'}">[[${Cmt.writer.getId}]]</b> &nbsp; <b class="input-group-text text-danger" th:if="${dto.writer.getId == Cmt.writer.getId}">작성자</b>
+                                            <textarea  th:class="${Cmt.step == 0}?'col-sm-5 w-100 FocusLine':'w-100 FocusLine ms-4'" rows="5" type="text" th:id="${Cmt.cno}" readonly>[[${Cmt.content}]]</textarea> &nbsp;
+                                            <span th:class="${Cmt.step == 0?'':'ms-4'}">[[${#temporals.format(Cmt.lasttime,'yyyy-MM-dd HH:mm:ss')}]]</span>
+                                            <button th:if="${id != Cmt.writer.getId && Cmt.step == 0}" th:data-num="${CmtStat.count}" type="button" class="btn btn-secondary" onclick="CmtComment()">답글 달기</button> &nbsp;
                                             <button th:if="${id == Cmt.writer.getId}" th:data-num="${CmtStat.count}" type="button" class="btn btn-secondary" onclick="CmtModify()">수정</button> &nbsp;
                                             <button th:if="${id == Cmt.writer.getId || auth == 'a'}" th:data-num2="${CmtStat.count}" type="button" class="btn btn-secondary" onclick="CmtDel()">삭제</button>
                                         </div>
