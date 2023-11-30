@@ -47,8 +47,9 @@ public class AdminController {
     @GetMapping("/")
     public String AdminMain(HttpSession session, Model model) {
         String token = (String) session.getAttribute("UserInfo");
+        Map<String, String> user = TokenList(token);
 
-        for (String str : arr) model.addAttribute(str, TokenList(token).get(str));
+        for (String str : arr) model.addAttribute(str, user.get(str));
 
         if (auth.equals("a") || auth.equals("m")) return "views/admin/admin";
         else {
@@ -62,8 +63,9 @@ public class AdminController {
     public String MemberList(HttpSession session, Model model, @RequestParam(defaultValue = "0") String pageNumber,
                              @RequestParam(defaultValue = "id") String searchOption, @RequestParam(defaultValue = "%") String searchValue) {
         String token = (String) session.getAttribute("UserInfo");
+        Map<String, String> user = TokenList(token);
 
-        for (String str : arr) model.addAttribute(str, TokenList(token).get(str));
+        for (String str : arr) model.addAttribute(str, user.get(str));
 
         if (auth.equals("a") || auth.equals("m")) {
             Page<MemberInfo> pages = null;
@@ -107,8 +109,9 @@ public class AdminController {
     @GetMapping("/memberMail")
     public String memberMail(HttpSession session, Model model, @RequestParam String email) {
         String token = (String) session.getAttribute("UserInfo");
+        Map<String, String> user = TokenList(token);
 
-        for (String str : arr) model.addAttribute(str, TokenList(token).get(str));
+        for (String str : arr) model.addAttribute(str, user.get(str));
 
         MemberInfo userInfo = memberInfoService.findUser(email).get();
 
@@ -132,8 +135,9 @@ public class AdminController {
     public String ProductList(HttpSession session, Model model, @RequestParam(defaultValue = "0") String pageNumber,
                               @RequestParam(defaultValue = "pname") String searchOption, @RequestParam(defaultValue = "%") String searchValue) {
         String token = (String) session.getAttribute("UserInfo");
+        Map<String, String> user = TokenList(token);
 
-        for (String str : arr) model.addAttribute(str, TokenList(token).get(str));
+        for (String str : arr) model.addAttribute(str, user.get(str));
 
         if (auth.equals("a") || auth.equals("m")) {
             Page<Product> pages = null;
@@ -170,8 +174,9 @@ public class AdminController {
     @GetMapping("/shopModify")
     public String shopModify(HttpSession session, Model model, @RequestParam String pno) {
         String token = (String) session.getAttribute("UserInfo");
+        Map<String, String> user = TokenList(token);
 
-        for (String str : arr) model.addAttribute(str, TokenList(token).get(str));
+        for (String str : arr) model.addAttribute(str, user.get(str));
 
         if (auth.equals("a") || auth.equals("m")) {
             model.addAttribute("product", productService.ProductDetail(Integer.parseInt(pno)));
@@ -189,8 +194,9 @@ public class AdminController {
     public String OrderList(HttpSession session, Model model, @RequestParam(defaultValue = "0") String pageNumber,
                             @RequestParam(defaultValue = "oid") String searchOption, @RequestParam(defaultValue = "%") String searchValue) {
         String token = (String) session.getAttribute("UserInfo");
+        Map<String, String> user = TokenList(token);
 
-        for (String str : arr) model.addAttribute(str, TokenList(token).get(str));
+        for (String str : arr) model.addAttribute(str, user.get(str));
 
         if (auth.equals("a") || auth.equals("m")) {
             Page<Orders> pages = null;
@@ -247,10 +253,13 @@ public class AdminController {
     @GetMapping("/dataAnalysis")
     public String DataAnalysis(HttpSession session, Model model) {
         String token = (String) session.getAttribute("UserInfo");
+        Map<String, String> user = TokenList(token);
 
-        for (String str : arr) model.addAttribute(str, TokenList(token).get(str));
+        for (String str : arr) model.addAttribute(str, user.get(str));
 
-        if (auth.equals("a") || auth.equals("m")) return "views/admin/admin";
+        if (auth.equals("a") || auth.equals("m")) {
+            return "views/admin/dataAnalysis";
+        }
         else {
             model.addAttribute("url", "/");
             model.addAttribute("msg", "관리자가 아닙니다.");

@@ -1,4 +1,4 @@
-package kr.kro.oneaclo.www.Entity.QnA;
+package kr.kro.oneaclo.www.Entity.Log;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -8,6 +8,9 @@ import java.util.Date;
 
 @Document(collection = "oacchatlogs")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 public class ChatLog {
     @Id
     private String id;

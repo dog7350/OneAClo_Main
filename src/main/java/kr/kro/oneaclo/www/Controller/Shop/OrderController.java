@@ -49,8 +49,9 @@ public class OrderController {
             model.addAttribute("msg", "로그인 좀 하세요.");
             return "views/common/message";
         }
+        Map<String, String> user = TokenList(token);
 
-        for (String str : arr) model.addAttribute(str, TokenList(token).get(str));
+        for (String str : arr) model.addAttribute(str, user.get(str));
 
         model.addAttribute("product", productService.ProductDetail(pno));
         model.addAttribute("count", count);
@@ -62,8 +63,9 @@ public class OrderController {
     public String OrderList (HttpSession session, Model model, @RequestParam(defaultValue = "0") String pageNumber) {
 
         String token = (String) session.getAttribute("UserInfo");
+        Map<String, String> user = TokenList(token);
 
-        for (String str : arr) model.addAttribute(str, TokenList(token).get(str));
+        for (String str : arr) model.addAttribute(str, user.get(str));
 
         Map<String, String> statusMap = new HashMap<>();
         statusMap.put("Checking", "결제 확인중");

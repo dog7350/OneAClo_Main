@@ -1,6 +1,6 @@
 package kr.kro.oneaclo.www.Repository.QnA;
 
-import kr.kro.oneaclo.www.Entity.QnA.ChatLog;
+import kr.kro.oneaclo.www.Entity.Log.ChatLog;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Flux;
 

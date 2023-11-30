@@ -51,7 +51,7 @@ public class TokenProcess {
         Map User = getMembers(token);
         Map UserInfo = getMemberInfo(token);
 
-        if (User.get(wantValue) == null) return (String) UserInfo.get(wantValue);
-        else return (String) User.get(wantValue);
+        if (User.get(wantValue) == null) return String.valueOf(UserInfo.get(wantValue));
+        else return String.valueOf(User.get(wantValue));
     }
 }

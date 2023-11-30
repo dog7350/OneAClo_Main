@@ -39,8 +39,9 @@ public class QnaController {
     @GetMapping("/chat")
     public String qnaMain(HttpSession session, Model model, @RequestParam String id) {
         String token = (String) session.getAttribute("UserInfo");
+        Map<String, String> user = TokenList(token);
 
-        for (String str : arr) model.addAttribute(str, TokenList(token).get(str));
+        for (String str : arr) model.addAttribute(str, user.get(str));
 
         if (auth.equals("c") && !id.equals(userId)) {
             model.addAttribute("url", "/");

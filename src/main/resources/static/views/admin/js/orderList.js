@@ -19,7 +19,7 @@ const statusBtn = (status, ono) => {
             method: "POST",
             body: JSON.stringify(data),
             headers: {"Content-Type": "Application/JSON"}
-        }).then(function (res) {
+        }).then((res) => {
             location.reload();
         });
     }
