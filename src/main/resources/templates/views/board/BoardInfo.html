@@ -25,7 +25,7 @@
                                 </div>
 
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text"></span>
+                                    <b class="fs-5 mt-1">첨부 파일 : </b> &nbsp; <a th:href="@{'/board/p/download?name='+${FileName}}" th:if="${FileName != null}" class="input-group-text">[[${FileName}]]</a>
                                 </div>
 
                                 <div class="input-group mb-3">

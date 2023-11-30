@@ -4,9 +4,7 @@ import kr.kro.oneaclo.www.DTO.Board.BoardFileDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface BoardFileService {
-    void FilaNameSave(BoardFileDTO boardFileDTO);
-    void FileSave(int bno, MultipartFile multipartFile);
-    void FileNameModify(BoardFileDTO dto);
-    void FileModify(MultipartFile multipartFile,int bno);
+    void FileTotalSave(BoardFileDTO boardFileDTO,MultipartFile multipartFile);
+    void FileTotalModify(BoardFileDTO BeforeFileDTO, BoardFileDTO InputFileDTO, MultipartFile multipartFile);
     BoardFileDTO BoardFileInfo(int bno);
 }

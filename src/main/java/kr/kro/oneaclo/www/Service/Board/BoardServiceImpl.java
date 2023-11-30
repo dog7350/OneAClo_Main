@@ -28,7 +28,8 @@ public class BoardServiceImpl implements BoardService{
     private final BoardReportRepository boardReportRepository;
     private final MembersRepository membersRepository;
     private final ModelMapper modelMapper;
-
+    
+    //생성
     public int BoardSave(String BoardUser,String title,String content,String btype) {
         Optional<Members> result = membersRepository.findById(BoardUser);
         Members members = result.orElseThrow();
@@ -49,28 +50,6 @@ public class BoardServiceImpl implements BoardService{
         return board.getBno();
     }
 
-    public BoardDTO BoardInfo(int bno) {
-        Optional<Board> result = boardRepository.findByBno(bno);
-        Board board = result.orElseThrow();
-        return modelMapper.map(board, BoardDTO.class);
-    }
-    public void BoardModify(BoardDTO boardDTO) {
-        Optional<Board> result = boardRepository.findByBno(boardDTO.getBno());
-        Board board = result.orElseThrow();
-        board.BoardChange(boardDTO.getTitle(),boardDTO.getContent(), LocalDateTime.now());
-        boardRepository.save(board);
-
-    }
-    public void BoardDel(int bno) {
-        boardRepository.deleteById(bno);
-    }
-
-    public void InqUp(int bno) {
-        Optional<Board> result = boardRepository.findByBno(bno);
-        Board board = result.orElseThrow();
-        board.InqUp();
-        boardRepository.save(board);
-    }
     public void BoardReport(String id, int bno) {
         Optional<Board> BoardResult = boardRepository.findByBno(bno);
         Board board = BoardResult.orElseThrow();
@@ -82,6 +61,14 @@ public class BoardServiceImpl implements BoardService{
                 .build();
         boardReportRepository.save(boardReport);
     }
+
+    public void InqUp(int bno) {
+        Optional<Board> result = boardRepository.findByBno(bno);
+        Board board = result.orElseThrow();
+        board.InqUp();
+        boardRepository.save(board);
+    }
+
     public void BoardReplySave(BoardDTO boardDTO, String id) {
         Optional<Members> result = membersRepository.findById(id);
         Members members = result.orElseThrow();
@@ -99,13 +86,6 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public BoardDTO GetBoard(int bno) {
-        Optional<Board> result = boardRepository.findByBno(bno);
-        Board board = result.orElseThrow();
-        return modelMapper.map(board, BoardDTO.class);
-    }
-
-    @Override
     public void BoardGroup(int bno,String btype) {
         Optional<Board> result = boardRepository.findByBno(bno);
         Board board = result.orElseThrow();
@@ -113,11 +93,36 @@ public class BoardServiceImpl implements BoardService{
         boardRepository.save(board);
     }
 
+    //조회
+    public BoardDTO BoardInfo(int bno) {
+        Optional<Board> result = boardRepository.findByBno(bno);
+        Board board = result.orElseThrow();
+        return modelMapper.map(board, BoardDTO.class);
+    }
+
+    @Override
+    public BoardDTO GetBoard(int bno) {
+        Optional<Board> result = boardRepository.findByBno(bno);
+        Board board = result.orElseThrow();
+        return modelMapper.map(board, BoardDTO.class);
+    }
     @Override
     public int StepMax() {
         return boardRepository.StepMax();
     }
 
+    //수정
+    public void BoardModify(BoardDTO boardDTO) {
+        Optional<Board> result = boardRepository.findByBno(boardDTO.getBno());
+        Board board = result.orElseThrow();
+        board.BoardChange(boardDTO.getTitle(),boardDTO.getContent(), LocalDateTime.now());
+        boardRepository.save(board);
+    }
+    public void BoardDel(int bno) {
+        boardRepository.deleteById(bno);
+    }
+
+    //페이징
     @Override
     public PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO) {
         String[] types = pageRequestDTO.getTypes();

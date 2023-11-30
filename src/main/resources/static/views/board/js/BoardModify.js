@@ -5,6 +5,7 @@ function readURL(input) {
         reader.readAsDataURL(file); // 읽고
         reader.onload = function(e) {
             $('#InputName').val(file.name)
+            $('#InputName2').val(file.name)
         }
     }
 }

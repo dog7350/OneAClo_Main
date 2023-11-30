@@ -1,6 +1,7 @@
 package kr.kro.oneaclo.www.Controller.Board;
 
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.TokenProcess;
 import kr.kro.oneaclo.www.DTO.Board.BoardCmtDTO;
@@ -17,8 +18,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/board")
@@ -32,6 +31,7 @@ public class BoardViewController {
 
     private void UserModelInfo(HttpSession session, Model model, String want) {model.addAttribute(want, tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"), want));}
     private String UserString(HttpSession session,String want) {return tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"),want);}
+
     @GetMapping("/list")
     public String list(Model model, PageRequestDTO pageRequestDTO) {
         PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
@@ -43,7 +43,7 @@ public class BoardViewController {
     }
 
     @GetMapping("/p/BoardInfo")
-    public String BoardInfo(@RequestParam int bno, Model model, HttpSession session,PageRequestDTO pageRequestDTO) {
+    public String BoardInfo(@RequestParam int bno, Model model, HttpSession session, PageRequestDTO pageRequestDTO, HttpServletResponse res) {
         BoardDTO dto = boardService.BoardInfo(bno);
         model.addAttribute("dto",dto);
 
@@ -53,6 +53,12 @@ public class BoardViewController {
         }
         PageResponseDTO<BoardCmtDTO> responseDTO = boardCmtService.BoardCmtList(pageRequestDTO,bno);
         model.addAttribute("CmtList",responseDTO);
+
+        BoardFileDTO boardFileDTO = boardFileService.BoardFileInfo(bno);
+        if(boardFileDTO != null) {
+            model.addAttribute("FileName",boardFileDTO.getFilename());
+        }
+
         return "views/Board/BoardInfo";
     }
     @GetMapping("/p/BoardWrite")

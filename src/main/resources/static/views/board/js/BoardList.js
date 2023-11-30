@@ -12,7 +12,6 @@ function PageMove() {
 function inqUp() {
     const target= event.target;
     const num = target.getAttribute("data-Bno");
-
     $.ajax({
         url: "/board/p/BoardInqUp",
         data : {bno:num},

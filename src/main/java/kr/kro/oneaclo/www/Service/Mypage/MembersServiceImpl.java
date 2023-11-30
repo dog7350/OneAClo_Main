@@ -47,11 +47,23 @@ public class MembersServiceImpl implements MembersService{
 
         return "success";
     }
+
+    //조회
     public boolean IdCk(String UserId) {
         Optional<Members> members = membersRepository.findById(UserId);
         return members.isPresent();
     }
 
+    public boolean UserCk(String UserId,String UserPw) {
+        Optional<Members> result = membersRepository.findById(UserId);
+        Members members = result.orElseThrow();
+        if(bCryptPasswordEncoder.matches(UserPw,members.getPw())) {
+            return true;
+        }
+        return false;
+    }
+
+    //이메일
     public void send(String email,String title,String body) {
         MimeMessage msg = mailSender.createMimeMessage();
         try {
@@ -65,7 +77,8 @@ public class MembersServiceImpl implements MembersService{
         }
         mailSender.send(msg);
     }
-
+    
+    // 수정
     public void PwChange(String ChangePw,String id) {
         Optional<Members> result = membersRepository.findById(id);
         Members members = result.orElseThrow();
@@ -99,16 +112,9 @@ public class MembersServiceImpl implements MembersService{
         }
         membersRepository.save(members);
     }
+    // 삭제
     public void UserDel(String id) {
         membersRepository.deleteById(id);
     }
 
-    public boolean UserCk(String UserId,String UserPw) {
-        Optional<Members> result = membersRepository.findById(UserId);
-        Members members = result.orElseThrow();
-        if(bCryptPasswordEncoder.matches(UserPw,members.getPw())) {
-            return true;
-        }
-            return false;
-    }
 }

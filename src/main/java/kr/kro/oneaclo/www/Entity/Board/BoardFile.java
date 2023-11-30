@@ -8,6 +8,7 @@ import org.hibernate.annotations.DynamicInsert;
 @Table(name = "boardfile")
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @DynamicInsert

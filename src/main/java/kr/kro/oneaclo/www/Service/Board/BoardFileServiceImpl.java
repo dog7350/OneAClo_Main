@@ -12,77 +12,84 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class BoardFileServiceImpl implements BoardFileService{
+public class BoardFileServiceImpl implements BoardFileService {
 
     private final BoardFileRepository boardFileRepository;
     private final BoardRepository boardRepository;
     private final ModelMapper modelMapper;
+
+    private String FileNameCoding(int bno, String Origin) {
+        String today = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyHHddHHmmssSS"));
+        String fileName = "Board_" + bno + "_" + today + "_" + Origin;
+//        Path savePath = Paths,get(path+"/"+fileName);
+        return fileName;
+    }
+
+    //생성
     @Override
-    public void FilaNameSave(BoardFileDTO boardFileDTO) {
+    public void FileTotalSave(BoardFileDTO boardFileDTO, MultipartFile multipartFile) {
         Optional<Board> result = boardRepository.findByBno(boardFileDTO.getBno());
         Board board = result.orElseThrow();
         BoardFile boardFile = BoardFile.builder()
                 .bno(board)
-                .filename(boardFileDTO.getBno()+"_"+boardFileDTO.getFilename())
+                .filename(FileNameCoding(boardFileDTO.getBno(), boardFileDTO.getFilename()))
                 .build();
-
-        boardFileRepository.save(boardFile);
-    }
-
-    @Override
-    public void FileSave(int bno, MultipartFile multipartFile) {
-        File BoardFile = new File(bno+"_"+multipartFile.getOriginalFilename());
-        try{
+        File BoardFile = new File(FileNameCoding(boardFileDTO.getBno(), multipartFile.getOriginalFilename()));
+        try {
             multipartFile.transferTo(BoardFile);
-        }catch (Exception e) {
+            boardFileRepository.save(boardFile);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+
+    //수정
     @Override
-    public void FileNameModify(BoardFileDTO dto) {
-        Optional<Board> BoardResult = boardRepository.findByBno(dto.getBno());
+    public void FileTotalModify(BoardFileDTO BeforeFileDTO, BoardFileDTO InputFileDTO, MultipartFile multipartFile) {
+        Optional<Board> BoardResult = boardRepository.findByBno(InputFileDTO.getBno());
         Board board = BoardResult.orElseThrow();
-        Optional<BoardFile> FileResult = boardFileRepository.findByBno(board);
+        Optional<BoardFile> FileResult = boardFileRepository.findById(new BoardFileId(board, BeforeFileDTO.getFilename()));
         BoardFile boardFile = FileResult.orElseThrow();
-        if(Objects.equals(dto.getFilename(), "")) {
-            boardFileRepository.deleteById(new BoardFileId(board.getBno(),boardFile.getFilename()));
-        }else {
-            boardFile.FileChange(dto.getBno()+"_"+dto.getFilename());
-            boardFileRepository.save(boardFile);
-        }
-    }
-    @Override
-    public void FileModify(MultipartFile multipartFile,int bno) {
-        Optional<Board> BoardResult = boardRepository.findByBno(bno);
-        Board board = BoardResult.orElseThrow();
-        Optional<BoardFile> FileResult = boardFileRepository.findByBno(board);
-        BoardFile boardFile = FileResult.orElseThrow();
-        File Origin = new File(boardFile.getFilename());
+        File Origin = new File("C:\\UserProfile\\" + boardFile.getFilename());
         Origin.delete();
-        if(!multipartFile.isEmpty()) {
-            File NewBoardFile = new File(boardFile.getBno()+"_"+multipartFile.getOriginalFilename());
-            try{
-                multipartFile.transferTo(NewBoardFile);
-            }catch (Exception e) {
-                e.printStackTrace();
+        if (Objects.equals(InputFileDTO.getFilename(), "")) {
+            boardFileRepository.deleteById(new BoardFileId(board, BeforeFileDTO.getFilename()));
+        } else {
+            if (!multipartFile.isEmpty()) {
+                boardFileRepository.deleteById(new BoardFileId(board, BeforeFileDTO.getFilename()));
+                File NewBoardFile = new File(FileNameCoding(board.getBno(), multipartFile.getOriginalFilename()));
+                BoardFile ModifyFile = BoardFile.builder()
+                        .bno(board)
+                        .filename(FileNameCoding(board.getBno(), multipartFile.getOriginalFilename()))
+                        .build();
+                boardFileRepository.save(ModifyFile);
+                try {
+                    multipartFile.transferTo(NewBoardFile);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
+
+    //조회
     @Override
     public BoardFileDTO BoardFileInfo(int bno) {
         Optional<Board> BoardResult = boardRepository.findByBno(bno);
         Board board = BoardResult.orElseThrow();
         Optional<BoardFile> FileResult = boardFileRepository.findByBno(board);
-        if(FileResult.isPresent()) {
+        if (FileResult.isPresent()) {
             BoardFile boardFile = FileResult.orElseThrow();
-            return modelMapper.map(boardFile,BoardFileDTO.class);
-        }else {
+            return modelMapper.map(boardFile, BoardFileDTO.class);
+        } else {
             return null;
         }
     }

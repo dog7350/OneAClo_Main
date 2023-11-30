@@ -32,6 +32,7 @@ public class BoardCmtServiceImpl implements BoardCmtService{
     private final MembersRepository membersRepository;
     private final ModelMapper modelMapper;
 
+    //생성
     public void CmtSave(BoardCmtDTO boardCmtDTO) {
         BoardCmt boardCmt = BoardCmt.builder()
                 .content(boardCmtDTO.getContent())
@@ -45,34 +46,6 @@ public class BoardCmtServiceImpl implements BoardCmtService{
         boardCmt.CnoGroup(boardCmt.getCno());
         boardCmtRepository.save(boardCmt);
     }
-    public void CmtModify(BoardCmtDTO boardCmtDTO) {
-        Optional<BoardCmt> result = boardCmtRepository.findById(new BoardCmtId(boardCmtDTO.getBno().getBno(),boardCmtDTO.getCno()));
-        BoardCmt boardCmt = result.orElseThrow();
-        boardCmt.change(boardCmtDTO.getContent(),LocalDateTime.now());
-        boardCmtRepository.save(boardCmt);
-    }
-//    public List<BoardCmt> BoardCmtInfo(int bno) {
-//        Optional<Board> result = boardRepository.findByBno(bno);
-//        Board board = result.orElseThrow();
-//        Pageable pageable = PageRequest.of(0,100,Sort.by("cno").descending());
-//        return boardCmtRepository.findAllByBno(board,pageable);
-//    }
-
-    public PageResponseDTO<BoardCmtDTO> BoardCmtList(PageRequestDTO pageRequestDTO,int bno) {
-        Pageable pageable = PageRequest.of(pageRequestDTO.getPage() <=0? 0: pageRequestDTO.getPage()-1, 100, Sort.by("cno").ascending());
-
-        Page<BoardCmt> result = boardCmtRepository.searchCmt(pageable,bno);
-        List<BoardCmtDTO> dtoList = result.getContent().stream().map(boardCmt -> modelMapper.map(boardCmt,BoardCmtDTO.class)).collect(Collectors.toList());
-        return PageResponseDTO.<BoardCmtDTO>withAll()
-                .pageRequestDTO(pageRequestDTO)
-                .dtoList(dtoList)
-                .total((int)result.getTotalElements())
-                .build();
-    }
-    public void CmtDel(int bno, int cno) {
-        boardCmtRepository.deleteById(new BoardCmtId(bno,cno));
-    }
-
     @Override
     public void BoardCmtComment(BoardCmtDTO boardCmtDTO,String id) {
         Optional<Members> result = membersRepository.findById(id);
@@ -99,5 +72,30 @@ public class BoardCmtServiceImpl implements BoardCmtService{
             boardCmt.CnoGroup(boardCmtDTO.getCno());
             boardCmtRepository.save(boardCmt);
         }
+    }
+    
+    //수정
+    public void CmtModify(BoardCmtDTO boardCmtDTO) {
+        Optional<BoardCmt> result = boardCmtRepository.findById(new BoardCmtId(boardCmtDTO.getBno().getBno(),boardCmtDTO.getCno()));
+        BoardCmt boardCmt = result.orElseThrow();
+        boardCmt.change(boardCmtDTO.getContent(),LocalDateTime.now());
+        boardCmtRepository.save(boardCmt);
+    }
+
+    public void CmtDel(int bno, int cno) {
+        boardCmtRepository.deleteById(new BoardCmtId(bno,cno));
+    }
+
+    //페이징
+    public PageResponseDTO<BoardCmtDTO> BoardCmtList(PageRequestDTO pageRequestDTO,int bno) {
+        Pageable pageable = PageRequest.of(pageRequestDTO.getPage() <=0? 0: pageRequestDTO.getPage()-1, 100, Sort.by("cno").ascending());
+
+        Page<BoardCmt> result = boardCmtRepository.searchCmt(pageable,bno);
+        List<BoardCmtDTO> dtoList = result.getContent().stream().map(boardCmt -> modelMapper.map(boardCmt,BoardCmtDTO.class)).collect(Collectors.toList());
+        return PageResponseDTO.<BoardCmtDTO>withAll()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(dtoList)
+                .total((int)result.getTotalElements())
+                .build();
     }
 }

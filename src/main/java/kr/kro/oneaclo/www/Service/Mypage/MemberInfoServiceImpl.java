@@ -17,6 +17,7 @@ public class MemberInfoServiceImpl implements MemberInfoService {
 
     private final MembersRepository membersRepository;
     private final MemberInfoRepository memberInfoRepository;
+    //생성
     public void MemberInfoJoin(MemberDTO dto) {
 
         Optional<Members> result = membersRepository.findById(dto.getId());
@@ -36,10 +37,14 @@ public class MemberInfoServiceImpl implements MemberInfoService {
 
         memberInfoRepository.save(memberInfo);
     }
+    
+    //조회
     public boolean EmailCk(String email) {
         Optional<MemberInfo> memberInfo = memberInfoRepository.findById(email);
         return memberInfo.isPresent();
     }
+    
+    //수정
 
     public void PhoneChange(String NewPhone,String email) {
         Optional<MemberInfo> result = memberInfoRepository.findById(email);
