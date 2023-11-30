@@ -1,10 +1,9 @@
 package kr.kro.oneaclo.www.Service.QnA;
 
-import kr.kro.oneaclo.www.Entity.QnA.ChatLog;
+import kr.kro.oneaclo.www.Entity.Log.ChatLog;
 import kr.kro.oneaclo.www.Repository.QnA.ChatLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
 
 import java.util.List;
 

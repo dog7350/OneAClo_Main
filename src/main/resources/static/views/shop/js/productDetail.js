@@ -4,6 +4,25 @@ window.onload = () => {
     document.getElementById("totalPrice").innerHTML = document.getElementById("price").innerText;
 }
 
+const buy = (pno) => {
+    const price = document.getElementById("price").innerText;
+    const count = document.getElementById("count").innerText;
+
+    if (confirm("구매하시겠습니까?")) {
+        location.href="/order/buyPage?pno=" + pno + "&count=" + count;
+    } else {
+        alert("취소");
+    }
+}
+
+const deleteProduct = (pno) => {
+    if (confirm("삭제하시겠습니까?")) {
+        location.href="/admin/productDelete?pno=" + pno;
+    } else {
+        alert("취소");
+    }
+}
+
 const countAdd = () => {
     const span = document.getElementById("count");
     let price = parseInt(document.getElementById("price").innerText);

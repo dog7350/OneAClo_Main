@@ -75,7 +75,7 @@
                             <h4><a th:href="@{/shop/detail(pno=${products.get(num).getPno()})}" th:text="${products.get(num).getPname()}"></a></h4>
 
                             <p><span th:text="${products.get(num).getBcategory()}"></span> / <span th:text="${products.get(num).getMcategory()}"></span></p>
-                            <p>성별 : <span th:text="${products.get(num).getScategory()}"></span></p>
+                            <p>성별 : <span th:text="${(products.get(num).getScategory() == 'male') ? '남성' : '여성'}"></span></p>
                             <p>가격 : <span th:text="${products.get(num).getPrice()}"></span></p>
                         </div>
                     </div>

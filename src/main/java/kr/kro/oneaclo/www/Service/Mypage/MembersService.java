@@ -21,6 +21,8 @@ public interface MembersService {
 
     boolean UserCk(String UserId,String UserPw);
 
+    Members SearchUser(String UserId);
+
     void AuthChange(String id, String auth);
     void ActiveChange(String id, String active);
 }

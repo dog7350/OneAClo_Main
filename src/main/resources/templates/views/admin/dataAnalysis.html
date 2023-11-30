@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}">
+    <link rel="stylesheet" type="text/css" href="/views/admin/css/dataAnalysis.css">
+    <script src="/views/admin/js/dataAnalysis.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+    <section id="services" class="services">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>ONE.A.CLO</h2>
+                <p>데이터 분석</p>
+            </div>
+
+            <div class="row g-3">
+
+                <div id="ChartDiv">
+                    <div id="ChartBtns"></div>
+                    <canvas id="ChartDraw"></canvas>
+                </div>
+
+                <div id="DataBtns" class="align-items-stretch">
+                    <hr>
+                    <h3>회원 분석</h3>
+                    <br>
+                    <button class="btn btn-outline-warning" onclick="memberAG()">회원 성별·나이</button>
+                    <button class="btn btn-outline-danger" onclick="memberAddress()">회원 지역</button>
+                    <hr>
+                    <h3>차트 분석</h3>
+                    <br>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="ages">나이대</span>
+                        <input id="inputAge" class="form-control" name="age" placeholder="나이대 입력 (기본값 : ALL / 예시 : 20)" aria-label="inputAge" aria-describedby="ages">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="genders">성&nbsp;&nbsp;&nbsp;&nbsp;별</span>
+                        <input id="inputGender" class="form-control" name="gender" placeholder="성별 입력 (기본값 : ALL)" aria-label="inputAge" aria-describedby="genders">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="months">월&nbsp;&nbsp;&nbsp;&nbsp;별</span>
+                        <input id="inputMonth" class="form-control" name="gender" placeholder="월 입력 (기본값 : ALL / 예시 : 3)" aria-label="inputAge" aria-describedby="months">
+                    </div>
+                    <button class="btn btn-outline-primary" onclick="dataInquiry()">가장 관심있는 카테고리</button>
+                    <button class="btn btn-outline-primary" onclick="dataOrder()">가장 많이팔린 카테고리</button>
+                    <hr>
+                    <h3>분석한 데이터로 추천 상품을 검색합니다.</h3>
+                    <br>
+                    <button class="btn btn-outline-success" onclick="dataAnalysis()">데이터 분석</button>
+                    <hr>
+                </div>
+
+                <div id="DataFrames"></div>
+
+            </div>
+        </div>
+    </section>
+</html>

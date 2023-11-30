@@ -1,6 +1,10 @@
 package kr.kro.oneaclo.www.Controller.Shop;
 
+import com.siot.IamportRestClient.IamportClient;
+import jakarta.servlet.http.HttpServletResponse;
+import kr.kro.oneaclo.www.DTO.Shop.OrdersDTO;
 import kr.kro.oneaclo.www.DTO.Shop.ProductDTO;
+import kr.kro.oneaclo.www.Entity.Shop.Orders;
 import kr.kro.oneaclo.www.Service.Shop.ProductFileService;
 import kr.kro.oneaclo.www.Service.Shop.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +26,14 @@ public class ShopRestController {
     private final ProductFileService productFileService;
 
     @PostMapping("/productUpload")
-    public String ProductUpload(ProductDTO dto, @RequestParam("thumbnail") MultipartFile thumbnail, @RequestParam(value = "files", required = false) List<MultipartFile> files) {
+    public void ProductUpload(ProductDTO dto, @RequestParam("thumbnail") MultipartFile thumbnail, @RequestParam(value = "files", required = false) List<MultipartFile> files, HttpServletResponse res) {
         productService.ProductUpload(dto, thumbnail);
         productFileService.ProductFileUpload(dto.getPname(), files);
 
-        return "views/shop/adminShopList";
+        try {
+            res.sendRedirect("http://www.oneaclo.kro.kr/admin/productList");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

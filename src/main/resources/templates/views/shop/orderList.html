@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}">
+    <link rel="stylesheet" type="text/css" href="/views/shop/css/orderList.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+    <section id="services" class="services">
+        <div class="container" data-aos="fade-up">
+            <div class="section-title">
+                <h2>ONE.A.CLO</h2>
+                <p><span th:text="${id}"></span>의 주문 현황</p>
+
+                <table style="width: 100%;">
+                        <td style="width: 10%;">
+                            <th:block th:if="${pages.isFirst() == true}">
+                                <input class="btn btn-outline-secondary" type="button" value="<<" disabled>
+                                <input class="btn btn-outline-secondary" type="button" value="<" disabled>
+                            </th:block>
+                            <th:block th:if="${pages.isFirst() == false}">
+                                <button class="btn btn-outline-primary" th:onclick="|location.href='@{/order/orderList(pageNumber=0)}'|"><<</button>
+                                <button class="btn btn-outline-primary" th:onclick="|location.href='@{/order/orderList(pageNumber=${pages.getNumber() - 1})}'|"><</button>
+                            </th:block>
+                        </td>
+
+                        <td style="width: 39.9999%; text-align: center;">
+                            <div th:if="${pages.getTotalElements() >= 1}">
+                                <div th:each="num : ${ #numbers.sequence(startPage + 1, endPage) }" style="display: inline-block;">
+                                    <div th:if="${num.toString() == #numbers.formatInteger(pageNumber + 1, 0)}">
+                                        <button class="btn btn-outline-secondary" th:onclick="|location.href='@{/order/orderList(pageNumber=${num - 1})}'|" disabled>
+                                            <span th:text="${num}"></span>
+                                        </button>
+                                    </div>
+                                    <div th:if="${num.toString() != #numbers.formatInteger(pageNumber + 1, 0)}">
+                                        <button class="btn btn-outline-info" th:onclick="|location.href='@{/order/orderList(pageNumber=${num - 1})}'|">
+                                            <span th:text="${num}"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td style="width: 10%;">
+                            <th:block th:if="${pages.hasNext() == false}">
+                                <input class="btn btn-outline-secondary" type="button" value=">" disabled>
+                                <input class="btn btn-outline-secondary" type="button" value=">>" disabled>
+                            </th:block>
+                            <th:block th:if="${pages.hasNext() == true}">
+                                <button class="btn btn-outline-primary" th:onclick="|location.href='@{/order/orderList(pageNumber=${pages.getNumber() + 1})}'|">></button>
+                                <button class="btn btn-outline-primary" th:onclick="|location.href='@{/order/orderList(pageNumber=${pages.getTotalPages() - 1})}'|">>></button>
+                            </th:block>
+                        </td> <!-- 페이징 -->
+                    </tr>
+                </table>
+            </div>
+
+            <div class="row">
+
+                <th:block th:if="${pages.getTotalElements() >= 1}">
+                    <div th:if="${pages.getTotalElements() >= 1}" th:each="num : ${ #numbers.sequence(0, orders.size() - 1) }" class="d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="icon-box" style="width: 100%;">
+                            <div style="display: flex;" type="button" th:onclick="|location.href='@{/shop/detail?pno=}${orders.get(num).getPno().getPno()}'|">
+                                <img th:src="@{/upload/file/}+${orders.get(num).getPno().getImg()}" style="margin-right: 10px; width: 200px; height: 200px;">
+                                <p class="innerPtag">
+                                    <span class="innerTitle">상품 정보</span><br><br>
+                                    <b>상품 번호</b> : <span th:text="${orders.get(num).getPno().getPno()}"></span><br>
+                                    <b>상품명</b> : <span th:text="${orders.get(num).getPno().getPname()}"></span><br>
+                                    <b>카테고리</b> : <span th:text="${orders.get(num).getPno().getBcategory()}"></span> > <span th:text="${orders.get(num).getPno().getMcategory()}"></span> > <span th:text="${(orders.get(num).getPno().getScategory() == 'male') ? '남성' : '여성'}"></span><br>
+                                    <b>가격</b> : <span th:text="${orders.get(num).getPno().getPrice()}"></span><br>
+                                    <b>주문 개수</b> : <span th:text="${orders.get(num).getOcount()}"></span><br>
+                                    <b>총합</b> : <span th:text="${orders.get(num).getTotalprice()}"></span>
+                                </p>
+                                <p class="innerPtag">
+                                    <span class="innerTitle">주문 정보</span><br><br>
+                                    <b>주문 번호</b> : <span th:text="${orders.get(num).getOno()}"></span><br>
+                                    <b>주문 시간</b> : <span th:text="${orders.get(num).getOtime()}"></span><br>
+                                    <b>주문자 ID</b> : <span th:text="${orders.get(num).getOid().getId()}"></span><br>
+                                    <b>현재 주문 상태</b> : <span th:text="${sMap.get(orders.get(num).getOstatus())}"></span>
+                                </p>
+                                <p class="innerPtag">
+                                    <span class="innerTitle">수령자 정보</span><br><br>
+                                    <b>수령자</b> : <span th:text="${orders.get(num).getReceiver()}"></span><br>
+                                    <b>전화번호</b> : <span th:text="${orders.get(num).getPhone()}"></span><br>
+                                    <b>이메일</b> : <span th:text="${orders.get(num).getEmail()}"></span><br>
+                                    <b>주소</b> : <span th:text="${orders.get(num).getZipcode()}"></span>&nbsp;&nbsp;
+                                    <span th:text="${orders.get(num).getAddress()}"></span>,&nbsp;<span th:text="${orders.get(num).getDetailaddr()}"></span>
+                                </p>
+                            </div>
+                            <hr>
+                            <div>
+                                <div>
+                                    <button th:if="${!orders.get(num).getOstatus().equals('Complate') && #lists.contains(s1, orders.get(num).getOstatus())}" class="btn btn-outline-primary" th:ono="${orders.get(num).getOno()}" th:onclick="UserStatusChange(this.getAttribute('ono'), 'Complate')">수취 확인</button>
+                                    <button class="btn btn-outline-warning" th:ono="${orders.get(num).getOno()}" th:onclick="UserStatusChange(this.getAttribute('ono'), 'ReturnChecking')">교환 신청</button>
+                                    <button class="btn btn-outline-danger" th:ono="${orders.get(num).getOno()}" th:onclick="UserStatusChange(this.getAttribute('ono'), 'DeleteChecking')">반품 신청</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+
+                <th:block th:if="${pages.getTotalElements() <= 0}">
+                    <div class="d-flex align-items-stretch" type="button" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="icon-box" style="width: 100%;">
+                            <div class="icon"><i class="">없음</i></div>
+                            <br><br>
+                            <h4><a href=""></a>주문 없음</h4>
+                        </div>
+                    </div>
+                </th:block>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="/views/admin/js/orderList.js"></script>
+</html>
