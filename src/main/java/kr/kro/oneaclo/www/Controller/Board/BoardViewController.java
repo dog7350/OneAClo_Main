@@ -30,7 +30,6 @@ public class BoardViewController {
 
 
     private void UserModelInfo(HttpSession session, Model model, String want) {model.addAttribute(want, tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"), want));}
-    private String UserString(HttpSession session,String want) {return tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"),want);}
 
     @GetMapping("/list")
     public String list(Model model, PageRequestDTO pageRequestDTO) {
@@ -43,7 +42,7 @@ public class BoardViewController {
     }
 
     @GetMapping("/p/BoardInfo")
-    public String BoardInfo(@RequestParam int bno, Model model, HttpSession session, PageRequestDTO pageRequestDTO, HttpServletResponse res) {
+    public String BoardInfo(@RequestParam int bno, Model model, HttpSession session, PageRequestDTO pageRequestDTO) {
         BoardDTO dto = boardService.BoardInfo(bno);
         model.addAttribute("dto",dto);
 

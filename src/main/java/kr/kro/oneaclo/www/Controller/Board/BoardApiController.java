@@ -35,7 +35,6 @@ public class BoardApiController {
     private final BoardCmtService boardCmtService;
     private final BoardFileService boardFileService;
 
-    private void UserModelInfo(HttpSession session, Model model, String want) {model.addAttribute(want, tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"), want));}
     private String UserString(HttpSession session,String want) {return tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"),want);}
     //생성
     @PostMapping("/p/BoardSave")
@@ -91,9 +90,8 @@ public class BoardApiController {
 
     private String FileNameCoding(int bno,String Origin) {
         String today = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyHHddHHmmss"));
-        String fileName = "Board_" + bno + "_" + today + "_" + Origin;
-//        Path savePath = Paths,get(path+"/"+fileName);
-        return fileName;
+        //        Path savePath = Paths,get(path+"/"+fileName);
+        return "Board_" + bno + "_" + today + "_" + Origin;
     }
     @PostMapping("/p/BoardModifySave")
     public String BoardModifySave(BoardDTO boardDTO,BoardFileDTO boardFileDTO,@RequestParam MultipartFile boardfile) {

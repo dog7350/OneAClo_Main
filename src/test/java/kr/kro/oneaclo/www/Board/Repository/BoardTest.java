@@ -2,7 +2,6 @@ package kr.kro.oneaclo.www.Board.Repository;
 
 import kr.kro.oneaclo.www.Entity.Board.*;
 import kr.kro.oneaclo.www.Entity.Board.IdClass.BoardCmtId;
-import kr.kro.oneaclo.www.Entity.Board.IdClass.BoardFileId;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import kr.kro.oneaclo.www.Repository.Board.*;
 import kr.kro.oneaclo.www.Repository.Mypage.MembersRepository;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
-import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest

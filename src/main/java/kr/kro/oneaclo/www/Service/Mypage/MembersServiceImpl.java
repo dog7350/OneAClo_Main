@@ -57,10 +57,7 @@ public class MembersServiceImpl implements MembersService{
     public boolean UserCk(String UserId,String UserPw) {
         Optional<Members> result = membersRepository.findById(UserId);
         Members members = result.orElseThrow();
-        if(bCryptPasswordEncoder.matches(UserPw,members.getPw())) {
-            return true;
-        }
-        return false;
+        return bCryptPasswordEncoder.matches(UserPw, members.getPw());
     }
 
     //이메일
