@@ -59,18 +59,17 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="list:${BoardList.dtoList}">
-                                    <th scope="row" th:if="${list.btype =='n' && list.step == 0}">[[${list.bno}]]</th>
+                                    <th scope="row" th:if="${list.btype =='f' && list.step == 0}">[[${list.bno}]]</th>
                                     <th class="text-danger" scope="row" th:if="${list.btype =='a'}">공지글</th>
-                                    <th scope="row" th:if="${list.btype =='n' && list.step != 0}">
+                                    <th scope="row" th:if="${list.btype =='f' && list.step != 0}">
                                             <i class="bi-arrow-up-left-square-fill" th:id="StepIcon1"></i>
                                     </th>
 
                                     <td>
-                                        <a class="text-secondary" onclick="inqUp()" th:data-Bno="${list.bno}" th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" th:if="${list.btype =='n' && list.step == 0}">[[${list.title}]]</a>
+                                        <a class="text-secondary" onclick="inqUp()" th:data-Bno="${list.bno}" th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" th:if="${list.btype =='f' && list.step == 0}">[[${list.title}]]</a>
                                         <a class="text-danger"
-                                           th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" th:if="${list.btype =='a' && list.step == 0}">[[${list.title}]]
-                                            [<span>[[${list.inquiry}]]</span>]</a>
-                                        <a class="text-secondary" onclick="inqUp()" th:id="StepTitle1" th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" th:if="${list.btype =='n' && list.step != 0}">[[${list.title}]]</a>
+                                           th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" th:if="${list.btype =='a' && list.step == 0}">[[${list.title}]]</a>
+                                        <a class="text-secondary" onclick="inqUp()" th:id="StepTitle1" th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" th:if="${list.btype =='f' && list.step != 0}">[[${list.title}]]</a>
                                     </td>
 
                                     <td th:if="${list.step == 0}">[[${list.writer.id}]]</td>
