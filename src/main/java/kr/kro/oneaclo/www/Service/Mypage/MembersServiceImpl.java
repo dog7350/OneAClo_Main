@@ -93,7 +93,7 @@ public class MembersServiceImpl implements MembersService{
     public  void ProfileChange(String id,MultipartFile NewProfile) {
         Optional<Members> result = membersRepository.findById(id);
         Members members = result.orElseThrow();
-        File Origin = new File(members.getProfile());
+        File Origin = new File("C:\\UserProfile\\"+members.getProfile());
         Origin.delete();
         if(!NewProfile.isEmpty()) {
             String[] FileName = Objects.requireNonNull(NewProfile.getOriginalFilename()).split("\\.");
