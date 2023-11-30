@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}">
+    <section id="portfolio-details" class="portfolio-details">
+        <div class="container">
+            <br>
+            <div class="section-title">
+                <h2><span th:text="${product.getBcategory()}"></span> > <span th:text="${product.getMcategory()}"></span> > <span th:text="${product.getScategory()}"></span></h2>
+                <p th:text="${product.getPname()}"></p>
+            </div>
+
+            <div class="row gy-4">
+                <div class="col-lg-8">
+                    <div class="portfolio-details-slider swiper">
+                        <div class="swiper-wrapper align-items-center">
+
+                            <div class="swiper-slide">
+                                <img width="80px" height="400px" th:src="@{/upload/file/}+${product.getImg()}" alt="">
+                            </div>
+
+                            <th:block th:if="${files.size() >= 1}">
+                                <div class="swiper-slide" th:each="num : ${ #numbers.sequence(0, files.size() - 1) }">
+                                    <img th:src="@{/upload/file/}+${files.get(num).getFilename()}" alt="" style="width: 100px; height: 100px;">
+                                </div>
+                            </th:block>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="portfolio-info">
+                        <h3 th:text="${product.getPname()}"></h3>
+
+                        <ul>
+                            <li><strong>정상가</strong> &nbsp; <span id="price" th:text="${product.getPrice()}"></span></li>
+                            <hr>
+                            <li><strong>주문 개수</strong> &nbsp; <button class="btn btn-outline-danger" onclick="countSub()">-</button> &nbsp; <span id="count">1</span> &nbsp; <button class="btn btn-outline-info" onclick="countAdd()">+</button></li>
+                            <hr>
+                            <li><strong>총 금액 </strong> &nbsp; <span id="totalPrice"></span> </li>
+                        </ul>
+                    </div>
+                    <div class="portfolio-description">
+                        <th:block th:if="${auth == 'a' || auth == 'm'}">
+                            <input class="btn btn-outline-danger" type="button" value="상품삭제" th:onclick="|location.href='@{/admin/shopDelete(pno=${product.getPno()})}'|">
+                            <input class="btn btn-outline-success" type="button" value="상품수정" th:onclick="|location.href='@{/admin/shopModify(pno=${product.getPno()})}'|">
+                            <hr>
+                        </th:block>
+                        <button class="btn btn-warning" type="button">장바구니</button>
+                        <button class="btn btn-success" type="button">바로구매</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="portfolio-details-slider swiper">
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <p>이미지 swiper기능 들어갈 예정</p>
+        </div>
+        <hr>
+        <div class="container">
+            <div class="cta">
+                <a class="cta-btn" href="#">상세정보</a>
+                <a class="cta-btn" href="#">상품리뷰</a>
+                <a class="cta-btn" href="#">교환/반품/배송</a>
+            </div>
+        </div>
+        <hr>
+        <div class="container">
+            <h1>상세정보</h1>
+
+            <th:block th:if="${files.size() >= 1}">
+                <div class="swiper-slide" th:each="num : ${ #numbers.sequence(0, files.size() - 1) }">
+                    <img th:src="@{/upload/file/}+${files.get(num).getFilename()}" alt="" style="width: 100%; height: 100%;">
+                </div>
+            </th:block>
+
+            <div id="contentDiv" th:text="${product.getContent()}"></div>
+        </div>
+        <hr>
+        <div class="container">
+            <p>댓글게시판</p>
+        </div>
+        <hr>
+        <div class="container">
+            <p>교환/반품/배송 안내</p>
+        </div>
+    </section><!-- End Portfolio Details Section -->
+
+    <script src="/views/shop/js/productDetail.js"></script>
+</html>

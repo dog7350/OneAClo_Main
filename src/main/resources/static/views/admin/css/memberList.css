@@ -1,0 +1,30 @@
+.authOptionDiv {
+    position: absolute;
+    display: none;
+    z-index: 5;
+    margin-top: -10px;
+    margin-left: 15px;
+    width: 100px;
+}
+
+.activeOptionDiv {
+    position: absolute;
+    display: none;
+    z-index: 5;
+    margin-top: -10px;
+    margin-left: 15px;
+    width: 100px;
+}
+
+.tdBtn:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.adminHref {
+    text-decoration: none;
+    color: blue;
+}
+.adminHref:hover {
+    color: red;
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>One.A.Clo</title>
+        <script>
+            window.onload = () => {
+                const url = document.getElementById("url").value;
+                const msg = document.getElementById("msg").value;
+
+                alert(msg);
+                location.href=url;
+            }
+        </script>
+    </head>
+
+    <body>
+        <input id="url" type="text" th:value="${url}" hidden>
+        <input id="msg" type="text" th:value="${msg}" hidden>
+    </body>
+</html>

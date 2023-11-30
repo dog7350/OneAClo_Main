@@ -2,6 +2,7 @@ package kr.kro.oneaclo.www.Controller.Mypage;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import kr.kro.oneaclo.www.Common.JWT.JwtProperties;
 import kr.kro.oneaclo.www.Service.Mypage.MemberInfoService;
 import kr.kro.oneaclo.www.Service.Mypage.MembersService;
 import kr.kro.oneaclo.www.Common.TokenProcess;

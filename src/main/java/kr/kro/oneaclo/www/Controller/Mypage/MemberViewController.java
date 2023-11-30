@@ -21,6 +21,7 @@ public class MemberViewController {
         }
             return "redirect:/";
     }
+
     @GetMapping("/joinform")
     public String joinform(HttpSession session) {
         if(session.getAttribute("UserInfo")==null) {
@@ -28,6 +29,7 @@ public class MemberViewController {
         }
             return "redirect:/";
     }
+
     @GetMapping("/p/PasswordChange")
     public String PasswordChange() {
         return "views/mypage/info/PasswordChange";
@@ -50,16 +52,20 @@ public class MemberViewController {
         }
         return "views/mypage/info/UserInfo";
     }
+
     @GetMapping("/p/ProfileCh")
     public String ProfileCh() {
         return "views/mypage/info/ProfileCh";
     }
+
     @GetMapping("/p/AddressCh")
     public String AddressCh() {
         return "views/mypage/info/AddressCh";
     }
     @GetMapping("/BlockUser")
-    public String BlockUser() {
-        return "";
+    public String BlockUser(Model model) {
+        model.addAttribute("url", "/");
+        model.addAttribute("msg", "정지된 아이디 입니다.");
+        return "views/common/message";
     }
 }
