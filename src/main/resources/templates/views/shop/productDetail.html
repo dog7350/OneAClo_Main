@@ -114,9 +114,9 @@
         <div id="ReviewCon" class="visually-hidden">
             <hr>
             <div class="mt-5">
-                <form action="/shop/" method="post" name="ReviewForm">
+                <form action="/shop/ReviewSave" method="post" name="ReviewForm" target="ReviewTarget">
                     <div class="input-group-text">
-                        <input type="hidden" name="product" th:value="${product}">
+                        <input type="hidden" name="pno" th:value="${product.pno}">
                         <div class="input-group">
                             <textarea class="form-control col-sm-5" name="content" id="InputContent" rows="8" maxlength="100" placeholder="상세 리뷰" style="resize: none"></textarea>
                         </div>
@@ -219,7 +219,7 @@
             <br class="mt-5">
             <br class="mt-5">
         </div>
-        <iframe></iframe>
+        <iframe id="ReviewTarget" name="ReviewTarget" style="display: none;"></iframe>
     </section><!-- End Portfolio Details Section -->
 
     <script src="/views/shop/js/productDetail.js"></script>

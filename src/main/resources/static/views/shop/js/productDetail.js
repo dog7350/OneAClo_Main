@@ -69,6 +69,6 @@ function ReviewSave() {
     if(content === "") {
         alert("내용을 입력해 주세요")
     }else {
-        document.forms['ReviewSave'].submit();
+        document.forms['ReviewForm'].submit();
     }
 }
