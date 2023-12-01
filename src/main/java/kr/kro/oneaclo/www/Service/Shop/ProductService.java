@@ -1,5 +1,6 @@
 package kr.kro.oneaclo.www.Service.Shop;
 
+import kr.kro.oneaclo.www.DTO.Shop.ProductCmtDTO;
 import kr.kro.oneaclo.www.DTO.Shop.ProductDTO;
 import kr.kro.oneaclo.www.Entity.Shop.Product;
 import org.springframework.data.domain.Page;
@@ -20,4 +21,8 @@ public interface ProductService {
     Page<Product> SearchProductPage(int pageNumber, int elementCount, String searchOption, String searchValue);
 
     Product ProductDetail(int pno);
+
+    int ReviewSave(ProductCmtDTO dto,String id);
+
+    void CnoSave(int cno,int pno);
 }

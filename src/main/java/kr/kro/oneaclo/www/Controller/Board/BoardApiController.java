@@ -35,7 +35,7 @@ public class BoardApiController {
     private final BoardCmtService boardCmtService;
     private final BoardFileService boardFileService;
 
-    private String UserString(HttpSession session,String want) {return tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"),want);}
+    private String UserString(HttpSession session,String want) {return tokenProcess.getMembersToken(String.valueOf(session.getAttribute("UserInfo")),want);}
     //생성
     @PostMapping("/p/BoardSave")
     private String BoardSave(BoardDTO DTO, BoardFileDTO FileDTO, HttpSession session, @RequestParam MultipartFile boardfile) {

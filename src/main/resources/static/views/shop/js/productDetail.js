@@ -70,5 +70,6 @@ function ReviewSave() {
         alert("내용을 입력해 주세요")
     }else {
         document.forms['ReviewForm'].submit();
+        document.getElementById("ReviewCon").classList.add('visually-hidden');
     }
 }

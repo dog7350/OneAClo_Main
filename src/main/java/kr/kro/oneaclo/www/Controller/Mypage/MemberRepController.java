@@ -26,7 +26,7 @@ public class MemberRepController {
     private final MemberInfoService memberInfoService;
     private final TokenProcess tokenProcess;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private String UserString(HttpSession session,String want) {return tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"),want);}
+    private String UserString(HttpSession session,String want) {return tokenProcess.getMembersToken(String.valueOf(session.getAttribute("UserInfo")),want);}
     private void BoolSetUp(HttpServletResponse res,boolean Bool) throws IOException {
         try {
             res.setContentType("application/json");

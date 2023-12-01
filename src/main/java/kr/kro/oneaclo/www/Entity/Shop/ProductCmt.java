@@ -7,6 +7,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Table(name = "productcmt")
 @IdClass(ProductCmtId.class)
@@ -16,6 +17,7 @@ import java.sql.Timestamp;
 @DynamicInsert
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
+@SequenceGenerator(name = "CmtSeq",sequenceName = "productcmt_seq",initialValue = 1,allocationSize = 1)
 public class ProductCmt {
     @Id
     @ManyToOne
@@ -24,6 +26,7 @@ public class ProductCmt {
 
     @Id
     @Column(name = "cno", nullable = false, updatable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "CmtSeq")
     private int cno;
 
     @ManyToOne
@@ -52,4 +55,11 @@ public class ProductCmt {
     @Column(name = "indent", columnDefinition = "NUMBER(4)")
     @ColumnDefault("0")
     private int indent;
+
+    public void CnoGroupSave(int cno,String Secret) {
+        Date date = new Date();
+        this.ctime = new Timestamp(date.getTime());
+        this.cnogroup = cno;
+        this.secret = Secret;
+    }
 }

@@ -19,7 +19,7 @@ public class BoardRepController {
     private final BoardService boardService;
     private final TokenProcess tokenProcess;
     private final BoardReportRepository boardReportRepository;
-    private String UserString(HttpSession session, String want) {return tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"),want);}
+    private String UserString(HttpSession session, String want) {return tokenProcess.getMembersToken(String.valueOf(session.getAttribute("UserInfo")),want);}
     @GetMapping("/p/BoardInqUp")
     public void BoardInqUp(@RequestParam int bno) {
         boardService.InqUp(bno);

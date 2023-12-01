@@ -29,7 +29,8 @@ public class BoardViewController {
     private final BoardFileService boardFileService;
 
 
-    private void UserModelInfo(HttpSession session, Model model, String want) {model.addAttribute(want, tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"), want));}
+
+    private void UserModelInfo(HttpSession session, Model model, String want) {model.addAttribute(want, tokenProcess.getMembersToken(String.valueOf(session.getAttribute("UserInfo")), want));}
 
     @GetMapping("/list")
     public String list(Model model, PageRequestDTO pageRequestDTO) {
@@ -62,7 +63,7 @@ public class BoardViewController {
     }
     @GetMapping("/p/BoardWrite")
     public String BoardWrite(Model model, HttpSession session) {
-        String token = (String) session.getAttribute("UserInfo");
+        String token = String.valueOf(session.getAttribute("UserInfo"));
         model.addAttribute("Auth",tokenProcess.getMembersToken(token,"auth"));
         return "views/board/BoardWrite";
     }

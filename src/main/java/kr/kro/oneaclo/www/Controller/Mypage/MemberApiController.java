@@ -25,7 +25,7 @@ public class MemberApiController {
     private final MembersService membersService;
     private final MemberInfoService memberInfoService;
     private final TokenProcess tokenProcess;
-    private String UserString(HttpSession session,String want) {return tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"),want);}
+    private String UserString(HttpSession session,String want) {return tokenProcess.getMembersToken(String.valueOf(session.getAttribute("UserInfo")),want);}
     @PostMapping(value = "/join")
     public String join(MemberDTO dto,@RequestParam MultipartFile UserProfile) throws Exception{
         String result = membersService.MembersJoin(dto,UserProfile);

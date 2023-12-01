@@ -2,9 +2,15 @@ package kr.kro.oneaclo.www.Service.Shop;
 
 import jakarta.transaction.Transactional;
 import kr.kro.oneaclo.www.Common.FileUtils;
+import kr.kro.oneaclo.www.DTO.Shop.ProductCmtDTO;
 import kr.kro.oneaclo.www.DTO.Shop.ProductDTO;
+import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import kr.kro.oneaclo.www.Entity.Shop.Product;
+import kr.kro.oneaclo.www.Entity.Shop.ProductCmt;
+import kr.kro.oneaclo.www.Entity.Shop.ProductCmtId;
 import kr.kro.oneaclo.www.Entity.Shop.ProductFile;
+import kr.kro.oneaclo.www.Repository.Mypage.MembersRepository;
+import kr.kro.oneaclo.www.Repository.Shop.ProductCmtRepository;
 import kr.kro.oneaclo.www.Repository.Shop.ProductFileRepository;
 import kr.kro.oneaclo.www.Repository.Shop.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +21,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +33,8 @@ public class ProductServiceImpl implements ProductService {
     private final FileUtils fileUtils;
     private final ProductRepository productRepository;
     private final ProductFileRepository productFileRepository;
+    private final MembersRepository membersRepository;
+    private final ProductCmtRepository productCmtRepository;
 
     public void ProductUpload (ProductDTO dto, MultipartFile thumbnail) {
         String imgName = fileUtils.ShopFileUpload(thumbnail);
@@ -63,6 +74,40 @@ public class ProductServiceImpl implements ProductService {
 
     public Product ProductDetail(int pno) {
         return productRepository.findByPno(pno).get();
+    }
+
+    public int ReviewSave(ProductCmtDTO dto,String id) {
+        Optional<Product> ProductResult = productRepository.findByPno(dto.getPno());
+        Product product = ProductResult.orElseThrow();
+        Optional<Members> MemberResult = membersRepository.findById(id);
+        Members members = MemberResult.orElseThrow();
+        ProductCmt productCmt = ProductCmt.builder()
+                .pno(product)
+                .writer(members)
+                .ccontent(dto.getCcontent())
+                .step(0)
+                .indent(0)
+                .ctime(null)
+                .secret(dto.getSecret())
+                .build();
+
+        productCmtRepository.save(productCmt);
+        return productCmt.getCno();
+
+    }
+
+    @Override
+    public void CnoSave(int cno,int pno) {
+        Optional<Product> ProductResult = productRepository.findByPno(pno);
+        Product product = ProductResult.orElseThrow();
+        Optional<ProductCmt> CmtResult = productCmtRepository.findById(new ProductCmtId(product,cno));
+        ProductCmt productCmt = CmtResult.orElseThrow();
+        if(CmtResult.get().getSecret()==null) {
+            productCmt.CnoGroupSave(cno,"f");
+        }else {
+            productCmt.CnoGroupSave(cno,productCmt.getSecret());
+        }
+        productCmtRepository.save(productCmt);
     }
 
     @Transactional
