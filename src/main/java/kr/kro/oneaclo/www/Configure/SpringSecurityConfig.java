@@ -36,6 +36,7 @@ public class SpringSecurityConfig {
                         .usernameParameter("id")
                         .passwordParameter("pw")
                         .successHandler(userHandler)
+
                 )
                 .logout(logout->logout
                         .logoutUrl("/mypage/p/logout")

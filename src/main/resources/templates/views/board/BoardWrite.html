@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script th:inline="javascript" th:src="@{/views/board/js/BoardWrite.js}"></script>
+    <link rel="stylesheet" href="/views/board/css/BoardWrite.css">
+
+    <section class="contact" id="contact">
+        <div class="container" data-aos="fade-up">
+            <div class="section-title">
+                <h2>Contact</h2>
+                <p>게시글 작성</p>
+            </div>
+            <div class="container">
+                <div class="row-6">
+                    <div class="card-body">
+                        <form action="/board/p/BoardSave" method="post" name="SaveForm" enctype="multipart/form-data">
+                            <select type="text" name="btype" th:if="${Auth == 'a'}" class="input-group fs-5 w-50">
+                                <option value="n">일반글</option>
+                                <option value="a">공지</option>
+                            </select>
+                            <hr>
+                            <div class="input-group mb-3">
+                                <label for="InputTitle" class="input-group-text fontSize">제목</label>
+                                <input type="text" id="InputTitle" name="title" class="form-control" placeholder="제목 작성">
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <label for="InputContent" class="input-group-text fontSize">내용</label>
+                                <textarea id="InputContent" class="form-control col-sm-5" rows="20" name="content" placeholder="내용 작성"></textarea>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <label for="InputFile" class="input-group-text fontSize">첨부 파일</label>
+                                <input type="file" id="InputFile" name="boardfile" onchange="readURL(this)">
+                                <input type="text" id="InputName" class="form-control" name="filename" readonly>
+                            </div>
+                            <button type="button" onclick="BoardCk()">작성</button> &nbsp;
+                            <button type="button" onclick="location.href='/board/list'">취소</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content MyModal">
+                            <div class="modal-header">
+                                <h5 class="modal-title">게시글을 저장하시겠습니까?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>확인을 누르시면 저장됩니다.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" onclick="ModalSave()">저장</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</html>

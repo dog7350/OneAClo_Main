@@ -9,6 +9,7 @@ import kr.kro.oneaclo.www.Common.TokenProcess;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,8 +26,7 @@ public class MemberRepController {
     private final MemberInfoService memberInfoService;
     private final TokenProcess tokenProcess;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-
+    private String UserString(HttpSession session,String want) {return tokenProcess.getMembersToken((String) session.getAttribute("UserInfo"),want);}
     private void BoolSetUp(HttpServletResponse res,boolean Bool) throws IOException {
         try {
             res.setContentType("application/json");
@@ -50,22 +50,12 @@ public class MemberRepController {
             e.printStackTrace();
         }
     }
-    private String IdSearch(HttpSession session) {
-        String token = (String) session.getAttribute("UserInfo");
-        return tokenProcess.getMembersToken(token,"id");
-    }
-
-    private String EmailSearch(HttpSession session) {
-        String token = (String) session.getAttribute("UserInfo");
-        return tokenProcess.getMembersToken(token,"email");
-    }
 
     @GetMapping("/IdCk")
     public void IdCk(@RequestParam String id, HttpServletResponse res) throws IOException {
         boolean bool = membersService.IdCk(id);
         BoolSetUp(res, bool);
     }
-
     @GetMapping("/EmailGetList")
     public void EmailGetList(@RequestParam String email,HttpServletResponse res) throws IOException {
         boolean bool = memberInfoService.EmailCk(email);
@@ -87,27 +77,24 @@ public class MemberRepController {
     }
     @GetMapping("/p/PasswordCk")
     public String PasswordCk(@RequestParam String Origin,HttpSession session) {
-        String token = (String) session.getAttribute("UserInfo");
-        String Pwd = tokenProcess.getMembersToken(token,"pw");
-        if(bCryptPasswordEncoder.matches(Origin,Pwd)) {
+        if(bCryptPasswordEncoder.matches(Origin,UserString(session,"pw"))) {
             return "success";
         }else {
             return "fail";
         }
     }
-
     @PostMapping("/p/NewPhoneNumber")
     public void NewPhoneNumber(@RequestParam String NewPhone, HttpSession session) {
-        memberInfoService.PhoneChange(NewPhone,EmailSearch(session));
+        memberInfoService.PhoneChange(NewPhone,UserString(session,"email"));
     }
 
     @PostMapping("/p/NewProfile")
     public void ProfileChange(@RequestParam MultipartFile NewProfile, HttpSession session) {
-        membersService.ProfileChange(IdSearch(session),NewProfile);
+        membersService.ProfileChange(UserString(session,"id"),NewProfile);
     }
 
     @PostMapping("/p/NickChange")
     public void NickChange(@RequestParam String NickName,HttpSession session) {
-        membersService.NickChange(IdSearch(session),NickName);
+        membersService.NickChange(UserString(session,"id"),NickName);
     }
 }

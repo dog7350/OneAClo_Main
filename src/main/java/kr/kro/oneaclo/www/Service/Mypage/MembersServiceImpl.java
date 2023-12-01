@@ -52,6 +52,8 @@ public class MembersServiceImpl implements MembersService{
 
         return "success";
     }
+
+    //조회
     public boolean IdCk(String UserId) {
         Optional<Members> members = membersRepository.findById(UserId);
         return members.isPresent();
@@ -71,6 +73,7 @@ public class MembersServiceImpl implements MembersService{
         mailSender.send(msg);
     }
 
+    // 수정
     public void PwChange(String ChangePw,String id) {
         Optional<Members> result = membersRepository.findById(id);
         Members members = result.orElseThrow();
@@ -88,7 +91,7 @@ public class MembersServiceImpl implements MembersService{
     public  void ProfileChange(String id,MultipartFile NewProfile) {
         Optional<Members> result = membersRepository.findById(id);
         Members members = result.orElseThrow();
-        File Origin = new File(members.getProfile());
+        File Origin = new File("C:\\UserProfile\\"+members.getProfile());
         Origin.delete();
         if(!NewProfile.isEmpty()) {
             String[] FileName = Objects.requireNonNull(NewProfile.getOriginalFilename()).split("\\.");
@@ -104,6 +107,7 @@ public class MembersServiceImpl implements MembersService{
         }
         membersRepository.save(members);
     }
+    // 삭제
     public void UserDel(String id) {
         membersRepository.deleteById(id);
     }

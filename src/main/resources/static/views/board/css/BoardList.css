@@ -1,0 +1,32 @@
+.BoardWriteBtn {
+    background: rgb(128, 128, 128);
+    border: 0;
+    color: white;
+    transition: 0.4s;
+    border-radius: 4px;
+    width: 100px;
+    height: 44px;
+    font-size: 15pt;
+    float: left;
+}
+
+.BoardWriteBtn:hover {
+    background: black;
+}
+
+.SearchForm {
+    width: 50%;
+}
+
+.Cur {
+    cursor: pointer;
+}
+
+#StepIcon1 {
+    margin-left: 15%;
+}
+
+#StepTitle1 {
+    margin-left: 10%;
+}
+
