@@ -3,7 +3,6 @@ package kr.kro.oneaclo.www.Controller.Board;
 
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.TokenProcess;
-import kr.kro.oneaclo.www.Repository.Board.BoardReportRepository;
 import kr.kro.oneaclo.www.Service.Board.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
