@@ -7,6 +7,8 @@ import kr.kro.oneaclo.www.Repository.Logs.OrderLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 @RequiredArgsConstructor
 public class OrderLogServiceImpl implements OrderLogService {
@@ -14,14 +16,15 @@ public class OrderLogServiceImpl implements OrderLogService {
 
     public void OrderLogSave(OrdersDTO order, LogDTO log) {
         OrderLog orderLog = OrderLog.builder()
-                .pno(order.getPno())
-                .bcate(order.getBcategory())
-                .mcate(order.getMcategory())
-                .scate(order.getScategory())
-                .age(log.getAge())
-                .gender(log.getGender())
-                .count(log.getCount())
-                .build();
+                                    .pno(order.getPno())
+                                    .bcate(order.getBcategory())
+                                    .mcate(order.getMcategory())
+                                    .scate(order.getScategory())
+                                    .age(log.getAge())
+                                    .gender(log.getGender())
+                                    .count(log.getCount())
+                                    .createdAt(new Date())
+                                    .build();
 
         orderLogRepository.save(orderLog).subscribe();
     }

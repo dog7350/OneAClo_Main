@@ -7,6 +7,8 @@ import kr.kro.oneaclo.www.Repository.Logs.InquiryLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 @RequiredArgsConstructor
 public class InquiryLogServiceImpl implements InquiryLogService {
@@ -22,6 +24,7 @@ public class InquiryLogServiceImpl implements InquiryLogService {
                                         .age(log.getAge())
                                         .gender(log.getGender())
                                         .address(log.getAddress())
+                                        .createdAt(new Date())
                                         .build();
 
         inquiryLogRepository.save(inquiryLog).subscribe();
