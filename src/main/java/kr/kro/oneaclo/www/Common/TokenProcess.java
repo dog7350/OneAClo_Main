@@ -41,7 +41,7 @@ public class TokenProcess {
         Optional<MemberInfo> FindUserInfo = memberInfoRepository.findMemberInfoById(members);
         MemberInfo memberInfo = FindUserInfo.orElseThrow(()->new UsernameNotFoundException("존재 하지 않는 회원 입니다"));
 
-        return tokenProvider.generateToken(members,memberInfo, Duration.ofHours(2));
+        return tokenProvider.generateToken(members,memberInfo, Duration.ofHours(1));
     }
     public String tokenCheck(String token) {
         return String.valueOf(tokenProvider.getAuthentication(token));
