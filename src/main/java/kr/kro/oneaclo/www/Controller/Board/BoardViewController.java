@@ -1,7 +1,6 @@
 package kr.kro.oneaclo.www.Controller.Board;
 
 
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.TokenProcess;
 import kr.kro.oneaclo.www.DTO.Board.BoardCmtDTO;

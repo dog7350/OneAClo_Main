@@ -2,14 +2,12 @@ package kr.kro.oneaclo.www.Controller.Mypage;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import kr.kro.oneaclo.www.Common.JWT.JwtProperties;
 import kr.kro.oneaclo.www.Service.Mypage.MemberInfoService;
 import kr.kro.oneaclo.www.Service.Mypage.MembersService;
 import kr.kro.oneaclo.www.Common.TokenProcess;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
