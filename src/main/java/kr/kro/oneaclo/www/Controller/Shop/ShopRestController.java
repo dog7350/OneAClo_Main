@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @RestController
@@ -24,7 +23,6 @@ import java.util.List;
 public class ShopRestController {
     private final ProductService productService;
     private final ProductFileService productFileService;
-    private final ModelMapper modelMapper;
 
     @PostMapping("/productUpload")
     public void ProductUpload(ProductDTO dto, @RequestParam("thumbnail") MultipartFile thumbnail, @RequestParam(value = "files", required = false) List<MultipartFile> files, HttpServletResponse res) {
