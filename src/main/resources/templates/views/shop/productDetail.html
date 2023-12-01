@@ -60,11 +60,11 @@
             <p>이미지 swiper기능 들어갈 예정</p>
         </div>
         <hr>
-        <div class="container">
+        <div class="container" id="information">
             <div class="cta">
-                <a class="cta-btn" href="#">상세정보</a>
-                <a class="cta-btn" href="#">상품리뷰</a>
-                <a class="cta-btn" href="#">교환/반품/배송</a>
+                <a class="cta-btn" href="#information">상세정보</a>
+                <a class="cta-btn" href="#review">상품리뷰</a>
+                <a class="cta-btn" href="#delivery">교환/반품/배송</a>
             </div>
         </div>
         <hr>
@@ -79,14 +79,147 @@
 
             <div id="contentDiv" th:text="${product.getContent()}"></div>
         </div>
+
+        <br class="mt-5">
         <hr>
-        <div class="container">
-            <p>댓글게시판</p>
+        <br class="mt-5">
+        <hr>
+        <div class="container" id="review">
+            <div class="cta">
+                <a class="cta-btn" href="#information">상세정보</a>
+                <a class="cta-btn" href="#review">상품리뷰</a>
+                <a class="cta-btn" href="#delivery">교환/반품/배송</a>
+            </div>
         </div>
         <hr>
         <div class="container">
-            <p>교환/반품/배송 안내</p>
+            <div class="mt-5">
+                <hr>
+                <div class="mt-5 row">
+                    <div class="col text-center">
+                        <div class="mb-5 center">
+                            <button type="button" class="btn btn-secondary btn-lg w-25" onclick="ReviewOn()">리뷰 쓰기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <hr>
+        <div class="mt-5">
+            <div>
+                <p>댓글자리</p>
+            </div>
+        </div>
+        <br>
+        <div id="ReviewCon" class="visually-hidden">
+            <hr>
+            <div class="mt-5">
+                <form action="/shop/" method="post" name="ReviewForm">
+                    <div class="input-group-text">
+                        <input type="hidden" name="product" th:value="${product}">
+                        <div class="input-group">
+                            <textarea class="form-control col-sm-5" name="content" id="InputContent" rows="8" maxlength="100" placeholder="상세 리뷰" style="resize: none"></textarea>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button type="button" class="btn btn-secondary btn-lg w-25" onclick="ReviewSave()">등록</button>
+                        <button type="button" class="btn btn-secondary btn-lg w-25" onclick="ReviewOff()">취소</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <br class="mt-5">
+        <hr>
+        <br class="mt-5">
+        <hr>
+        <div class="container" id="delivery">
+            <div class="cta">
+                <a class="cta-btn" href="#information">상세정보</a>
+                <a class="cta-btn" href="#review">상품리뷰</a>
+                <a class="cta-btn" href="#delivery">교환/반품/배송</a>
+            </div>
+        </div>
+        <hr>
+        <div class="container">
+            <br class="mt-5">
+            <div class="mt-5">
+                <div>
+                    <b class="fs-5"> [ 배송안내 ] </b>
+                    <hr>
+                    <br class="mt-5">
+                    <div class="mt-5">
+                        <b>[ 배송비 ]</b>
+                        <div class="mt-4 text-secondary">
+                            <ul>
+                                <li>회원구매 시 배송비 3,000원 (3만원 이상 구매 시 무료) / 도서, 산간 및 일부 지역은 배송비가 추가됩니다.</li>
+                                <li>묶음배송은 장바구니에서 주문이 한번에 결제될 때만 가능합니다. 주문번호가 다를 경우 묶음배송이 불가합니다.</li>
+                                <li>주소 및 연락처 오기재 등으로 발생되는 반송건의 반품 또는 재수령 배송비는 고객 부담이오니 양해 부탁드립니다</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <br class="mt-5">
+                    <div class="mt-5">
+                        <div class="mt-5">
+                            <b>[ 배송기간 ]</b>
+                            <div class="mt-4 text-secondary">
+                                <ul>
+                                    <li>결제완료 후 평균 3~5일(주말 및 공휴일 제외) 이내에 배송됩니다</li>
+                                    <li>상품주문 후 판매 증가로 인한 상품준비 중 품절이 발생할 수 있습니다. 발송 불가 시 주문취소 진행될 수 있는 점 양해 부탁드립니다.</li>
+                                    <li>일부 상품의 경우 물류센터가 아닌 지정된 매장에서 배송이 이뤄집니다. 해당 주문의 경우 재고 수급 후 배송까지 3~7일이 소요됩니다.</li>
+                                    <li>도서, 산간 지역은 3~10일 정도 소요될 수 있으며, 천재지변에 의한 기간은 배송기간에서 제외됩니다.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br class="mt-5">
+            <br class="mt-5">
+            <div class="mt-5">
+                <div>
+                    <b class="fs-5"> [ 교환 및 반품 ] </b>
+                    <hr>
+                    <br class="mt-5">
+                    <div class="mt-5">
+                        <div class="mt-4 text-secondary">
+                            <ul>
+                                <li>교환/반품 가능 기간은 수령일로부터 14일 이내이며, 검수 작업을 거쳐 문제가 없을 시 교환 또는 환불이 진행됩니다.</li>
+                                <li>상품수령 후 공식스토어 '마이페이지 → 주문/배송' 내역에서 접수하시거나, 고객센터를 통해 접수바랍니다.</li>
+                                <li>단순변심 교환/반품 배송비는 왕복 6,000원 입니다.</li>
+                                <li>제품의 불량, 오배송으로 인한 교환/반품 시 동일상품/색상/사이즈로 무상교환해드리며, 다른 상품으로는 불가합니다.</li>
+                                <li>교환 시 교환상품이 물류센터로 입고된 후 검수를 거쳐 재발송되며, 맞교환은 불가합니다.</li>
+                                <li>사이즈 교환만 가능하며, 컬러변경 및 타상품으로 교환은 기존 상품 반품 후 재주문 해주시기 바랍니다.</li>
+                                <li>교환/반품 신청 미접수 및 지정된 반송처로 반송되지 않을 시, 교환/환불/반품 절차가 지연되오니 발송 전 확인바랍니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br class="mt-5">
+            <br class="mt-5">
+            <div class="mt-5">
+                <div>
+                    <b class="fs-5"> [ 교환 및 반품 불가 사유 ] </b>
+                    <hr>
+                    <br class="mt-5">
+                    <div class="mt-5">
+                        <div class="mt-4 text-secondary">
+                            <ul>
+                                <li>상품을 착용한 흔적이 있거나, 상품의 일부가 훼손된 경우</li>
+                                <li>상품의 TAG, 스티커, 상품케이스, 사은품 등 제공된 상품이 훼손 및 분실된 경우</li>
+                                <li>시간의 경과에 의해 재판매가 어려울 정도로 상품의 가치가 감소한 경우</li>
+                                <li>기기의 화면상 사진과 실제 상품의 색상은 사용자 환경에 따라 다소 차이가 있을 수 있습니다. 이로 인한 반품은 단순변심에 의한 교환/반품에 해당됩니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br class="mt-5">
+            <br class="mt-5">
+            <br class="mt-5">
+        </div>
+        <iframe></iframe>
     </section><!-- End Portfolio Details Section -->
 
     <script src="/views/shop/js/productDetail.js"></script>

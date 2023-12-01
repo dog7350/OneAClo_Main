@@ -30,6 +30,7 @@ public class TokenProvider {
         return Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setIssuer(jwtProperties.getIssuer())
+                .setIssuedAt(now)
                 .setExpiration(expiry)
                 .setSubject("나의 토큰 이다")
                 .claim("user",members)

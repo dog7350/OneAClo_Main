@@ -1,9 +1,7 @@
 window.onload = () => {
     convertStr();
-
     document.getElementById("totalPrice").innerHTML = document.getElementById("price").innerText;
 }
-
 const buy = (pno) => {
     const price = document.getElementById("price").innerText;
     const count = document.getElementById("count").innerText;
@@ -57,4 +55,20 @@ const convertStr = () => {
     str = str.replaceAll(";>", ";\">");
 
     document.getElementById("contentDiv").innerHTML = str;
+}
+
+function ReviewOn() {
+    document.getElementById("ReviewCon").classList.remove('visually-hidden');
+}
+function ReviewOff() {
+    document.getElementById("ReviewCon").classList.add('visually-hidden');
+}
+
+function ReviewSave() {
+    const content = document.getElementById("InputContent").value;
+    if(content === "") {
+        alert("내용을 입력해 주세요")
+    }else {
+        document.forms['ReviewSave'].submit();
+    }
 }
