@@ -22,7 +22,7 @@ public class OrderLogServiceImpl implements OrderLogService {
                                     .scate(order.getScategory())
                                     .age(log.getAge())
                                     .gender(log.getGender())
-                                    .count(log.getCount())
+                                    .count(order.getOcount())
                                     .createdAt(new Date())
                                     .build();
 

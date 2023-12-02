@@ -1,6 +1,17 @@
 #ChartDiv {
+    margin: auto;
+    width: 50%;
+    height: 50%;
+    background-color: #ffffe0;
+}
+#ChartBtns {
+    margin-bottom: 10px;
     width: 100%;
-    height: 500px;
+    text-align: center;
+}
+#ChartBtns > input {
+    margin-left: 20px;
+    margin-right: 20px;
 }
 #ChartDraw {
     width: 100%;
