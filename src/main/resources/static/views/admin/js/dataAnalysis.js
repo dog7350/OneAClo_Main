@@ -1,11 +1,15 @@
 let dataLabels;
 let dataDatasets;
+let dataFalg = 'f';
+let queryData;
 
 const url = "http://43.202.160.36:8810";
 
 const colors = ['#FF0000', '#FF8C00', '#FFFF00', '#008000', '#0000FF', '#4B0082', '#800080']
 
 const memberAG = () => {
+    dataFalg = 'f';
+
     fetch(url + "/member/agegender", {
         method: "GET"
     }).then((res) => res.json()).then((json) => {
@@ -57,6 +61,8 @@ const memberAG = () => {
 }
 
 const memberAddress = (type) => {
+    dataFalg = 'f';
+
     fetch(url + "/member/address", {
         method: "GET"
     }).then((res) => res.json()).then((json) => {
@@ -132,7 +138,8 @@ const memberAddress = (type) => {
 }
 
 const inquiryChart = () => {
-    let queryData = inputDataInit();
+    queryData = inputDataInit();
+    dataFalg = 'i';
 
     fetch(url + "/chart/inquiry", {
         method: "POST",
@@ -170,7 +177,7 @@ const inquiryChart = () => {
             options: {
                 title: {
                     display: true,
-                    text: age + year + month + " 관심많은 상품 카테고리",
+                    text: age + year + month + " 관심 많은 상품 카테고리",
                     fontSize: 15
                 },
                 scales: {
@@ -194,7 +201,8 @@ const inquiryChart = () => {
 }
 
 const orderChart = () => {
-    let queryData = inputDataInit();
+    queryData = inputDataInit();
+    dataFalg = 'o';
 
     fetch(url + "/chart/order", {
         method: "POST",
@@ -204,16 +212,80 @@ const orderChart = () => {
         canvasClear();
         removeBtn();
 
-        console.log(json);
+        let age = "";
+        if (queryData.age != "") age = queryData.age + " 대 ";
+        let year = "";
+        if (queryData.year != "") year = queryData.year + " 년도 ";
+        let month = "";
+        if (queryData.month != "") month = queryData.month + " 월 ";
+
+        let label = json.label;
+        let legend = json.legend;
+        let data = json.data;
+
+        dataLabels = label;
+        dataDatasets = [];
+
+        for(i = 0; i < legend.length; i++) {
+            tmp = { data:data[legend[i]], label:legend[i], borderColor: colors[i % 7], fill: false };
+            dataDatasets.push(tmp);
+        }
+
+        new Chart(document.getElementById("ChartDraw"), {
+            type: 'line',
+            data: {
+                labels: dataLabels,
+                datasets: dataDatasets
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: age + year + month + " 많이 팔린 상품 카테고리",
+                    fontSize: 15
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            display: true,
+                            min: 0,
+                            stepSize : 10
+                        }
+                    }]
+                },
+                legend: {
+                    position: 'top',
+                    labels: {
+                        fontSize: 12
+                    }
+                }
+            }
+        })
     }).catch(error => { console.log("Error : ", error) });
 }
 
 const dataAnalysis = () =>{
+    if (!dataInputFlag()) {
+        alert("먼저 차트 분석을 진행해주세요.");
+        return false;
+    }
+    if (queryData.gender == "") {
+        alert("성별 입력 필수!\n성별을 입력한 후 차트 분석을 진행해주세요.")
+        return false;
+    }
+
+    queryData['flag'] = dataFalg
     fetch(url + "/data/analysis", {
-        method: "POST"
+        method: "POST",
+        headers: {'Content-Type' : 'Application/JSON'},
+        body: JSON.stringify(queryData)
     }).then((res) => res.json()).then((json) => {
         console.log(json);
     }).catch(error => { console.log("Error : ", error) });
+}
+
+const dataInputFlag = () => {
+    if (dataFalg != 'f') return true;
+    else return false;
 }
 
 const chartDataRemove = () => {
@@ -246,6 +318,8 @@ const inputDataInit = () => {
         if (gender == "남" || gender == "남성" || gender == "남자") gender = "male";
         else if (gender == "여" || gender == "여성" || gender == "여자") gender = "female";
     }
+
+    if (year != "" && month == "") month = 1;
 
     if (month != "") {
         if (month < 1) month = 1;
