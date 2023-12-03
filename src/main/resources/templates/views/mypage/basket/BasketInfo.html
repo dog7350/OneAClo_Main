@@ -7,10 +7,51 @@
     <section class="contact" id="contact">
         <div class="container" data-aos="fade-up">
             <div class="container">
-                <h1>으악</h1>
+                <div class="section-title">
+                    <h2>Contact</h2>
+                    <p>장바구니</p>
+                </div>
+                <hr style="border: 3px solid black">
+                <h1 th:if="${cart.isEmpty()}">장바구니 담긴 물건이 없습니다.</h1>
+                <div id="Reset">
+                    <div th:each="list:${cart}">
+                    <div class="card">
+                        <div class="card-header">
+                            <p>카테고리 : <span th:text="${list.bcategory}"></span> > <span th:text="${list.mcategory}"></span> > <span th:text="${list.scategory == 'male'}?'남성':'여성'"></span></p>
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <img th:src="@{/upload/file/}+${list.img}" style="width: 200px; height: 200px;">&nbsp;&nbsp;&nbsp;
+                                <span id="pname" th:text="${list.pname}"></span>
+                                <button type="button" class="float-lg-end btn btn-secondary" th:data-index="${list.pno}" onclick="CookieDel()">삭제</button>
+                            </div>
+                            <hr>
+                            <ul>
+                                <li><strong>정상가</strong> &nbsp; <span th:id="price+${list.pno}" th:text="${list.price}"></span></li>
+                                <hr>
+                                <li><strong>주문 개수</strong> &nbsp; <button th:data-minus="${list.pno}" class="btn btn-outline-danger" onclick="countSub()">-</button> &nbsp; <span th:id="count+${list.pno}" th:data-num="${list.pno}">[[${list.count}]]</span> &nbsp; <button class="btn btn-outline-info" th:data-plus="${list.pno}" onclick="countAdd()">+</button></li>
+                                <hr>
+                                <li><strong>주문 금액</strong> &nbsp; <span th:id="totalPrice+${list.pno}" th:text="${list.count * list.price}">}</span> </li>
+                            </ul>
+                            <input type="text" name="pno" id="InputPno" th:value="${list.pno}" hidden>
+                            <input type="text" name="bcategory" th:value="${list.bcategory}" hidden>
+                            <input type="text" name="mcategory" th:value="${list.mcategory}" hidden>
+                            <input type="text" name="scategory" th:value="${list.scategory}" hidden>
+                            <hr>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-control border-5">
+                        <b class="fs-5"> 총 결제 금액 => </b><span id="general"></span>
+                    </div>
+                    <hr style="border: 3px solid black">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-secondary btn-lg">구매하기</button>
+                        <button type="button" class="btn btn-secondary btn-lg">취소하기</button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-
-
 </html>

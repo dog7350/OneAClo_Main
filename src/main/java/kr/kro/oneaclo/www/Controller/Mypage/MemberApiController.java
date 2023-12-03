@@ -1,11 +1,15 @@
 package kr.kro.oneaclo.www.Controller.Mypage;
 
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.DTO.Mypage.MemberDTO;
+import kr.kro.oneaclo.www.DTO.Shop.ProductDTO;
 import kr.kro.oneaclo.www.Service.Mypage.MemberInfoService;
 import kr.kro.oneaclo.www.Service.Mypage.MembersService;
 import kr.kro.oneaclo.www.Common.TokenProcess;
+import kr.kro.oneaclo.www.Service.Shop.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -70,5 +78,21 @@ public class MemberApiController {
     public String UserDel(HttpSession session) {
         membersService.UserDel(UserString(session,"id"));
         return "redirect:/mypage/p/logout";
+    }
+
+    @GetMapping("/p/Basket")
+    public String basket(Model model,HttpServletRequest request,HttpSession session) {
+        Cookie[] CartList = request.getCookies();
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        for(Cookie c:CartList) {
+            if(c.getValue().length() < 10 && UserString(session,"id").equals(c.getName().split("#")[0])) {
+                ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue().split("/")[0]));
+                productDTO.setCount(Integer.parseInt(c.getValue().split("/")[1]));
+                productDTOS.add(productDTO);
+            }
+        }
+        model.addAttribute("cart",productDTOS);
+
+        return "views/mypage/basket/BasketInfo";
     }
 }

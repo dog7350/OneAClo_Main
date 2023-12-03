@@ -3,9 +3,13 @@ package kr.kro.oneaclo.www.Service.Mypage;
 import jakarta.mail.internet.MimeMessage;
 import kr.kro.oneaclo.www.Common.FileUtils;
 import kr.kro.oneaclo.www.DTO.Mypage.MemberDTO;
+import kr.kro.oneaclo.www.DTO.Shop.ProductDTO;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
+import kr.kro.oneaclo.www.Entity.Shop.Product;
 import kr.kro.oneaclo.www.Repository.Mypage.MembersRepository;
+import kr.kro.oneaclo.www.Repository.Shop.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -24,6 +29,8 @@ public class MembersServiceImpl implements MembersService{
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JavaMailSender mailSender;
     private final FileUtils fileUtils;
+    private final ProductRepository productRepository;
+    private final ModelMapper modelMapper;
 
     public String MembersJoin(MemberDTO dto,MultipartFile UserProfile) {
         if(!UserProfile.isEmpty()) {
@@ -133,5 +140,12 @@ public class MembersServiceImpl implements MembersService{
         Members members = result.orElseThrow();
         members.ActiveChange(active);
         membersRepository.save(members);
+    }
+
+    @Override
+    public ProductDTO ProductInfo(int pno) {
+        Optional<Product> result = productRepository.findByPno(pno);
+        Product product = result.orElseThrow();
+        return modelMapper.map(product, ProductDTO.class);
     }
 }
