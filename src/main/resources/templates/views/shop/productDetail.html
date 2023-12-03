@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <section id="portfolio-details" class="portfolio-details">
         <div class="container">
             <br>
@@ -26,7 +27,6 @@
                         <div class="swiper-pagination"></div>
                     </div>
                 </div>
-
                 <div class="col-lg-4">
                     <div class="portfolio-info">
                         <h3 th:text="${product.getPname()}"></h3>
@@ -79,7 +79,6 @@
 
             <div id="contentDiv" th:text="${product.getContent()}"></div>
         </div>
-
         <br class="mt-5">
         <hr>
         <br class="mt-5">
@@ -87,51 +86,101 @@
         <div class="container" id="review">
             <div class="cta">
                 <a class="cta-btn" href="#information">상세정보</a>
-                <a class="cta-btn" href="#review">상품리뷰</a>
+                <a id="ReviewMove" class="cta-btn" href="#review">상품리뷰</a>
                 <a class="cta-btn" href="#delivery">교환/반품/배송</a>
             </div>
         </div>
         <hr>
-        <div class="container">
-            <div class="mt-5">
-                <hr>
-                <div class="mt-5 row">
-                    <div class="col text-center">
-                        <div class="mb-5 center">
-                            <button type="button" class="btn btn-secondary btn-lg w-25" onclick="ReviewOn()">리뷰 쓰기</button>
+        <div>
+            <form action="/shop/detail" method="get" id="CmtSetUp">
+                <input type="hidden" name="pno" th:value="${product.pno}">
+                <input type="hidden" name="size" th:value="5">
+            </form>
+        </div>
+        <div id="CmtList">
+            <div class="container">
+                <div class="mt-5">
+                    <hr>
+                    <div class="mt-5 row">
+                        <div class="col text-center">
+                            <div class="mb-5 center">
+                                <button type="button" class="btn btn-secondary btn-lg w-25" onclick="ReviewOn()">리뷰 쓰기</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <hr>
-        <div class="mt-5">
-            <div>
-                <p>댓글자리</p>
-            </div>
-        </div>
-        <br>
-        <div id="ReviewCon" class="visually-hidden">
             <hr>
-            <div class="mt-5">
-                <form action="/shop/ReviewSave" method="post" name="ReviewForm" target="ReviewTarget">
-                    <div class="input-group-text">
-                        <input type="hidden" name="pno" th:value="${product.pno}">
-                        <div class="input-group">
-                            <textarea class="form-control col-sm-5" name="Ccontent" id="InputContent" rows="8" maxlength="100" placeholder="상세 리뷰" style="resize: none"></textarea>
+            <div id="ReviewCon" class="visually-hidden">
+                <hr>
+                <div class="mt-5">
+                    <form action="/shop/ReviewSave" method="post" name="ReviewForm" target="ReviewTarget">
+                        <div class="input-group-text">
+                            <input type="hidden" id="PNO" name="pno" th:value="${product.pno}">
+                            <div class="input-group">
+                                <textarea class="form-control col-sm-5" name="Ccontent" id="InputContent" rows="8" maxlength="100" placeholder="상세 리뷰" style="resize: none"></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <br>
-                    <label class="form-check-label" for="secretCk">비밀글</label>
-                    <input class="form-check-input" type="checkbox" id="secretCk" name="secret" value="s">
-                    <div class="text-center mt-3">
-                        <button type="button" class="btn btn-secondary btn-lg w-25" onclick="ReviewSave()">등록</button>
-                        <button type="button" class="btn btn-secondary btn-lg w-25" onclick="ReviewOff()">취소</button>
-                    </div>
-                </form>
+                        <br>
+                        <label class="form-check-label" for="secretCk">비밀글</label>
+                        <input class="form-check-input" type="checkbox" id="secretCk" name="secret" value="s">
+                        <div class="text-center mt-3">
+                            <button type="button" class="btn btn-secondary btn-lg w-25" onclick="ReviewSave()">등록</button>
+                            <button type="button" class="btn btn-secondary btn-lg w-25" onclick="ReviewOff()">취소</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
+            <div class="mt-5 card-body" id="CmtBody">
+                <div th:each="list:${cmt.dtoList}">
+                    <div th:id="Origin+${list.cno}">
+                        <input type="hidden" th:value="${list.ccontent}" th:id="content+${list.cno}">
+                        <div class="input-group-text">
+                            <div class="ms-5 input-group">
+                                <b>작성자 : <span class="text-primary">[[${list.writer.getId}]]</span></b>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="ms-5 mt-3 input-group">
+                            <p class="fs-0">[[${product.getPname()}]]</p>
+                        </div>
+                        <div class="mt-4 ms-5">
+                            <i class="bi-clipboard-fill"></i>
+                            <p th:if="${list.secret != 's'}">[[${list.ccontent}]]</p>
+                            <p th:if="${list.secret == 's'}">비밀글 입니다</p>
+                        </div>
+                        <br>
+                        <button th:if="${list.writer.getId == id || auth == 'a'}" type="button" class="btn btn-secondary" th:data-num="${list.cno}" th:pno="${product.getPno()}" onclick="CmtDel()">삭제</button>
+                        <button th:if="${list.writer.getId == id}" type="button" class="btn btn-secondary" th:data-num="${list.cno}" onclick="CmtModify()">수정</button>
+                        <hr>
+                    </div>
+                    <div th:id="CmtModify+${list.cno}">
 
+                    </div>
+                </div>
+
+                <div>
+                    <div class="float-end">
+                        <ul class="pagination flex-wrap">
+                            <li class="page-item" th:if="${cmt.prev}">
+                                <a class="page-link" th:data-num="${cmt.start -1}">이전</a>
+                            </li>
+
+                            <th:block th:each="i:${#numbers.sequence(cmt.start,cmt.end)}">
+                                <li th:class="${cmt.page == i}?'page-item active':'page-item'">
+                                    <a class="page-link" th:data-num="${i}" onclick="PageMove()">[[${i}]]</a>
+                                </li>
+                            </th:block>
+
+                            <li class="page-item" th:if="${cmt.next}">
+                                <a class="page-link" th:data-num="${cmt.end +1}">다음</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
         <br class="mt-5">
         <hr>
         <br class="mt-5">
@@ -223,7 +272,7 @@
             <br class="mt-5">
         </div>
         <iframe id="ReviewTarget" name="ReviewTarget" style="display: none;"></iframe>
+        <iframe id="ModifyTarget" name="ModifyTarget" style="display: none;"></iframe>
     </section><!-- End Portfolio Details Section -->
-
     <script src="/views/shop/js/productDetail.js"></script>
 </html>

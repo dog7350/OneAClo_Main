@@ -3,9 +3,14 @@ package kr.kro.oneaclo.www.Controller.Shop;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.TokenProcess;
+import kr.kro.oneaclo.www.DTO.Page.PageRequestDTO;
 import kr.kro.oneaclo.www.DTO.Log.LogDTO;
+import kr.kro.oneaclo.www.DTO.Page.PageResponseDTO;
+import kr.kro.oneaclo.www.DTO.Shop.ProductCmtDTO;
 import kr.kro.oneaclo.www.Entity.Shop.Product;
+import kr.kro.oneaclo.www.Entity.Shop.ProductCmt;
 import kr.kro.oneaclo.www.Service.Logs.InquiryLogService;
+import kr.kro.oneaclo.www.Service.Shop.ProductCmtService;
 import kr.kro.oneaclo.www.Service.Shop.ProductFileService;
 import kr.kro.oneaclo.www.Service.Shop.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,6 +31,7 @@ import java.util.Map;
 public class ShopController {
     private final TokenProcess tokenProcess;
     private final ProductService productService;
+    private final ProductCmtService productCmtService;
     private final ProductFileService productFileService;
     private final InquiryLogService inquiryLogService;
 
@@ -100,7 +107,7 @@ public class ShopController {
     }
 
     @GetMapping("/detail")
-    public String productDetail(HttpServletRequest req, HttpSession session, Model model, @RequestParam int pno) {
+    public String productDetail(HttpServletRequest req, HttpSession session, Model model,@RequestParam int pno, PageRequestDTO pageRequestDTO) {
         String token = (String) session.getAttribute("UserInfo");
         Map<String, String> user = TokenList(token);
 
@@ -114,6 +121,14 @@ public class ShopController {
         model.addAttribute("product", product);
         model.addAttribute("files", productFileService.ProductDetail(pno));
 
+        pageRequestDTO.setSize(5);
+        PageResponseDTO<ProductCmtDTO> responseDTO = productCmtService.ProductCmtList(pageRequestDTO,pno);
+        model.addAttribute("cmt",responseDTO);
+
         return "views/shop/productDetail";
+    }
+    @PostMapping("/CmtModify")
+    public void CmtModify(ProductCmtDTO dto) {
+        productCmtService.CmtModify(dto);
     }
 }

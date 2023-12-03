@@ -6,8 +6,8 @@ import kr.kro.oneaclo.www.Common.TokenProcess;
 import kr.kro.oneaclo.www.DTO.Board.BoardCmtDTO;
 import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
 import kr.kro.oneaclo.www.DTO.Board.BoardFileDTO;
-import kr.kro.oneaclo.www.DTO.Board.Page.PageRequestDTO;
-import kr.kro.oneaclo.www.DTO.Board.Page.PageResponseDTO;
+import kr.kro.oneaclo.www.DTO.Page.PageRequestDTO;
+import kr.kro.oneaclo.www.DTO.Page.PageResponseDTO;
 import kr.kro.oneaclo.www.Service.Board.BoardCmtService;
 import kr.kro.oneaclo.www.Service.Board.BoardFileService;
 import kr.kro.oneaclo.www.Service.Board.BoardService;
@@ -50,6 +50,7 @@ public class BoardViewController {
         for(String list:arr) {
             UserModelInfo(session, model, list);
         }
+        pageRequestDTO.setSize(100);
         PageResponseDTO<BoardCmtDTO> responseDTO = boardCmtService.BoardCmtList(pageRequestDTO,bno);
         model.addAttribute("CmtList",responseDTO);
 

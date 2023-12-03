@@ -1,6 +1,5 @@
-package kr.kro.oneaclo.www.DTO.Board.Page;
+package kr.kro.oneaclo.www.DTO.Page;
 
-import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;

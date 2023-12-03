@@ -1,12 +1,15 @@
 package kr.kro.oneaclo.www.Service.Board;
 
 import kr.kro.oneaclo.www.DTO.Board.BoardCmtDTO;
-import kr.kro.oneaclo.www.DTO.Board.Page.PageRequestDTO;
-import kr.kro.oneaclo.www.DTO.Board.Page.PageResponseDTO;
+import kr.kro.oneaclo.www.DTO.Page.PageRequestDTO;
+import kr.kro.oneaclo.www.DTO.Page.PageResponseDTO;
 import kr.kro.oneaclo.www.Entity.Board.BoardCmt;
+import kr.kro.oneaclo.www.Entity.Board.BoardCmtReport;
 import kr.kro.oneaclo.www.Entity.Board.IdClass.BoardCmtId;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
+import kr.kro.oneaclo.www.Repository.Board.BoardCmtReportRepository;
 import kr.kro.oneaclo.www.Repository.Board.BoardCmtRepository;
+import kr.kro.oneaclo.www.Repository.Board.BoardRepository;
 import kr.kro.oneaclo.www.Repository.Mypage.MembersRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -25,7 +28,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BoardCmtServiceImpl implements BoardCmtService{
 
+    private final BoardRepository boardRepository;
     private final BoardCmtRepository boardCmtRepository;
+    private final BoardCmtReportRepository boardCmtReportRepository;
     private final MembersRepository membersRepository;
     private final ModelMapper modelMapper;
 
@@ -70,7 +75,21 @@ public class BoardCmtServiceImpl implements BoardCmtService{
             boardCmtRepository.save(boardCmt);
         }
     }
-    
+
+    public void CmtReport(int bno, int cno, String id) {
+        Optional<Members> MemberResult = membersRepository.findById(id);
+        Members members = MemberResult.orElseThrow();
+
+        Optional<BoardCmt> CmtResult = boardCmtRepository.findById(new BoardCmtId(bno,cno));
+        BoardCmt boardCmt = CmtResult.orElseThrow();
+
+        BoardCmtReport boardCmtReport = BoardCmtReport.builder()
+                .boardCmt(boardCmt)
+                .reporter(members)
+                .build();
+        boardCmtReportRepository.save(boardCmtReport);
+    }
+
     //수정
     public void CmtModify(BoardCmtDTO boardCmtDTO) {
         Optional<BoardCmt> result = boardCmtRepository.findById(new BoardCmtId(boardCmtDTO.getBno().getBno(),boardCmtDTO.getCno()));

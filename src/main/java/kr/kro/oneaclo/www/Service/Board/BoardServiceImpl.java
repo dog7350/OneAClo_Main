@@ -1,8 +1,8 @@
 package kr.kro.oneaclo.www.Service.Board;
 
 import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
-import kr.kro.oneaclo.www.DTO.Board.Page.PageRequestDTO;
-import kr.kro.oneaclo.www.DTO.Board.Page.PageResponseDTO;
+import kr.kro.oneaclo.www.DTO.Page.PageRequestDTO;
+import kr.kro.oneaclo.www.DTO.Page.PageResponseDTO;
 import kr.kro.oneaclo.www.Entity.Board.Board;
 import kr.kro.oneaclo.www.Entity.Board.BoardReport;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;

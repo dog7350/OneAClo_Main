@@ -62,4 +62,12 @@ public class ProductCmt {
         this.cnogroup = cno;
         this.secret = Secret;
     }
+
+    public void Cmtmodify(String ccontent,String Secret) {
+        this.ccontent = ccontent;
+        Date date = new Date();
+        this.ctime = new Timestamp(date.getTime());
+        this.secret = Secret;
+    }
+
 }

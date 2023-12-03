@@ -5,14 +5,12 @@ import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.TokenProcess;
 import kr.kro.oneaclo.www.DTO.Shop.ProductCmtDTO;
 import kr.kro.oneaclo.www.DTO.Shop.ProductDTO;
+import kr.kro.oneaclo.www.Service.Shop.ProductCmtService;
 import kr.kro.oneaclo.www.Service.Shop.ProductFileService;
 import kr.kro.oneaclo.www.Service.Shop.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -25,6 +23,8 @@ public class ShopRestController {
     private final ProductService productService;
     private final ProductFileService productFileService;
     private final TokenProcess tokenProcess;
+    private final ProductCmtService productCmtService;
+
 
     @PostMapping("/productUpload")
     public void ProductUpload(ProductDTO dto, @RequestParam("thumbnail") MultipartFile thumbnail, @RequestParam(value = "files", required = false) List<MultipartFile> files, HttpServletResponse res) {
@@ -38,8 +38,13 @@ public class ShopRestController {
         }
     }
     @PostMapping("/ReviewSave")
-    public void ReviewSave(ProductCmtDTO dto, HttpSession session) {
-        int Cno = productService.ReviewSave(dto,tokenProcess.getMembersToken(String.valueOf(session.getAttribute("UserInfo")),"id"));
-        productService.CnoSave(Cno,dto.getPno());
+    public void ReviewSave(ProductCmtDTO dto,@RequestParam int pno, HttpSession session) {
+        int Cno = productService.ReviewSave(dto,tokenProcess.getMembersToken(String.valueOf(session.getAttribute("UserInfo")),"id"),pno);
+        productService.CnoSave(Cno,pno);
+    }
+
+    @GetMapping("/CmtDel")
+    public void CmtDel(ProductCmtDTO dto) {
+        productCmtService.CmtDel(dto);
     }
 }

@@ -74,8 +74,8 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByPno(pno).get();
     }
 
-    public int ReviewSave(ProductCmtDTO dto,String id) {
-        Optional<Product> ProductResult = productRepository.findByPno(dto.getPno());
+    public int ReviewSave(ProductCmtDTO dto,String id,int pno) {
+        Optional<Product> ProductResult = productRepository.findByPno(pno);
         Product product = ProductResult.orElseThrow();
         Optional<Members> MemberResult = membersRepository.findById(id);
         Members members = MemberResult.orElseThrow();

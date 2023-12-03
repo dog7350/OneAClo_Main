@@ -20,7 +20,7 @@ public interface ProductService {
 
     Product ProductDetail(int pno);
 
-    int ReviewSave(ProductCmtDTO dto,String id);
+    int ReviewSave(ProductCmtDTO dto,String id,int pno);
 
     void CnoSave(int cno,int pno);
 }

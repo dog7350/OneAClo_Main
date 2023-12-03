@@ -1,4 +1,4 @@
-var data
+
 var number
 function BackList() {
     location.href="/board/list";
@@ -24,7 +24,7 @@ function CmtModify() {
     const bno = document.getElementById("Bno").value;
     const content = document.getElementById(cno).value;
 
-    data = $('#CmtContent'+num).hide();
+    $('#CmtContent'+num).hide();
 
     const change = document.querySelector("#CmtModify"+num);
     change.innerHTML = '<form action="/board/p/CmtModify" method="post" name="CmtModifyForm" id="ModifyForm" target="CmtModifyTarget">\n' +
@@ -49,13 +49,14 @@ function CmtModifySave() {
         document.forms['CmtModifyForm'].submit();
         setTimeout(function (){
             $('#CmtBody').load(location.href+' #CmtBody');
-        },10)
+        },100)
     }
 }
 
 function CmtReset() {
-    $('#ModifyForm').remove();
-    data.show();
+    setTimeout(function (){
+        $('#CmtBody').load(location.href+' #CmtBody');
+    },100)
 }
 
 function ModifyForm() {
@@ -133,7 +134,9 @@ function CmtComment() {
         '</form>';
     }
 function CommentCancel() {
-    $('#CommentForm').remove();
+    setTimeout(function (){
+        $('#CmtBody').load(location.href+' #CmtBody');
+    },100)
 }
 function CommentSave() {
    const content = document.getElementById("CCmtContent").value;
@@ -143,7 +146,27 @@ function CommentSave() {
         document.forms['CCmtForm'].submit();
         setTimeout(function (){
             $('#CmtBody').load(location.href+' #CmtBody');
-        },10)
+        },100)
     }
+}
+
+function CmtReport() {
+    const target = event.target
+    const num = target.getAttribute("data-num3");
+
+    const bno = document.getElementById("Bno").value;
+    const cno = document.getElementById("CmtCno"+num).value;
+
+    $.ajax({
+        url:"/board/p/CmtReport",
+        type: "get",
+        data:{bno:bno,cno:cno},
+        success : ()=>{
+            alert("신고가 접수되었습니다!!!");
+        },
+        error : () =>{
+            alert("문제발생")
+        }
+    })
 }
 

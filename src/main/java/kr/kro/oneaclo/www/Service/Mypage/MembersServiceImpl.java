@@ -49,7 +49,6 @@ public class MembersServiceImpl implements MembersService{
                 .profile(dto.getProfile())
                 .build();
         membersRepository.save(members);
-
         return "success";
     }
 

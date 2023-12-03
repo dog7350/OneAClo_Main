@@ -65,6 +65,7 @@
                                             <button th:if="${id != Cmt.writer.getId && Cmt.step == 0}" th:data-num="${CmtStat.count}" type="button" class="btn btn-secondary" onclick="CmtComment()">답글 달기</button> &nbsp;
                                             <button th:if="${id == Cmt.writer.getId}" th:data-num="${CmtStat.count}" type="button" class="btn btn-secondary" onclick="CmtModify()">수정</button> &nbsp;
                                             <button th:if="${id == Cmt.writer.getId || auth == 'a'}" th:data-num2="${CmtStat.count}" type="button" class="btn btn-secondary" onclick="CmtDel()">삭제</button>
+                                            <button th:if="${id != Cmt.writer.getId}" th:data-num3="${CmtStat.count}" onclick="CmtReport()" class="btn btn-secondary">신고</button>
                                         </div>
                                     </div>
                                     <div th:id="CmtModify+${CmtStat.count}">

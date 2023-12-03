@@ -1,5 +1,7 @@
 package kr.kro.oneaclo.www.Board.Repository;
 
+import kr.kro.oneaclo.www.Controller.Mypage.MemberApiController;
+import kr.kro.oneaclo.www.DTO.Mypage.MemberDTO;
 import kr.kro.oneaclo.www.Entity.Board.*;
 import kr.kro.oneaclo.www.Entity.Board.IdClass.BoardCmtId;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
@@ -7,13 +9,20 @@ import kr.kro.oneaclo.www.Repository.Board.*;
 import kr.kro.oneaclo.www.Repository.Mypage.MembersRepository;
 import kr.kro.oneaclo.www.Service.Board.BoardCmtService;
 import kr.kro.oneaclo.www.Service.Board.BoardService;
+import kr.kro.oneaclo.www.Service.Mypage.MemberInfoService;
+import kr.kro.oneaclo.www.Service.Mypage.MembersService;
+import net.bytebuddy.description.type.TypeList;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import java.util.Optional;
+import java.util.Random;
 
 @SpringBootTest
 public class BoardTest {
@@ -36,30 +45,49 @@ public class BoardTest {
     BoardService boardService;
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    MemberApiController memberApiController;
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    MembersService membersService;
+    @Autowired
+    MemberInfoService memberInfoService;
+
+    @Test
+    public void MemberJoin() throws Exception {
+        String[] gender = {"male", "female"};
+        String[] area = {"서울 123", "전남 123", "전북 123", "경기 123", "강원 123", "경남 123", "경북 123", "제주 123", "인천 123", "충남 123", "충북 123","부산 123"};
+        String[] add = {"아파트","주택","빌라"};
+        Random random = new Random();
+
+        for(int i=0;i<600;i++) {
+            MemberDTO memberDto = new MemberDTO();
+            memberDto.setId("테스터다"+i);
+            memberDto.setPw("1234");
+            memberDto.setNick("닉네임"+i);
+            memberDto.setName("테스트"+i);
+            memberDto.setAge(random.nextInt(100)+10);
+            memberDto.setGender(gender[random.nextInt(2)]);
+            memberDto.setEmail("TEST"+i+"@naver.com");
+            memberDto.setZipcode("123123");
+            memberDto.setAddress(area[random.nextInt(12)]);
+            memberDto.setDetailaddr(add[random.nextInt(3)]);
+            memberDto.setPhone("010-00"+i+"-0000");
+            Members members = Members.builder()
+                .id(memberDto.getId())
+                .pw(bCryptPasswordEncoder.encode(memberDto.getPw()))
+                .nick(memberDto.getNick())
+                .profile("D_Profile.jpg")
+                .build();
+            membersRepository.save(members);
+            memberInfoService.MemberInfoJoin(memberDto);
+        }
+    }
 
     @Test
     public void BoardSave() {
-        Optional<Members> result = membersRepository.findById("test");
-        Members members = result.orElseThrow();
-        for(int i = 0; i <100;i++) {
-            Board board = Board.builder()
-                    .writer(members)
-                    .title("새글")
-                    .content("====================")
-                    .firsttime(null)
-                    .lasttime(null)
-                    .inquiry(0)
-                    .step(0)
-                    .indent(0)
-                    .build();
 
-            boardRepository.save(board);
-
-            Optional<Board> result2 = boardRepository.findByBno(board.getBno());
-            Board board1 = result2.orElseThrow();
-            board1.setBnogroup(board.getBno());
-            boardRepository.save(board1);
-        }
     }
 
     @Test

@@ -1,4 +1,4 @@
-package kr.kro.oneaclo.www.DTO.Board.Page;
+package kr.kro.oneaclo.www.DTO.Page;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
