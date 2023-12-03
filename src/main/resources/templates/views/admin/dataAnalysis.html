@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}">
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <link rel="stylesheet" type="text/css" href="/views/admin/css/dataAnalysis.css">
     <script src="/views/admin/js/dataAnalysis.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
@@ -50,12 +51,21 @@
                     <hr>
                     <h3>분석한 데이터로 추천 상품을 검색합니다.</h3>
                     <br>
+                    User Agent 선택&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label><input type="radio" name="useragent" value="Chrome" checked> Chrome</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label><input type="radio" name="useragent" value="Firefox"> Firefox</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label><input type="radio" name="useragent" value="Edge"> Edge</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label><input type="radio" name="useragent" value="Safari"> Safari</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label><input type="radio" name="useragent" value="Mozilla"> Mozilla</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label><input type="radio" name="useragent" value="Opera"> Opera</label><br><br>
+
                     <button class="btn btn-outline-success" onclick="dataAnalysis()">데이터 분석</button>
                     <hr>
                 </div>
-
-                <div id="DataFrames"></div>
-
+                <div id="CrawlingDiv">
+                    <div id="AnalysisReulstDiv"></div>
+                    <div id="CrawlingResultFrame"></div>
+                </div>
             </div>
         </div>
     </section>

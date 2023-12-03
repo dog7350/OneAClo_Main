@@ -149,12 +149,7 @@ const inquiryChart = () => {
         canvasClear();
         removeBtn();
 
-        let age = "";
-        if (queryData.age != "") age = queryData.age + " 대 ";
-        let year = "";
-        if (queryData.year != "") year = queryData.year + " 년도 ";
-        let month = "";
-        if (queryData.month != "") month = queryData.month + " 월 ";
+        let str = textFixd();
 
         let label = json.label;
         let legend = json.legend;
@@ -177,7 +172,7 @@ const inquiryChart = () => {
             options: {
                 title: {
                     display: true,
-                    text: age + year + month + " 관심 많은 상품 카테고리",
+                    text: str['year'] + str['month'] + str['age'] + " 관심 많은 상품 카테고리",
                     fontSize: 15
                 },
                 scales: {
@@ -212,12 +207,7 @@ const orderChart = () => {
         canvasClear();
         removeBtn();
 
-        let age = "";
-        if (queryData.age != "") age = queryData.age + " 대 ";
-        let year = "";
-        if (queryData.year != "") year = queryData.year + " 년도 ";
-        let month = "";
-        if (queryData.month != "") month = queryData.month + " 월 ";
+        let str = textFixd();
 
         let label = json.label;
         let legend = json.legend;
@@ -240,7 +230,7 @@ const orderChart = () => {
             options: {
                 title: {
                     display: true,
-                    text: age + year + month + " 많이 팔린 상품 카테고리",
+                    text: str['year'] + str['month'] + str['age'] + " 많이 팔린 상품 카테고리",
                     fontSize: 15
                 },
                 scales: {
@@ -273,14 +263,99 @@ const dataAnalysis = () =>{
         return false;
     }
 
-    queryData['flag'] = dataFalg
+    queryData['flag'] = dataFalg;
     fetch(url + "/data/analysis", {
         method: "POST",
         headers: {'Content-Type' : 'Application/JSON'},
         body: JSON.stringify(queryData)
     }).then((res) => res.json()).then((json) => {
-        console.log(json);
+        let category = json.category;
+        let age = json.age;
+        let resultDiv = document.getElementById("AnalysisReulstDiv");
+
+        if (category != "데이터가 너무 적습니다") {
+            let str = textFixd();
+            if (str['age'] == "") str['age'] = "회원 평균 연령(" + age + ")대 ";
+            if (queryData.gender == 'male') str['gender'] = "남성";
+            else str['gender'] = "여성";
+            if (str['year'] == "") str['year'] = new Date().getFullYear() + " 년도 ";
+            if (str['month'] == "") str['month'] = (new Date().getMonth() + 1) + " 월 ";
+            if (dataFalg == 'i') str['cate'] = "가장 관심있는 상품 분석 AI 추천 카테고리 : ";
+            else if (dataFalg == 'o') str['cate'] = "가장 많이 팔린 상품 분석 AI 추천 카테고리 : ";
+            resultDiv.innerText = str['year'] + str['month'] + "기준, " + str['age'] + str['gender'] + "\n" + str['cate'] + category;
+
+            crawling(age, str['gender'], category);
+        } else resultDiv.innerText = category;
     }).catch(error => { console.log("Error : ", error) });
+}
+
+const crawling = (age, gender, category) => {
+    let useragent = $('input[name=useragent]:checked').val();
+
+    let data = {"age" : age.toString(), "gender" : gender, "category" : category, "useragent" : useragent}
+    const crawlingFrame = document.getElementById("CrawlingResultFrame");
+    crawlingFrame.innerHTML = "분석중.....\n화면을 끄지 말아주세요.";
+
+    fetch(url + "/data/crawling", {
+        method: "POST",
+        headers: {'Content-Type' : 'Application/JSON'},
+        body: JSON.stringify(data)
+    }).then((res) => res.json()).then((json) => {
+        const data = json;
+
+        if (data['code'] != undefined) {
+            crawlingFrame.innerText = `에러 코드 : ${data['code']}
+                                        헤더 : ${data['headers']}
+                                        URL : ${data['url']}`;
+        } else {
+            list = data['list']
+
+            let html = "";
+            for (i = 0; i < list.length; i++) {
+                let child = stringToHtml(list[i]);
+                let node = imgNodeFunc(child);
+
+                crawlingFrame.appendChild(node);
+            }
+        }
+    }).catch(error => { console.log("Error : ", error) });
+}
+
+const stringToHtml = (str) => {
+    let dom = document.createElement('div');
+    dom.innerHTML = str;
+    return dom;
+}
+
+const imgNodeFunc = (child) => {
+    let node = child.lastChild.lastChild;
+
+    let div = document.createElement('div')
+    div.className = "crawlingNode";
+
+    let img = document.createElement('img')
+    img.className = "crawlingImg";
+    img.src = node.dataset.src;
+
+    let p = document.createElement('p')
+    p.className = "crawlingTitle";
+    p.innerText = node.alt;
+
+    div.appendChild(img);
+    div.appendChild(p);
+
+    return div;
+}
+
+const textFixd = () => {
+    let age = "";
+    if (queryData.age != "") age = queryData.age + " 대 ";
+    let year = "";
+    if (queryData.year != "") year = queryData.year + " 년도 ";
+    let month = "";
+    if (queryData.month != "") month = queryData.month + " 월 ";
+
+    return {"age" : age, "year" : year, "month" : month}
 }
 
 const dataInputFlag = () => {
@@ -319,11 +394,10 @@ const inputDataInit = () => {
         else if (gender == "여" || gender == "여성" || gender == "여자") gender = "female";
     }
 
-    if (year != "" && month == "") month = 1;
-
-    if (month != "") {
-        if (month < 1) month = 1;
-        else if (month > 12) month = 12;
+    if (year != "" || month != "") {
+        let date = new Date();
+        if (year == "") year = date.getFullYear();
+        if (month == "") month = date.getMonth() + 1;
     }
 
     return {'age' : age, 'gender' : gender, 'year' : year, 'month' : month}
