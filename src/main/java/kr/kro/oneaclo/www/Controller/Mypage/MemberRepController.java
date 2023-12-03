@@ -15,10 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.http.HttpRequest;
-import java.util.Arrays;
 import java.util.Random;
-import java.util.UUID;
+
 
 @RestController
 @RequestMapping(value = "/mypage")
