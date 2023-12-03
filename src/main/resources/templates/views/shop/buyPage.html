@@ -91,6 +91,10 @@
                   <input id="InputCount" name="ocount" th:value="${count}" placeholder="50자 이내" type="text" readonly><br>
                   <label for="InputTotalValue">총 결제 금액</label>
                   <input id="InputTotalValue" name="totalprice" th:value="${count * product.getPrice()}" type="text" readonly>
+
+                  <input type="text" name="bcategory" th:value="${product.getBcategory()}" hidden>
+                  <input type="text" name="mcategory" th:value="${product.getMcategory()}" hidden>
+                  <input type="text" name="scategory" th:value="${product.getScategory()}" hidden>
                 </div>
               </th>
             </tr>
