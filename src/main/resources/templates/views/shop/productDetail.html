@@ -45,7 +45,7 @@
                             <input class="btn btn-outline-success" type="button" value="상품수정" th:onclick="|location.href='@{/admin/shopModify(pno=${product.getPno()})}'|">
                             <hr>
                         </th:block>
-                        <button class="btn btn-warning" type="button">장바구니</button>
+                        <button class="btn btn-warning" type="button" onclick="BasketSend()">장바구니</button>
                         <button class="btn btn-success" type="button" th:pno="${product.getPno()}" th:onclick="buy(this.getAttribute('pno'))">바로구매</button>
                     </div>
                 </div>
@@ -53,11 +53,24 @@
         </div>
         <div class="container">
             <div class="portfolio-details-slider swiper">
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
+                <div class="swiper-wrapper align-items-center">
+
+                    <div class="swiper-slide">
+                        <img th:src="@{'/upload/profile/'+${profile}}" alt="" style="width: 100px; height: 100px;" >
+                    </div>
+
+                    <div class="swiper-slide">
+                        <img th:src="@{'/upload/profile/'+${profile}}" alt="" style="width: 100px; height: 100px;">
+                    </div>
+
+                    <div class="swiper-slide">
+                        <img th:src="@{'/upload/profile/'+${profile}}" alt="" style="width: 100px; height: 100px;">
+                    </div>
+
+                </div>
                 <div class="swiper-pagination"></div>
             </div>
-            <p>이미지 swiper기능 들어갈 예정</p>
+
         </div>
         <hr>
         <div class="container" id="information">

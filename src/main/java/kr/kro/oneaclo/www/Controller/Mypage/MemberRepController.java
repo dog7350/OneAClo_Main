@@ -1,5 +1,7 @@
 package kr.kro.oneaclo.www.Controller.Mypage;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Service.Mypage.MemberInfoService;
@@ -13,7 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.http.HttpRequest;
+import java.util.Arrays;
 import java.util.Random;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/mypage")
@@ -94,5 +99,13 @@ public class MemberRepController {
     @PostMapping("/p/NickChange")
     public void NickChange(@RequestParam String NickName,HttpSession session) {
         membersService.NickChange(UserString(session,"id"),NickName);
+    }
+
+    @GetMapping("/p/AddBasket")
+    public void AddBasket(@RequestParam int pno,@RequestParam int count,@RequestParam int price, HttpServletResponse res,HttpSession session) {
+        Cookie product = new Cookie("product"+pno,UserString(session,"id")+"/"+pno+"/"+count+"/"+price);
+        product.setMaxAge(60*60*24);
+        product.setPath("/");
+        res.addCookie(product);
     }
 }
