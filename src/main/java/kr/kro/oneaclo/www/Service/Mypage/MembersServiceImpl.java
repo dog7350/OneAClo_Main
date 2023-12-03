@@ -1,6 +1,7 @@
 package kr.kro.oneaclo.www.Service.Mypage;
 
 import jakarta.mail.internet.MimeMessage;
+import kr.kro.oneaclo.www.Common.FileUtils;
 import kr.kro.oneaclo.www.DTO.Mypage.MemberDTO;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import kr.kro.oneaclo.www.Repository.Mypage.MembersRepository;
@@ -22,6 +23,7 @@ public class MembersServiceImpl implements MembersService{
     private final MembersRepository membersRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JavaMailSender mailSender;
+    private final FileUtils fileUtils;
 
     public String MembersJoin(MemberDTO dto,MultipartFile UserProfile) {
         if(!UserProfile.isEmpty()) {
@@ -85,7 +87,7 @@ public class MembersServiceImpl implements MembersService{
     public  void ProfileChange(String id,MultipartFile NewProfile) {
         Optional<Members> result = membersRepository.findById(id);
         Members members = result.orElseThrow();
-        File Origin = new File("C:\\UserProfile\\"+members.getProfile());
+        File Origin = new File(fileUtils.path+"/profile/"+members.getProfile());
         Origin.delete();
         if(!NewProfile.isEmpty()) {
             String[] FileName = Objects.requireNonNull(NewProfile.getOriginalFilename()).split("\\.");

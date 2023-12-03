@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 @RequiredArgsConstructor
 public class FileUtils {
     @Value("${spring.servlet.multipart.location}")
-    String path;
+    public String path;
 
     public String QnaFileUpload(MultipartFile files, String id) {
         String today = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"));

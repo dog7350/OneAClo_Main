@@ -2,6 +2,7 @@ package kr.kro.oneaclo.www.Controller.Board;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import kr.kro.oneaclo.www.Common.FileUtils;
 import kr.kro.oneaclo.www.Common.TokenProcess;
 import kr.kro.oneaclo.www.DTO.Board.BoardCmtDTO;
 import kr.kro.oneaclo.www.DTO.Board.BoardDTO;
@@ -33,6 +34,7 @@ public class BoardApiController {
     private final BoardService boardService;
     private final BoardCmtService boardCmtService;
     private final BoardFileService boardFileService;
+    private final FileUtils fileUtils;
 
     private String UserString(HttpSession session,String want) {return tokenProcess.getMembersToken(String.valueOf(session.getAttribute("UserInfo")),want);}
     //생성
@@ -74,7 +76,7 @@ public class BoardApiController {
     @GetMapping("/p/download")
     public void download(@RequestParam String name, HttpServletResponse res) throws Exception {
         res.addHeader("Content-disposition","attachment; fileName="+name);
-        File file = new File("C:\\UserProfile\\"+name);
+        File file = new File(fileUtils.path+"/file/"+name);
         FileInputStream in = new FileInputStream(file);
         FileCopyUtils.copy(in,res.getOutputStream());
         in.close();
@@ -89,7 +91,6 @@ public class BoardApiController {
 
     private String FileNameCoding(int bno,String Origin) {
         String today = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyHHddHHmmss"));
-        //        Path savePath = Paths,get(path+"/"+fileName);
         return "Board_" + bno + "_" + today + "_" + Origin;
     }
     @PostMapping("/p/BoardModifySave")

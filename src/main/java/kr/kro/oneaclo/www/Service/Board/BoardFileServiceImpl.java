@@ -1,5 +1,6 @@
 package kr.kro.oneaclo.www.Service.Board;
 
+import kr.kro.oneaclo.www.Common.FileUtils;
 import kr.kro.oneaclo.www.DTO.Board.BoardFileDTO;
 import kr.kro.oneaclo.www.Entity.Board.Board;
 import kr.kro.oneaclo.www.Entity.Board.BoardFile;
@@ -24,11 +25,11 @@ public class BoardFileServiceImpl implements BoardFileService {
     private final BoardFileRepository boardFileRepository;
     private final BoardRepository boardRepository;
     private final ModelMapper modelMapper;
+    private final FileUtils fileUtils;
 
     private String FileNameCoding(int bno, String Origin) {
         String today = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyHHddHHmmssSS"));
         String fileName = "Board_" + bno + "_" + today + "_" + Origin;
-//        Path savePath = Paths,get(path+"/"+fileName);
         return fileName;
     }
 
@@ -58,7 +59,7 @@ public class BoardFileServiceImpl implements BoardFileService {
         Board board = BoardResult.orElseThrow();
         Optional<BoardFile> FileResult = boardFileRepository.findById(new BoardFileId(board, BeforeFileDTO.getFilename()));
         BoardFile boardFile = FileResult.orElseThrow();
-        File Origin = new File("C:\\UserProfile\\" + boardFile.getFilename());
+        File Origin = new File(fileUtils.path+"/file/"+boardFile.getFilename());
         Origin.delete();
         if (Objects.equals(InputFileDTO.getFilename(), "")) {
             boardFileRepository.deleteById(new BoardFileId(board, BeforeFileDTO.getFilename()));

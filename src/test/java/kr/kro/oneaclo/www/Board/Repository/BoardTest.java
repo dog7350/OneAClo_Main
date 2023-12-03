@@ -1,5 +1,6 @@
 package kr.kro.oneaclo.www.Board.Repository;
 
+import kr.kro.oneaclo.www.Common.FileUtils;
 import kr.kro.oneaclo.www.Controller.Mypage.MemberApiController;
 import kr.kro.oneaclo.www.DTO.Mypage.MemberDTO;
 import kr.kro.oneaclo.www.Entity.Board.*;
@@ -52,7 +53,12 @@ public class BoardTest {
     MembersService membersService;
     @Autowired
     MemberInfoService memberInfoService;
-
+    @Autowired
+    FileUtils fileUtils;
+    @Test
+    public void test() {
+        System.out.println(fileUtils.path);
+    }
     @Test
     public void MemberJoin() throws Exception {
         String[] gender = {"male", "female"};
