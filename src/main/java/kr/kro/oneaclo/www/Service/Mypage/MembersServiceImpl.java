@@ -5,10 +5,6 @@ import kr.kro.oneaclo.www.DTO.Mypage.MemberDTO;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import kr.kro.oneaclo.www.Repository.Mypage.MembersRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
