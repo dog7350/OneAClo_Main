@@ -310,8 +310,10 @@ const crawling = (age, gender, category) => {
         } else {
             list = data['list']
 
-            let html = "";
+            crawlingFrame.innerHTML = "";
             for (i = 0; i < list.length; i++) {
+                if (i % 6 == 0) crawlingFrame.appendChild(document.createElement("br"));
+
                 let child = stringToHtml(list[i]);
                 let node = imgNodeFunc(child);
 
