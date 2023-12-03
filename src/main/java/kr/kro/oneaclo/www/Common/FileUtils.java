@@ -20,7 +20,7 @@ public class FileUtils {
         String today = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"));
         String fileName = "QNA_" + id + "_" + today + "_" + files.getOriginalFilename();
 
-        Path savePath = Paths.get(path + "/" + fileName);
+        Path savePath = Paths.get(path + "/file/" + fileName);
 
         try {
             files.transferTo(savePath);
@@ -35,7 +35,7 @@ public class FileUtils {
         String today = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"));
         String fileName = "SHOP_" + today + "_" + files.getOriginalFilename();
 
-        Path savePath = Paths.get(path + "/" + fileName);
+        Path savePath = Paths.get(path + "/file/" + fileName);
 
         try {
             files.transferTo(savePath);

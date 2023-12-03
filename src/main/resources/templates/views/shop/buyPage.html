@@ -5,6 +5,7 @@
   <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
   <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script src="/common/alarm/alarm.js"></script>
 
   <section class="contact" id="contact">
     <div class="container" data-aos="fade-up">
@@ -114,7 +115,7 @@
             <tr>
               <th>
                 <div class="ResultBtn">
-                  <button class="JoinButton" type="button" onclick="buyBtn()">결제</button>
+                  <button class="JoinButton" type="button" th:myId="${id}" th:pno="${product.getPno()}" th:pname="${product.getPname()}" th:onclick="buyBtn(this.getAttribute('myId'), this.getAttribute('pno'), this.getAttribute('pname'))">결제</button>
                   <button class="JoinButton" type="button" onclick="history.back()">취소하기</button>
                 </div>
               </th>

@@ -300,7 +300,7 @@
 
   /*
     Banner Container Insert
-   */
+  */
   window.addEventListener('load', () => {
     var hostUrl = window.location.host + window.location.pathname;
 

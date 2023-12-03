@@ -1,0 +1,18 @@
+.side-page {
+    margin-top: 0;
+    padding-top: 10px;
+    padding-left: 5px;
+    padding-bottom: 10px;
+    position: fixed;
+    z-index: 0;
+    width: 200px;
+    height: 100%;
+}
+#alarmList {
+    position: absolute;
+    bottom: 0;
+}
+.alarmNode {
+    width: 100%;
+    background-color: rgba(194, 255, 255, 0.5);
+}

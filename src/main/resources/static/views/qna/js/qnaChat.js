@@ -69,10 +69,16 @@ window.onbeforeunload = () => {
     if (socket.readyState === socket.OPEN) socket.close();
 }
 
-const enterKey = () => { if (window.event.keyCode == 13) ChatSend(); }
+const enterKey = (myId) => {
+    if (window.event.keyCode == 13) {
+        ChatSend(myId);
+    }
+}
 
-const ChatSend = () => {
+const ChatSend = (myId) => {
     if (socket.readyState === socket.OPEN) {
+        sendQnaAlarm(myId);
+
         const InputChat = document.getElementById("ChatTxt");
 
         const site = document.getElementById("site").value;

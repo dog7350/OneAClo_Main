@@ -2,6 +2,7 @@
 <html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}">
     <link rel="stylesheet" href="/views/qna/css/qnaChat.css">
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="/common/alarm/alarm.js"></script>
     <script src="/views/qna/js/qnaChat.js"></script>
 
     <section id="services" class="services">
@@ -63,8 +64,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="largeTd" rowspan="2"><input id="ChatTxt" type="text" onkeyup="enterKey()"></td>
-                        <td class="smallTd"><button type="button" onclick="ChatSend()">Send</button></td>
+                        <td class="largeTd" rowspan="2"><input id="ChatTxt" type="text" th:myId="${id}" th:onkeyup="enterKey(this.getAttribute('myId'))"></td>
+                        <td class="smallTd"><button type="button" th:myId="${id}" th:onclick="ChatSend(this.getAttribute('myId'))">Send</button></td>
                     </tr>
                     <tr><td class="smallTd"><input type="file" id="file" name="file" onchange="ChatFileUpload(this)"></td></tr>
                 </table>

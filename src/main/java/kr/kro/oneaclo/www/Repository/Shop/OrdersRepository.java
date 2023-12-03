@@ -14,5 +14,5 @@ public interface OrdersRepository extends JpaRepository<Orders, String> {
 
     Page<Orders> findByOid_idLikeOrderByOtimeDesc(Pageable pageable, String oid);
     Page<Orders> findByOnoOrderByOtimeDesc(Pageable pageable, int ono);
-    Page<Orders> findByPnoOrderByOtimeDesc(Pageable pageable, int pno);
+    Page<Orders> findByPno_PnoOrderByOtimeDesc(Pageable pageable, int pno);
 }

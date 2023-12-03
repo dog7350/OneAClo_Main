@@ -40,7 +40,7 @@ window.onload = () => {
     IMP.init("imp42717518");
 }
 
-const buyBtn = () => {
+const buyBtn = (paramId, paramPno, paramPname) => {
     let payGroup = $('input[name=payGroup]:checked').val();
     const pno = document.getElementById("ProductNumber").value;
 
@@ -85,6 +85,8 @@ const buyBtn = () => {
         }).done(function (data) {
             if (res.paid_amount == data.response.amount) {
                 alert("결제 완료");
+
+                sendOrderAlarm(paramId, paramPno, paramPname);
 
                 const form = document.getElementById("orderForm");
 

@@ -54,7 +54,7 @@ public class OrdersServiceImpl implements OrdersService {
 
         if (searchOption.equals("oid")) pages = ordersRepository.findByOid_idLikeOrderByOtimeDesc(pageable, value);
         else if (searchOption.equals("ono")) pages = ordersRepository.findByOnoOrderByOtimeDesc(pageable, Integer.parseInt(searchValue));
-        else if (searchOption.equals("pno")) pages = ordersRepository.findByPnoOrderByOtimeDesc(pageable, Integer.parseInt(searchValue));
+        else if (searchOption.equals("pno")) pages = ordersRepository.findByPno_PnoOrderByOtimeDesc(pageable, Integer.parseInt(searchValue));
 
         return pages;
     }
