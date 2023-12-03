@@ -138,15 +138,15 @@
 
                                 <div class="activeOptionDiv">
                                     <button th:id="${memberinfos.get(num).getId().getId()}" th:onclick="|activeFunc(this.getAttribute('id'), 't')|">활성화</button>
-                                    <button th:id="${memberinfos.get(num).getId().getId()}" th:onclick="|activeFunc(this.getAttribute('id'), 'f')|">정지</button>
+                                    <button th:id="${memberinfos.get(num).getId().getId()}" th:onclick="|activeFunc(this.getAttribute('id'), 'f')|">정&nbsp;&nbsp;&nbsp;&nbsp;지</button>
                                 </div>
                             </td>
 
                             <td class="tdBtn" th:id="${memberinfos.get(num).getId().getId()}" th:onclick="|deleteUser(this.getAttribute('id'))|">퇴출</td>
                         </tr>
                         <tr>
-                            <td colspan="7">
-                                <form action="/admin/memberList" method="get">
+                            <td colspan="13" style="text-align: center;">
+                                <form action="/admin/memberList" method="get" style="margin-bottom: 10px;">
                                     <div style="display: flex;">
                                         <select class="form-select" name="searchOption" aria-label="Default select example" style="width: 20%;">
                                             <option value="id" selected>아이디</option>
@@ -156,21 +156,19 @@
                                         <input class="btn btn-outline-success" type="submit" value="검색" />
                                     </div>
                                 </form>
-                            </td>
 
-                            <td>
-                                <th:block th:if="${pages.isFirst() == true}">
-                                    <input class="btn btn-outline-secondary" type="button" value="<<" disabled>
-                                    <input class="btn btn-outline-secondary" type="button" value="<" disabled>
-                                </th:block>
-                                <th:block th:if="${pages.isFirst() == false}">
-                                    <button class="btn btn-outline-primary" onclick="location.href='/admin/memberList(pageNumber=0, searchOption=${searchOption}, searchValue=${searchValue})}'"><<</button>
-                                    <button class="btn btn-outline-primary" th:onclick="|location.href='@{/admin/memberList(pageNumber=${pages.getNumber() - 1}, searchOption=${searchOption}, searchValue=${searchValue})}'|"><</button>
-                                </th:block>
-                            </td>
+                                <div style="margin-right: 10px; display: inline-block;">
+                                    <th:block th:if="${pages.isFirst() == true}">
+                                        <input class="btn btn-outline-secondary" type="button" value="<<" disabled>
+                                        <input class="btn btn-outline-secondary" type="button" value="<" disabled>
+                                    </th:block>
+                                    <th:block th:if="${pages.isFirst() == false}">
+                                        <button class="btn btn-outline-primary" onclick="location.href='/admin/memberList(pageNumber=0, searchOption=${searchOption}, searchValue=${searchValue})}'"><<</button>
+                                        <button class="btn btn-outline-primary" th:onclick="|location.href='@{/admin/memberList(pageNumber=${pages.getNumber() - 1}, searchOption=${searchOption}, searchValue=${searchValue})}'|"><</button>
+                                    </th:block>
+                                </div>
 
-                            <td colspan="4" style="text-align: center;">
-                                <div th:if="${pages.getTotalElements() >= 1}">
+                                <div th:if="${pages.getTotalElements() >= 1}" style="display: inline-block;">
                                     <div th:each="num : ${ #numbers.sequence(startPage + 1, endPage) }" style="display: inline-block;">
                                         <div th:if="${num.toString() == #numbers.formatInteger(pageNumber + 1, 0)}">
                                             <button class="btn btn-outline-secondary" th:onclick="|location.href='@{/admin/memberList(pageNumber=${num - 1}, searchOption=${searchOption}, searchValue=${searchValue})}'|" disabled>
@@ -184,17 +182,17 @@
                                         </div>
                                     </div>
                                 </div>
-                            </td>
 
-                            <td>
-                                <th:block th:if="${pages.hasNext() == false}">
-                                    <input class="btn btn-outline-secondary" type="button" value=">" disabled>
-                                    <input class="btn btn-outline-secondary" type="button" value=">>" disabled>
-                                </th:block>
-                                <th:block th:if="${pages.hasNext() == true}">
-                                    <button class="btn btn-outline-primary" th:onclick="|location.href='@{/admin/memberList(pageNumber=${pages.getNumber() + 1}, searchOption=${searchOption}, searchValue=${searchValue})}'|">></button>
-                                    <button class="btn btn-outline-primary" th:onclick="|location.href='@{/admin/memberList(pageNumber=${pages.getTotalPages() - 1}, searchOption=${searchOption}, searchValue=${searchValue})}'|">>></button>
-                                </th:block>
+                                <div style="margin-left: 10px; display: inline-block;">
+                                    <th:block th:if="${pages.hasNext() == false}">
+                                        <input class="btn btn-outline-secondary" type="button" value=">" disabled>
+                                        <input class="btn btn-outline-secondary" type="button" value=">>" disabled>
+                                    </th:block>
+                                    <th:block th:if="${pages.hasNext() == true}">
+                                        <button class="btn btn-outline-primary" th:onclick="|location.href='@{/admin/memberList(pageNumber=${pages.getNumber() + 1}, searchOption=${searchOption}, searchValue=${searchValue})}'|">></button>
+                                        <button class="btn btn-outline-primary" th:onclick="|location.href='@{/admin/memberList(pageNumber=${pages.getTotalPages() - 1}, searchOption=${searchOption}, searchValue=${searchValue})}'|">>></button>
+                                    </th:block>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
