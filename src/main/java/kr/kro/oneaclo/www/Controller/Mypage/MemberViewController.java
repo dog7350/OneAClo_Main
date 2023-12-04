@@ -51,7 +51,7 @@ public class MemberViewController {
 
     @GetMapping("/p/userinfo")
     public String userinfo(HttpSession session, Model model) {
-        String[] arr = {"id","pw","name","email","nick","profile","zipcode","address","detailaddr","phone"};
+        String[] arr = {"id","pw","name","email","nick","profile","zipcode","address","detailaddr","phone", "auth"};
         for (String list:arr) {
             UserModelInfo(session,model,list);
         }
