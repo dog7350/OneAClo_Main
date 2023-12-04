@@ -22,7 +22,7 @@
                             <div class="card-body">
                                 <form>
                                     <div>
-                                        <input type="checkbox" style="zoom: 3.0" checked> &nbsp;
+                                        <input type="checkbox" th:id="box+${list.pno}" onchange="AddBox(this)" th:data-box="${list.pno}" style="zoom: 3.0" checked> &nbsp;
                                         <img th:src="@{/upload/file/}+${list.img}" style="width: 200px; height: 200px;">&nbsp;&nbsp;&nbsp;
                                         <span id="pname" th:text="${list.pname}"></span>
                                         <button type="button" class="float-lg-end btn btn-secondary" th:data-index="${list.pno}" onclick="CookieDel()">삭제</button>
@@ -50,7 +50,7 @@
                     <hr>
                     <div class="form-control border-5 text-center fs-5">
                         <b> 총 결제 금액 => </b> &nbsp; <span id="general"></span><span>원 입니다</span>
-                        <input type="text" id="TotalPrice" name="" style="outline: none; border: none" hidden>
+                        <input type="text" id="TotalPrice" name="" style="outline: none; border: none">
                     </div>
                     <hr style="border: 3px solid black">
                     <div class="text-center">
