@@ -19,12 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-
-
 @Controller
 @RequestMapping(value = "/mypage")
 @RequiredArgsConstructor
@@ -85,7 +82,7 @@ public class MemberApiController {
         Cookie[] CartList = request.getCookies();
         List<ProductDTO> productDTOS = new ArrayList<>();
         for(Cookie c:CartList) {
-            if(c.getValue().length() < 10 && UserString(session,"id").equals(c.getName().split("#")[0])) {
+            if(c.getValue().length() < 10 && UserString(session,"id").equals(URLDecoder.decode(c.getName()).split("#")[0])) {
                 ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue().split("/")[0]));
                 productDTO.setCount(Integer.parseInt(c.getValue().split("/")[1]));
                 productDTOS.add(productDTO);

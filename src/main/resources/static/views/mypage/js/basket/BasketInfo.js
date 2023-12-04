@@ -1,3 +1,4 @@
+
 window.onload = () => {
     const TotalList = document.getElementsByClassName("NodeValue")
     let result = 0;
@@ -6,6 +7,7 @@ window.onload = () => {
     }
     document.getElementById("general").innerText = result;
     $('#TotalPrice').val(result);
+
 }
 function countAdd  () {
     const t = event.target
@@ -78,5 +80,14 @@ const AddBox = (e) => {
     }else {
         document.getElementById("general").innerText = total - price*count
         $('#TotalPrice').val(total - price*count);
+    }
+}
+
+async function ProductBuy() {
+    const list = document.getElementsByClassName("ArrayPno");
+    for(var i=0;i<list.length;i++) {
+        setTimeout(function (i) {
+            document.forms['CartForm'+list.item(i).value].submit();
+        },i)
     }
 }

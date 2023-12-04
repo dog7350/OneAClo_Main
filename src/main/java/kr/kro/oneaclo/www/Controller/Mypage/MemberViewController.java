@@ -1,17 +1,17 @@
 package kr.kro.oneaclo.www.Controller.Mypage;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
+
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.TokenProcess;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Arrays;
-
+import java.net.URLEncoder;
 
 @Controller
 @RequestMapping(value = "/mypage")
@@ -72,5 +72,15 @@ public class MemberViewController {
         model.addAttribute("url", "/");
         model.addAttribute("msg", "정지된 아이디 입니다.");
         return "views/common/message";
+    }
+    @PostMapping("/KeywordSearch")
+    public String KeywordSearch(@RequestParam String category,@RequestParam String keyword) {
+        return switch (category) {
+            case "t" -> "redirect:/board/list?size=10&type=t&keyword=" + URLEncoder.encode(keyword);
+            case "w" -> "redirect:/board/list?size=10&type=w&keyword=" + URLEncoder.encode(keyword);
+            case "p" -> "redirect:/shop/list?searchOption=pname&searchValue=" + URLEncoder.encode(keyword);
+            default -> "redirect:/";
+        };
+
     }
 }

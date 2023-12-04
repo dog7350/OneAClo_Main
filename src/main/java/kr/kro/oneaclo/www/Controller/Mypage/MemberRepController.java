@@ -15,9 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 
@@ -104,7 +103,7 @@ public class MemberRepController {
 
     @GetMapping("/p/AddBasket")
     public void AddBasket(@RequestParam int pno, @RequestParam int count, HttpServletResponse res,Principal principal) {
-        Cookie product = new Cookie(principal.getName()+"#"+pno, pno+"/"+count);
+        Cookie product = new Cookie(URLEncoder.encode(principal.getName())+"#"+pno, pno+"/"+count);
         product.setMaxAge(60*60*24);
         product.setPath("/");
         res.addCookie(product);
@@ -112,7 +111,7 @@ public class MemberRepController {
 
     @GetMapping("/p/CartDel")
     public void CartDel(@RequestParam int pno,HttpServletResponse res,Principal principal) {
-        Cookie product = new Cookie(principal.getName()+"#"+pno,null);
+        Cookie product = new Cookie(URLEncoder.encode(principal.getName())+"#"+pno,null);
         product.setPath("/");
         product.setMaxAge(0);
         res.addCookie(product);

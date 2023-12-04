@@ -327,3 +327,20 @@
 
 })()
 
+function Search() {
+  const modal = new bootstrap.Modal(document.querySelector(".modal"));
+  modal.show();
+}
+
+function AllSearch() {
+  const keyword = document.getElementById("rec").value;
+  const category = document.getElementById("cat").value;
+  if(keyword==="") {
+    alert("검색어를 입력해주세요!!!")
+  }else {
+    document.forms['SearchForm'].submit();
+  }
+}
+
+const EnterKeyboard = () => { if (window.event.keyCode == 13) AllSearch(); }
+

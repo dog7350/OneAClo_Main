@@ -1681,3 +1681,13 @@ section {
   right: 1%;
   bottom: 40%;
 }
+
+#SearchBar {
+  position: fixed;
+  border-radius: 5px;
+  width: 60px;
+  height: 60px;
+  right: 100px;
+  bottom: 20px;
+  cursor: pointer;
+}

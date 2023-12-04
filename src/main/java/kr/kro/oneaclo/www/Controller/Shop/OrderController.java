@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -43,7 +42,7 @@ public class OrderController {
     @GetMapping("/buyPage")
     public String OrderBuyPage(HttpSession session, Model model, @RequestParam int pno, @RequestParam int count) {
         String token = (String) session.getAttribute("UserInfo");
-
+        System.out.println(pno);
         if (token == null) {
             model.addAttribute("url", "/mypage/loginform");
             model.addAttribute("msg", "로그인 좀 하세요.");
@@ -52,6 +51,7 @@ public class OrderController {
         Map<String, String> user = TokenList(token);
 
         for (String str : arr) model.addAttribute(str, user.get(str));
+
 
         model.addAttribute("product", productService.ProductDetail(pno));
         model.addAttribute("count", count);
