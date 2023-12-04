@@ -27,6 +27,6 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     @Query(value = "SELECT * FROM (SELECT * FROM product ORDER BY time DESC) WHERE ROWNUM <= 6", nativeQuery = true)
     List<Product> mainNewList();
 
-    @Query(value = "SELECT * FROM (SELECT * FROM product ORDER BY inquiry DESC) WHERE ROWNUM <= 3", nativeQuery = true)
-    List<Product> recomList();
+    @Query(value = "SELECT * FROM (SELECT * FROM product WHERE mcategory=:category ORDER BY inquiry DESC) WHERE ROWNUM <= 3", nativeQuery = true)
+    List<Product> recomList(String category);
 }

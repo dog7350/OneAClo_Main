@@ -155,5 +155,5 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> MainPopularityList() { return productRepository.mainPopularityList(); }
     public List<Product> MainNewList() { return productRepository.mainNewList(); }
 
-    public List<Product> RecomList() { return productRepository.recomList(); }
+    public List<Product> RecomList(String category) { return productRepository.recomList(category); }
 }

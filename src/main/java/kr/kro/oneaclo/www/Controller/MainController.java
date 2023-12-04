@@ -48,7 +48,7 @@ public class MainController {
         if (recom == null) model.addAttribute("recom", "");
         else {
             model.addAttribute("recom", recom.getValue());
-            model.addAttribute("recomList", productService.RecomList());
+            model.addAttribute("recomList", productService.RecomList(recom.getValue()));
         }
 
         model.addAttribute("popProduct", productService.MainPopularityList());

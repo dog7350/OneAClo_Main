@@ -86,7 +86,7 @@ public class ShopController {
         if (recom == null) model.addAttribute("recom", "");
         else {
             model.addAttribute("recom", recom.getValue());
-            model.addAttribute("recomList", productService.RecomList());
+            model.addAttribute("recomList", productService.RecomList(recom.getValue()));
         }
 
         Page<Product> pages = null;
@@ -133,7 +133,7 @@ public class ShopController {
         if (recom == null) model.addAttribute("recom", "");
         else {
             model.addAttribute("recom", recom.getValue());
-            model.addAttribute("recomList", productService.RecomList());
+            model.addAttribute("recomList", productService.RecomList(recom.getValue()));
         }
 
         Product product = productService.ProductDetail(pno);
