@@ -5,14 +5,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.CookieFinder;
 import kr.kro.oneaclo.www.Common.TokenProcess;
+import kr.kro.oneaclo.www.DTO.Shop.ProductDTO;
 import kr.kro.oneaclo.www.Service.Board.BoardService;
+import kr.kro.oneaclo.www.Service.Mypage.MembersService;
 import kr.kro.oneaclo.www.Service.Shop.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -21,6 +25,7 @@ public class MainController {
     private final TokenProcess tokenProcess;
     private final BoardService boardService;
     private final ProductService productService;
+    private final MembersService membersService;
     private final CookieFinder cookieFinder;
 
     private final String[] arr = {"id", "nick", "profile", "auth", "age", "gender", "address"};
@@ -56,6 +61,18 @@ public class MainController {
 
         model.addAttribute("notiBoard", boardService.MainNotificationList());
         model.addAttribute("norBoard", boardService.MainNewNormalList());
+
+        Cookie[] cookies = req.getCookies();
+        List<ProductDTO> productDTOS = new ArrayList<>();
+
+        for(Cookie c:cookies) {
+            if(c.getValue().length() < 10 && TokenList(token).get("id").equals(c.getName().split("\\|")[0])) {
+                ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue()));
+                productDTOS.add(productDTO);
+            }
+        }
+
+        model.addAttribute("lately",productDTOS);
 
         return "views/index";
     }
