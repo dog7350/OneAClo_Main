@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,7 +49,7 @@ public class MainController {
         List<ProductDTO> productDTOS = new ArrayList<>();
 
         for(Cookie c:cookies) {
-            if(c.getValue().length() < 10 && TokenList(token).get("id").equals(c.getName().split("\\|")[0])) {
+            if(c.getValue().length() < 10 && TokenList(token).get("id").equals(URLDecoder.decode(c.getName()).split("\\|")[0])) {
                 ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue()));
                 productDTOS.add(productDTO);
             }

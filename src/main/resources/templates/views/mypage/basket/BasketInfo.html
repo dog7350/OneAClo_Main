@@ -21,7 +21,7 @@
                                 <p>카테고리 : <span th:text="${list.bcategory}"></span> > <span th:text="${list.mcategory}"></span> > <span th:text="${list.scategory == 'male'}?'남성':'여성'"></span></p>
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form action="/order/buyPage" method="get" th:name="CartForm+${list.pno}" target="CartTarget">
                                     <div>
                                         <input type="checkbox" th:id="box+${list.pno}" onchange="AddBox(this)" th:data-box="${list.pno}" style="zoom: 3.0" checked> &nbsp;
                                         <img th:src="@{/upload/file/}+${list.img}" style="width: 200px; height: 200px;">&nbsp;&nbsp;&nbsp;
@@ -39,10 +39,10 @@
                                         <li><strong>주문 금액</strong> &nbsp; <span th:id="totalPrice+${list.pno}" class="NodeValue" th:text="${list.count * list.price}"></span>  </li>
                                     </ul>
                                     <input type="text" name="count" th:id="InputCount+${list.pno}" th:value="${list.count}" hidden>
-                                    <input type="text" name="pno" id="InputPno" th:value="${list.pno}" hidden>
-                                    <input type="text" name="bcategory" th:value="${list.bcategory}" hidden>
-                                    <input type="text" name="mcategory" th:value="${list.mcategory}" hidden>
-                                    <input type="text" name="scategory" th:value="${list.scategory}" hidden>
+                                    <input type="text" name="pno" id="InputPno" class="ArrayPno" th:value="${list.pno}" hidden>
+<!--                                    <input type="text" name="bcategory" th:value="${list.bcategory}" hidden>-->
+<!--                                    <input type="text" name="mcategory" th:value="${list.mcategory}" hidden>-->
+<!--                                    <input type="text" name="scategory" th:value="${list.scategory}" hidden>-->
                                     <hr>
                                 </form>
                             </div>
@@ -51,15 +51,16 @@
                     <hr>
                     <div class="form-control border-5 text-center fs-5">
                         <b> 총 결제 금액 => </b> &nbsp; <span id="general"></span><span>원 입니다</span>
-                        <input type="text" id="TotalPrice" name="" style="outline: none; border: none">
+<!--                        <input type="text" id="TotalPrice" name="" style="outline: none; border: none" hidden>-->
                     </div>
                     <hr style="border: 3px solid black">
                     <div class="text-center">
                         <button type="button" class="btn btn-secondary btn-lg" onclick="ProductBuy()">구매하기</button>
-                        <button type="button" class="btn btn-secondary btn-lg">취소하기</button>
+                        <button type="button" class="btn btn-secondary btn-lg" onclick="history.back()">취소하기</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <iframe id="CartTarget" name="CartTarget" style="display: none;"></iframe>
 </html>

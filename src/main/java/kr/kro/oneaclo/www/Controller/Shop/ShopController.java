@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -144,7 +146,7 @@ public class ShopController {
         PageResponseDTO<ProductCmtDTO> responseDTO = productCmtService.ProductCmtList(pageRequestDTO,pno);
         model.addAttribute("cmt",responseDTO);
 
-        Cookie approach = new Cookie(user.get("id")+"|"+pno, pno+"");
+        Cookie approach = new Cookie(URLEncoder.encode(user.get("id"))+"|"+pno, pno+"");
         approach.setMaxAge(60*60*24);
         approach.setPath("/");
         res.addCookie(approach);
@@ -153,7 +155,7 @@ public class ShopController {
         List<ProductDTO> productDTOS = new ArrayList<>();
 
         for(Cookie c:cookies) {
-            if(c.getValue().length() < 10 && TokenList(token).get("id").equals(c.getName().split("\\|")[0])) {
+            if(c.getValue().length() < 10 && TokenList(token).get("id").equals(URLDecoder.decode(c.getName()).split("\\|")[0])) {
                 ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue()));
                 productDTOS.add(productDTO);
             }

@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}">
     <script src="/common/alarm/alarm.js"></script>
+
     <section id="services" class="services">
         <div class="container" data-aos="fade-up">
-
             <div class="section-title">
                 <h2>ONE.A.CLO</h2>
                 <p>BEST ITEM</p>
             </div>
-
             <div class="row">
                 <div class="col-lg-4 col-md-6 d-flex align-items-stretch" type="button" onclick="" data-aos="zoom-in" data-aos-delay="100">
                     <div class="icon-box">
@@ -224,7 +223,8 @@
                 </div>
             </div>
         </div>
-    </section><!-- End Portfolio Section -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
+    </section><!-- End Portfolio Section -->
+    <script th:inline="javascript" th:src="@{/views/main/js/main.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </html>
