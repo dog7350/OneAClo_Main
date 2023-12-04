@@ -67,9 +67,12 @@ public class MainController {
         if (req.getCookies() != null) {
             Cookie[] cookies = req.getCookies();
             for (Cookie c : cookies) {
-                if (c.getValue().length() < 10 && TokenList(token).get("id").equals(c.getName().split("\\|")[0])) {
-                    ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue()));
-                    productDTOS.add(productDTO);
+                String id = TokenList(token).get("id");
+                if (id != null){
+                    if (c.getValue().length() < 10 && id.equals(c.getName().split("\\|")[0])) {
+                        ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue()));
+                        productDTOS.add(productDTO);
+                    }
                 }
             }
         }
