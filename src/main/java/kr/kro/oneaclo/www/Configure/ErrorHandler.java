@@ -1,4 +1,4 @@
-package kr.kro.oneaclo.www.Common;
+package kr.kro.oneaclo.www.Configure;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;

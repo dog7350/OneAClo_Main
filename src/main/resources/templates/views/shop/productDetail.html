@@ -2,6 +2,26 @@
 <html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}">
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="/common/alarm/alarm.js"></script>
+
+    <section th:if="${recom == ''}">
+        <script src="/views/main/js/Recom.js"></script>
+        <input id="recomInput" th:value="${recom}" hidden>
+        <input id="recomId" th:value="${id}" hidden>
+        <input id="recomAge" th:value="${age}" hidden>
+        <input id="recomGender" th:value="${gender}" hidden>
+    </section>
+    <div class="side-menu position-fixed top-50 start-0 translate-middle-y" data-aos="zoom-in" data-aos-delay="300">
+        <div class="RecomList">
+            <div th:if="${recomList.size() >= 1}">
+                <span id="RecomTitle">이런 상품은 어떠세요?</span>
+                <div class="RecomNode" th:each="num : ${ #numbers.sequence(0, recomList.size() - 1) }" th:onclick="|location.href='@{/shop/detail?pno=}${recomList.get(num).getPno()}'|">
+                    <div class="icon"><img th:src="@{/upload/file/}+${recomList.get(num).getImg()}" style="width: 100px; height: 100px;"></div>
+                    <p><span th:text="${recomList.get(num).getPname()}"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <section id="portfolio-details" class="portfolio-details">
         <div class="container">
             <br>

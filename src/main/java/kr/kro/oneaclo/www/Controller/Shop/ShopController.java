@@ -4,6 +4,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import kr.kro.oneaclo.www.Common.CookieFinder;
 import kr.kro.oneaclo.www.Common.TokenProcess;
 import kr.kro.oneaclo.www.DTO.Page.PageRequestDTO;
 import kr.kro.oneaclo.www.DTO.Log.LogDTO;
@@ -33,6 +34,7 @@ public class ShopController {
     private final ProductCmtService productCmtService;
     private final ProductFileService productFileService;
     private final InquiryLogService inquiryLogService;
+    private final CookieFinder cookieFinder;
 
     private String[] arr = {"id", "profile", "auth", "age", "gender", "address"};
     private String auth;
@@ -73,12 +75,19 @@ public class ShopController {
     }
 
     @GetMapping("/list")
-    public String shopList(HttpSession session, Model model, @RequestParam(defaultValue = "0") String pageNumber,
+    public String shopList(HttpServletRequest req, HttpSession session, Model model, @RequestParam(defaultValue = "0") String pageNumber,
                               @RequestParam(defaultValue = "pname") String searchOption, @RequestParam(defaultValue = "%") String searchValue) {
         String token = (String) session.getAttribute("UserInfo");
         Map<String, String> user = TokenList(token);
 
         for (String str : arr) model.addAttribute(str, user.get(str));
+
+        Cookie recom = cookieFinder.recomCookieFind(req);
+        if (recom == null) model.addAttribute("recom", "");
+        else {
+            model.addAttribute("recom", recom.getValue());
+            model.addAttribute("recomList", productService.RecomList());
+        }
 
         Page<Product> pages = null;
 
@@ -112,12 +121,19 @@ public class ShopController {
 
         for (String str : arr) model.addAttribute(str, user.get(str));
 
-        if (!cookieFind(req, pno)) {
+        if (!cookieFinder.shopInquiryCookieFind(req, pno)) {
             Cookie cookie = new Cookie(String.valueOf(pno), String.valueOf(pno));
             cookie.setMaxAge(30 * 60);
             res.addCookie(cookie);
 
             productService.ProductInquiryAdd(pno);
+        }
+
+        Cookie recom = cookieFinder.recomCookieFind(req);
+        if (recom == null) model.addAttribute("recom", "");
+        else {
+            model.addAttribute("recom", recom.getValue());
+            model.addAttribute("recomList", productService.RecomList());
         }
 
         Product product = productService.ProductDetail(pno);
@@ -137,14 +153,5 @@ public class ShopController {
     @PostMapping("/CmtModify")
     public void CmtModify(ProductCmtDTO dto) {
         productCmtService.CmtModify(dto);
-    }
-
-    private boolean cookieFind(HttpServletRequest req, int pno) {
-            Cookie[] cookies = req.getCookies();
-            for (Cookie c : cookies)
-                if (c.getValue().equals(String.valueOf(pno)))
-                    return true;
-
-            return false;
     }
 }

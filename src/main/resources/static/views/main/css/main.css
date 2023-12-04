@@ -1,12 +1,5 @@
-.side-page {
-    margin-top: 0;
-    padding-top: 10px;
-    padding-left: 5px;
-    padding-bottom: 10px;
-    position: fixed;
-    z-index: 0;
+#side-page {
     width: 200px;
-    height: 100%;
 }
 #alarmList {
     position: absolute;
@@ -15,4 +8,20 @@
 .alarmNode {
     width: 100%;
     background-color: rgba(194, 255, 255, 0.5);
+}
+
+.side-menu {
+    width: 200px;
+}
+.RecomList {
+    width: 100%;
+    text-align: center;
+    background-color: white;
+}
+.RecomNode {
+    margin-top: 10px;
+    padding-top: 15px;
+    border: 1px solid black;
+    text-align: center;
+    cursor: pointer;
 }

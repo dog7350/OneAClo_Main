@@ -28,4 +28,6 @@ public interface ProductService {
 
     List<Product> MainPopularityList();
     List<Product> MainNewList();
+
+    List<Product> RecomList();
 }

@@ -310,6 +310,9 @@ const crawling = (age, gender, category) => {
         } else {
             list = data['list']
 
+            let h1 = document.createElement("h1");
+            h1.innerText = "AI 분석 " + category + " 카테고리의 최신 트렌드 입니다.";
+            document.getElementById("AnalysisReulstDiv").appendChild(h1);
             crawlingFrame.innerHTML = "";
             for (i = 0; i < list.length; i++) {
                 if (i % 6 == 0) crawlingFrame.appendChild(document.createElement("br"));

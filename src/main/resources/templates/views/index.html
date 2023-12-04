@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}">
     <script src="/common/alarm/alarm.js"></script>
+
+    <section th:if="${recom == ''}">
+        <script src="/views/main/js/Recom.js"></script>
+        <input id="recomInput" th:value="${recom}" hidden>
+        <input id="recomId" th:value="${id}" hidden>
+        <input id="recomAge" th:value="${age}" hidden>
+        <input id="recomGender" th:value="${gender}" hidden>
+    </section>
+
     <section id="services" class="services">
         <div class="container" data-aos="fade-up">
 
