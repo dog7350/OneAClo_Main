@@ -1,10 +1,7 @@
 package kr.kro.oneaclo.www.Controller.Shop;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import kr.kro.oneaclo.www.Common.CookieFinder;
 import kr.kro.oneaclo.www.Common.TokenProcess;
 import kr.kro.oneaclo.www.DTO.Page.PageRequestDTO;
 import kr.kro.oneaclo.www.DTO.Log.LogDTO;
@@ -20,7 +17,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +34,6 @@ public class ShopController {
     private final ProductCmtService productCmtService;
     private final ProductFileService productFileService;
     private final InquiryLogService inquiryLogService;
-    private final CookieFinder cookieFinder;
 
     private String[] arr = {"id", "profile", "auth", "age", "gender", "address"};
     private String auth;
@@ -75,19 +74,12 @@ public class ShopController {
     }
 
     @GetMapping("/list")
-    public String shopList(HttpServletRequest req, HttpSession session, Model model, @RequestParam(defaultValue = "0") String pageNumber,
+    public String shopList(HttpSession session, Model model, @RequestParam(defaultValue = "0") String pageNumber,
                               @RequestParam(defaultValue = "pname") String searchOption, @RequestParam(defaultValue = "%") String searchValue) {
         String token = (String) session.getAttribute("UserInfo");
         Map<String, String> user = TokenList(token);
 
         for (String str : arr) model.addAttribute(str, user.get(str));
-
-        Cookie recom = cookieFinder.recomCookieFind(req);
-        if (recom == null) model.addAttribute("recom", "");
-        else {
-            model.addAttribute("recom", recom.getValue());
-            model.addAttribute("recomList", productService.RecomList(recom.getValue()));
-        }
 
         Page<Product> pages = null;
 
@@ -115,26 +107,11 @@ public class ShopController {
     }
 
     @GetMapping("/detail")
-    public String productDetail(HttpServletRequest req, HttpServletResponse res, HttpSession session, Model model, @RequestParam int pno, PageRequestDTO pageRequestDTO) {
+    public String productDetail(HttpServletRequest req, HttpSession session, Model model,@RequestParam int pno, PageRequestDTO pageRequestDTO) {
         String token = (String) session.getAttribute("UserInfo");
         Map<String, String> user = TokenList(token);
 
         for (String str : arr) model.addAttribute(str, user.get(str));
-
-        if (!cookieFinder.shopInquiryCookieFind(req, pno)) {
-            Cookie cookie = new Cookie(String.valueOf(pno), String.valueOf(pno));
-            cookie.setMaxAge(30 * 60);
-            res.addCookie(cookie);
-
-            productService.ProductInquiryAdd(pno);
-        }
-
-        Cookie recom = cookieFinder.recomCookieFind(req);
-        if (recom == null) model.addAttribute("recom", "");
-        else {
-            model.addAttribute("recom", recom.getValue());
-            model.addAttribute("recomList", productService.RecomList(recom.getValue()));
-        }
 
         Product product = productService.ProductDetail(pno);
 

@@ -107,7 +107,6 @@ public class ProductServiceImpl implements ProductService {
         }
         productCmtRepository.save(productCmt);
     }
-
     @Transactional
     public void ProductDelete(int pno) { productRepository.deleteByPno(pno); }
 

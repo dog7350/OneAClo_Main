@@ -1,5 +1,7 @@
 package kr.kro.oneaclo.www.Board.Repository;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import kr.kro.oneaclo.www.Common.FileUtils;
 import kr.kro.oneaclo.www.Controller.Mypage.MemberApiController;
 import kr.kro.oneaclo.www.DTO.Mypage.MemberDTO;
@@ -20,7 +22,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -56,8 +59,11 @@ public class BoardTest {
     @Autowired
     FileUtils fileUtils;
     @Test
-    public void test() {
-        System.out.println(fileUtils.path);
+    public void test(HttpServletResponse res) {
+        Cookie product = new Cookie("test","1/1");
+        product.setMaxAge(60*60*24);
+        product.setPath("/");
+        res.addCookie(product);
     }
     @Test
     public void MemberJoin() throws Exception {

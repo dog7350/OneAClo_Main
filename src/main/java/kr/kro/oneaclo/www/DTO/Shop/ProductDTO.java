@@ -21,4 +21,5 @@ public class ProductDTO {
     private String content;
     private Timestamp time;
     private int inquiry;
+    private int count;
 }
