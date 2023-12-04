@@ -55,3 +55,11 @@
     font-size: 6pt;
     color: #a8a8a8;
 }
+
+#RemoCon {
+    position: fixed;
+    width: 170px;
+    height: 30%;
+    right: 1%;
+    bottom: 40%;
+}

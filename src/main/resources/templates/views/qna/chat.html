@@ -70,5 +70,20 @@
                 </table>
             </div>
         </div>
+        <div id="RemoCon" class="text-center" th:if="${!lately.isEmpty()}">
+            <div class="card">
+                <div class="card-header">
+                    <b class="text-primary fs-5">최근 본 상품</b>
+                </div>
+                <div class="card-body">
+                    <div th:each="list:${lately}">
+                        <a th:href="@{'/shop/detail?pno='+${list.pno}}">
+                            <img th:src="@{'/upload/file/'+${list.img}}" style="width: 100px; height: 100px;">&nbsp;&nbsp;&nbsp;
+                            <hr>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 </html>
