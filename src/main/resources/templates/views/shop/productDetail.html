@@ -265,6 +265,21 @@
             <br class="mt-5">
             <br class="mt-5">
         </div>
+        <div id="remoCon" class="text-center" th:if="${!lately.isEmpty()}">
+            <div class="card">
+                <div class="card-header">
+                    <b class="text-primary fs-5">최근 본 상품</b>
+                </div>
+                <div class="card-body">
+                    <div th:each="list:${lately}">
+                        <a th:href="@{'/shop/detail?pno='+${list.pno}}">
+                            <img th:src="@{'/upload/file/'+${list.img}}" style="width: 100px; height: 100px;">&nbsp;&nbsp;&nbsp;
+                            <hr>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <iframe id="ReviewTarget" name="ReviewTarget" style="display: none;"></iframe>
         <iframe id="ModifyTarget" name="ModifyTarget" style="display: none;"></iframe>
     </section><!-- End Portfolio Details Section -->

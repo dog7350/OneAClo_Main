@@ -298,12 +298,23 @@
     });
   });
 
+  window.addEventListener('load', () => {
+    $('#remoCon').hide();
+  });
+
+  window.addEventListener('scroll', () => {
+    if(scrollY > 900) {
+      $('#remoCon').show();
+    }else {
+      $('#remoCon').hide();
+    }
+  });
+
   /*
     Banner Container Insert
   */
   window.addEventListener('load', () => {
     var hostUrl = window.location.host + window.location.pathname;
-
     if (hostUrl !== "www.oneaclo.kro.kr/" && hostUrl !== "localhost:8800/") {
       document.getElementById("bnbgContainer").remove();
     }
@@ -315,3 +326,4 @@
   new PureCounter();
 
 })()
+

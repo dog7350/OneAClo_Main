@@ -157,13 +157,12 @@ function CommentSave() {
 
 function BasketSend() {
     const pno = document.getElementById("PNO").value;
-    const price = document.getElementById("price").innerText;
     const count = document.getElementById("count").innerText;
 
     $.ajax({
         url:"/mypage/p/AddBasket",
         type: "get",
-        data:{pno:pno,price:price,count:count},
+        data:{pno:pno,count:count},
         success : () => {
             alert("장바구니에 추가 되었습니다.")
         },

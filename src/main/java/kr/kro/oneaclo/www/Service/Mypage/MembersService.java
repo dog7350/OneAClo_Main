@@ -2,6 +2,7 @@ package kr.kro.oneaclo.www.Service.Mypage;
 
 
 import kr.kro.oneaclo.www.DTO.Mypage.MemberDTO;
+import kr.kro.oneaclo.www.DTO.Shop.ProductDTO;
 import kr.kro.oneaclo.www.Entity.Mypage.MemberInfo;
 import kr.kro.oneaclo.www.Entity.Mypage.Members;
 import org.springframework.data.domain.Page;
@@ -25,4 +26,5 @@ public interface MembersService {
 
     void AuthChange(String id, String auth);
     void ActiveChange(String id, String active);
+    ProductDTO ProductInfo(int pno);
 }
