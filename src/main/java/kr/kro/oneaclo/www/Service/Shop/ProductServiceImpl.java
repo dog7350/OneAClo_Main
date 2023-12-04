@@ -145,4 +145,13 @@ public class ProductServiceImpl implements ProductService {
             e.printStackTrace();
         }
     }
+
+    public void ProductInquiryAdd(int pno) {
+        Product product = productRepository.findByPno(pno).get();
+        product.InquiryAdd();
+        productRepository.save(product);
+    }
+
+    public List<Product> MainPopularityList() { return productRepository.mainPopularityList(); }
+    public List<Product> MainNewList() { return productRepository.mainNewList(); }
 }

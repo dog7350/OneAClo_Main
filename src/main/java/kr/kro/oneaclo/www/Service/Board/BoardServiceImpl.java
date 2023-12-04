@@ -140,4 +140,7 @@ public class BoardServiceImpl implements BoardService{
                 .build();
     }
 
+    public List<Board> MainNewNormalList() { return boardRepository.mainNewNormalList(); }
+    public List<Board> MainNotificationList() { return boardRepository.mainNotificationList(); }
+
 }

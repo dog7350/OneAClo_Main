@@ -53,4 +53,6 @@ public class Product {
     private int inquiry;
 
     public void ThumbnailChange(String thumbnail) { this.img = thumbnail; }
+
+    public void InquiryAdd() { inquiry++; }
 }

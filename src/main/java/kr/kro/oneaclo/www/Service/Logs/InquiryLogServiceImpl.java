@@ -15,6 +15,14 @@ public class InquiryLogServiceImpl implements InquiryLogService {
     private final InquiryLogRepository inquiryLogRepository;
 
     public void InquiryLogSave(LogDTO log, Product product) {
+        if (log == null) {
+            log = new LogDTO();
+            log.setId("guest");
+            log.setAge(20);
+            log.setGender("male");
+            log.setAddress("서울 ");
+        }
+
         InquiryLog inquiryLog = InquiryLog.builder()
                                         .pno(product.getPno())
                                         .bcate(product.getBcategory())

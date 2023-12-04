@@ -144,7 +144,7 @@
                             <p th:if="${list.secret == 's'}">비밀글 입니다</p>
                         </div>
                         <br>
-                        <button th:if="${list.writer.getId == id || auth == 'a'}" type="button" class="btn btn-secondary" th:data-num="${list.cno}" th:pno="${product.getPno()}" onclick="CmtDel()">삭제</button>
+                        <button th:if="${list.writer.getId == id}" type="button" class="btn btn-secondary" th:data-num="${list.cno}" th:pno="${product.getPno()}" onclick="CmtDel()">삭제</button>
                         <button th:if="${list.writer.getId == id}" type="button" class="btn btn-secondary" th:data-num="${list.cno}" onclick="CmtModify()">수정</button>
                         <hr>
                     </div>

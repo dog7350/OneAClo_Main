@@ -15,6 +15,8 @@ public interface ProductService {
 
     void ProductUpdate(ProductDTO dto, MultipartFile thumbnail, List<MultipartFile> files);
 
+    void ProductInquiryAdd(int pno);
+
     Page<Product> AllProductPage(int pageNumber, int elementCount);
     Page<Product> SearchProductPage(int pageNumber, int elementCount, String searchOption, String searchValue);
 
@@ -23,4 +25,7 @@ public interface ProductService {
     int ReviewSave(ProductCmtDTO dto,String id,int pno);
 
     void CnoSave(int cno,int pno);
+
+    List<Product> MainPopularityList();
+    List<Product> MainNewList();
 }

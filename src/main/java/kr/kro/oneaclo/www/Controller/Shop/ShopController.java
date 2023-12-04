@@ -1,6 +1,8 @@
 package kr.kro.oneaclo.www.Controller.Shop;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.TokenProcess;
 import kr.kro.oneaclo.www.DTO.Page.PageRequestDTO;
@@ -17,10 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -107,11 +106,19 @@ public class ShopController {
     }
 
     @GetMapping("/detail")
-    public String productDetail(HttpServletRequest req, HttpSession session, Model model,@RequestParam int pno, PageRequestDTO pageRequestDTO) {
+    public String productDetail(HttpServletRequest req, HttpServletResponse res, HttpSession session, Model model, @RequestParam int pno, PageRequestDTO pageRequestDTO) {
         String token = (String) session.getAttribute("UserInfo");
         Map<String, String> user = TokenList(token);
 
         for (String str : arr) model.addAttribute(str, user.get(str));
+
+        if (!cookieFind(req, pno)) {
+            Cookie cookie = new Cookie(String.valueOf(pno), String.valueOf(pno));
+            cookie.setMaxAge(30 * 60);
+            res.addCookie(cookie);
+
+            productService.ProductInquiryAdd(pno);
+        }
 
         Product product = productService.ProductDetail(pno);
 
@@ -130,5 +137,14 @@ public class ShopController {
     @PostMapping("/CmtModify")
     public void CmtModify(ProductCmtDTO dto) {
         productCmtService.CmtModify(dto);
+    }
+
+    private boolean cookieFind(HttpServletRequest req, int pno) {
+            Cookie[] cookies = req.getCookies();
+            for (Cookie c : cookies)
+                if (c.getValue().equals(String.valueOf(pno)))
+                    return true;
+
+            return false;
     }
 }

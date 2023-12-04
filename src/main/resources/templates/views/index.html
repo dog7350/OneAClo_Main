@@ -10,53 +10,63 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" type="button" onclick="" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="icon-box">
-                        <div class="icon"><i class="">제품 사진</i></div>
-                        <h4><a href="">제품 이름/가격</a></h4>
-                        <p>=================제품 설명(가격)================</p>
+
+                <div th:if="${popProduct.size() >= 1}" th:each="num : ${ #numbers.sequence(0, popProduct.size() - 1) }" class="col-lg-4 col-md-6 d-flex align-items-stretch" type="button" th:onclick="|location.href='@{/shop/detail?pno=}${popProduct.get(num).getPno()}'|" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="icon-box" style="width: 100%; height: 100%;">
+                        <div class="icon"><img th:src="@{/upload/file/}+${popProduct.get(num).getImg()}" style="width: 200px; height: 200px;"></div>
+                        <br><br>
+                        <h4><a th:href="@{/shop/detail(pno=${popProduct.get(num).getPno()})}" th:text="${popProduct.get(num).getPname()}"></a></h4>
+
+                        <p><span th:text="${popProduct.get(num).getBcategory()}"></span> / <span th:text="${popProduct.get(num).getMcategory()}"></span></p>
+                        <p>성별 : <span th:text="${(popProduct.get(num).getScategory() == 'male') ? '남성' : '여성'}"></span></p>
+                        <p>가격 : <span th:text="${popProduct.get(num).getPrice()}"></span></p>
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" type="button" onclick="" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="icon-box">
-                        <div class="icon"><i class="">제품 사진</i></div>
-                        <h4><a href="">제품 이름/가격</a></h4>
-                        <p>=================제품 설명(가격)================</p>
+                <th:block th:if="${popProduct.size() <= 0}">
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch" type="button" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="icon-box" style="width: 100%; height: 100%;">
+                            <div class="icon"><i class="">없음</i></div>
+                            <br><br>
+                            <h4><a href=""></a>상품 없음</h4>
+                        </div>
+                    </div>
+                </th:block>
+
+            </div>
+        </div>
+
+        <div class="container" data-aos="fade-up" style="margin-top: 50px;">
+
+            <div class="section-title">
+                <h2>ONE.A.CLO</h2>
+                <p>NEW ITEM</p>
+            </div>
+
+            <div class="row">
+
+                <div th:if="${newProduct.size() >= 1}" th:each="num : ${ #numbers.sequence(0, newProduct.size() - 1) }" class="col-lg-4 col-md-6 d-flex align-items-stretch" type="button" th:onclick="|location.href='@{/shop/detail?pno=}${newProduct.get(num).getPno()}'|" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="icon-box" style="width: 100%; height: 100%;">
+                        <div class="icon"><img th:src="@{/upload/file/}+${newProduct.get(num).getImg()}" style="width: 200px; height: 200px;"></div>
+                        <br><br>
+                        <h4><a th:href="@{/shop/detail(pno=${newProduct.get(num).getPno()})}" th:text="${newProduct.get(num).getPname()}"></a></h4>
+
+                        <p><span th:text="${newProduct.get(num).getBcategory()}"></span> / <span th:text="${newProduct.get(num).getMcategory()}"></span></p>
+                        <p>성별 : <span th:text="${(newProduct.get(num).getScategory() == 'male') ? '남성' : '여성'}"></span></p>
+                        <p>가격 : <span th:text="${newProduct.get(num).getPrice()}"></span></p>
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" type="button" onclick="" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="icon-box">
-                        <div class="icon"><i class="">제품 사진</i></div>
-                        <h4><a href="">제품 이름/가격</a></h4>
-                        <p>=================제품 설명(가격)================</p>
+                <th:block th:if="${newProduct.size() <= 0}">
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch" type="button" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="icon-box" style="width: 100%; height: 100%;">
+                            <div class="icon"><i class="">없음</i></div>
+                            <br><br>
+                            <h4><a href=""></a>상품 없음</h4>
+                        </div>
                     </div>
-                </div>
+                </th:block>
 
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" type="button" onclick="" data-aos-delay="100">
-                    <div class="icon-box">
-                        <div class="icon"><i class="">제품 사진</i></div>
-                        <h4><a href="">제품 이름/가격</a></h4>
-                        <p>=================제품 설명(가격)================</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" type="button" onclick="" data-aos-delay="200">
-                    <div class="icon-box">
-                        <div class="icon"><i class="">제품 사진</i></div>
-                        <h4><a href="">제품 이름/가격</a></h4>
-                        <p>==================제품 설명=================</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" type="button" onclick="" data-aos-delay="300">
-                    <div class="icon-box">
-                        <div class="icon"><i class="">제품 사진</i></div>
-                        <h4><a href="">제품 이름/가격</a></h4>
-                        <p>=================제품 설명(가격)================</p>
-                    </div>
-                </div>
             </div>
         </div>
     </section><!-- End Services Section 베스트 상품 section -->
@@ -66,146 +76,71 @@
 
             <div class="section-title">
                 <h2>ONE.A.CLO</h2>
-                <p>HOT DEAL</p>
+                <p>OPEN BOARD</p>
             </div>
 
             <div class="row" data-aos="fade-up" data-aos-delay="100">
                 <div class="col-lg-12 d-flex justify-content-center">
                     <ul id="portfolio-flters">
                         <li data-filter="*" class="filter-active">All</li>
-                        <li data-filter=".filter-app">weekly best</li>
-                        <li data-filter=".filter-card">new</li>
-                        <li data-filter=".filter-web">MD pick</li>
+                        <li data-filter=".filter-app">Notification</li>
+                        <li data-filter=".filter-web">Normal</li>
                     </ul>
                 </div>
             </div>
 
+            <div style="margin-bottom: 0px;">
+                <table class="table" style="margin-bottom: 0; text-align: center;">
+                    <thead>
+                        <tr>
+                            <th style="width: 65px;">Bno</th>
+                            <th>Title</th>
+                            <th style="width: 250px;">Writer</th>
+                            <th style="width: 170px;">Date</th>
+                            <th style="width: 65px;">조회수</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
             <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
 
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                    <div class="portfolio-wrap">
-                        <img src="/membership/img/TestJpg.jpg" class="img-fluid" alt="">
-                        <div class="portfolio-info">
-                            <h4>App 1</h4>
-                            <p>App</p>
-                            <div class="portfolio-links">
-                                <a href="/membership/img/TestJpg.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
-                                <a href="" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="portfolio-item filter-app" style="margin-bottom: 0px;">
+                    <table class="table" style="margin: 0; text-align: center;">
+                        <tbody>
+                            <tr th:if="${notiBoard.size() >= 1}"  th:each="list : ${notiBoard}">
+                                <td style="width: 65px; color: red; font-weight: bold;">공지</td>
+                                <td><a style="color: red; font-weight: bold;" th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" th:text="${list.getTitle()}"></a></td>
+                                <td style="width: 250px;"><span th:text="${list.getWriter().getId()}"></span>(<span th:text="${list.getWriter().getNick()}"></span>)</td>
+                                <td style="width: 170px;">[[${#temporals.format(list.firsttime,'yyyy-MM-dd HH:mm:ss')}]]</td>
+                                <td style="width: 65px;" th:text="${list.getInquiry()}"></td>
+                            </tr>
+                            <tr th:if="${notiBoard.size() <= 0}">
+                                <td colspan="5" style="color: red; font-weight: bold">
+                                    등록된 공지글이 없습니다.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                    <div class="portfolio-wrap">
-                        <img src="" class="img-fluid" alt="">
-                        <div class="portfolio-info">
-                            <h4>Web 3</h4>
-                            <p>Web</p>
-                            <div class="portfolio-links">
-                                <a href="" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
-                                <a href="" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                    <div class="portfolio-wrap">
-                        <img src="/membership/img/TestJpg.jpg" class="img-fluid" alt="">
-                        <div class="portfolio-info">
-                            <h4>App 2</h4>
-                            <p>App</p>
-                            <div class="portfolio-links">
-                                <a href="/membership/img/TestJpg.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 2"><i class="bx bx-plus"></i></a>
-                                <a href="" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                    <div class="portfolio-wrap">
-                        <img src="/membership/img/TestJpg.jpg" class="img-fluid" alt="">
-                        <div class="portfolio-info">
-                            <h4>Card 2</h4>
-                            <p>Card</p>
-                            <div class="portfolio-links">
-                                <a href="/common/assets/img/portfolio/portfolio-4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 2"><i class="bx bx-plus"></i></a>
-                                <a href="" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                    <div class="portfolio-wrap">
-                        <img src="/membership/img/TestJpg.jpg" class="img-fluid" alt="">
-                        <div class="portfolio-info">
-                            <h4>Web 2</h4>
-                            <p>Web</p>
-                            <div class="portfolio-links">
-                                <a href="/common/assets/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 2"><i class="bx bx-plus"></i></a>
-                                <a href="" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                    <div class="portfolio-wrap">
-                        <img src="" class="img-fluid" alt="">
-                        <div class="portfolio-info">
-                            <h4>App 3</h4>
-                            <p>App</p>
-                            <div class="portfolio-links">
-                                <a href="" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 3"><i class="bx bx-plus"></i></a>
-                                <a href="" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                    <div class="portfolio-wrap">
-                        <img src="" class="img-fluid" alt="">
-                        <div class="portfolio-info">
-                            <h4>Card 1</h4>
-                            <p>Card</p>
-                            <div class="portfolio-links">
-                                <a href="" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 1"><i class="bx bx-plus"></i></a>
-                                <a href="" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                    <div class="portfolio-wrap">
-                        <img src="" class="img-fluid" alt="">
-                        <div class="portfolio-info">
-                            <h4>Card 3</h4>
-                            <p>Card</p>
-                            <div class="portfolio-links">
-                                <a href="" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a>
-                                <a href="" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                    <div class="portfolio-wrap">
-                        <img src="" class="img-fluid" alt="">
-                        <div class="portfolio-info">
-                            <h4>Web 3</h4>
-                            <p>Web</p>
-                            <div class="portfolio-links">
-                                <a href="" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
-                                <a href="" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="portfolio-item filter-web" style="margin-top: 0px;">
+                    <table class="table" style="margin: 0; text-align: center;">
+                        <tbody>
+                        <tr th:if="${norBoard.size() >= 1}"  th:each="list : ${norBoard}">
+                            <td style="width: 65px;" th:text="${list.getBno()}"></td>
+                            <td><a style="color: black;" th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" th:text="${list.getTitle()}"></a></td>
+                            <td style="width: 250px;"><span th:text="${list.getWriter().getId()}"></span>(<span th:text="${list.getWriter().getNick()}"></span>)</td>
+                            <td style="width: 170px;">[[${#temporals.format(list.firsttime,'yyyy-MM-dd HH:mm:ss')}]]</td>
+                            <td style="width: 65px;" th:text="${list.getInquiry()}"></td>
+                        </tr>
+                        <tr th:if="${norBoard.size() <= 0}">
+                            <td colspan="5" style="font-weight: bold">
+                                등록된 게시글이 없습니다.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
