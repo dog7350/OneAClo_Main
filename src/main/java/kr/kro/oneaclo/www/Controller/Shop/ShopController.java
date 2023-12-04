@@ -11,7 +11,6 @@ import kr.kro.oneaclo.www.DTO.Page.PageResponseDTO;
 import kr.kro.oneaclo.www.DTO.Shop.ProductCmtDTO;
 import kr.kro.oneaclo.www.DTO.Shop.ProductDTO;
 import kr.kro.oneaclo.www.Entity.Shop.Product;
-import kr.kro.oneaclo.www.Entity.Shop.ProductCmt;
 import kr.kro.oneaclo.www.Service.Logs.InquiryLogService;
 import kr.kro.oneaclo.www.Service.Mypage.MembersService;
 import kr.kro.oneaclo.www.Service.Shop.ProductCmtService;
