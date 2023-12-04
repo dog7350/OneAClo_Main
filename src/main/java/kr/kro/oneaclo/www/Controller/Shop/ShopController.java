@@ -1,15 +1,19 @@
 package kr.kro.oneaclo.www.Controller.Shop;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import kr.kro.oneaclo.www.Common.CookieFinder;
 import kr.kro.oneaclo.www.Common.TokenProcess;
 import kr.kro.oneaclo.www.DTO.Page.PageRequestDTO;
 import kr.kro.oneaclo.www.DTO.Log.LogDTO;
 import kr.kro.oneaclo.www.DTO.Page.PageResponseDTO;
 import kr.kro.oneaclo.www.DTO.Shop.ProductCmtDTO;
+import kr.kro.oneaclo.www.DTO.Shop.ProductDTO;
 import kr.kro.oneaclo.www.Entity.Shop.Product;
-import kr.kro.oneaclo.www.Entity.Shop.ProductCmt;
 import kr.kro.oneaclo.www.Service.Logs.InquiryLogService;
+import kr.kro.oneaclo.www.Service.Mypage.MembersService;
 import kr.kro.oneaclo.www.Service.Shop.ProductCmtService;
 import kr.kro.oneaclo.www.Service.Shop.ProductFileService;
 import kr.kro.oneaclo.www.Service.Shop.ProductService;
@@ -22,7 +26,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -34,6 +40,8 @@ public class ShopController {
     private final ProductCmtService productCmtService;
     private final ProductFileService productFileService;
     private final InquiryLogService inquiryLogService;
+    private final MembersService membersService;
+    private final CookieFinder cookieFinder;
 
     private String[] arr = {"id", "profile", "auth", "age", "gender", "address"};
     private String auth;
@@ -74,12 +82,19 @@ public class ShopController {
     }
 
     @GetMapping("/list")
-    public String shopList(HttpSession session, Model model, @RequestParam(defaultValue = "0") String pageNumber,
+    public String shopList(HttpServletRequest req, HttpSession session, Model model, @RequestParam(defaultValue = "0") String pageNumber,
                               @RequestParam(defaultValue = "pname") String searchOption, @RequestParam(defaultValue = "%") String searchValue) {
         String token = (String) session.getAttribute("UserInfo");
         Map<String, String> user = TokenList(token);
 
         for (String str : arr) model.addAttribute(str, user.get(str));
+
+        Cookie recom = cookieFinder.recomCookieFind(req);
+        if (recom == null) model.addAttribute("recom", "");
+        else {
+            model.addAttribute("recom", recom.getValue());
+            model.addAttribute("recomList", productService.RecomList(recom.getValue()));
+        }
 
         Page<Product> pages = null;
 
@@ -103,15 +118,42 @@ public class ShopController {
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 
+        Cookie[] cookies = req.getCookies();
+        List<ProductDTO> productDTOS = new ArrayList<>();
+
+        for(Cookie c:cookies) {
+            if(c.getValue().length() < 10 && TokenList(token).get("id").equals(c.getName().split("\\|")[0])) {
+                ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue()));
+                productDTOS.add(productDTO);
+            }
+        }
+
+        model.addAttribute("lately",productDTOS);
+
         return "views/shop/shopList";
     }
 
     @GetMapping("/detail")
-    public String productDetail(HttpServletRequest req, HttpSession session, Model model,@RequestParam int pno, PageRequestDTO pageRequestDTO) {
+    public String productDetail(HttpServletRequest req, HttpServletResponse res, HttpSession session, Model model, @RequestParam int pno, PageRequestDTO pageRequestDTO) {
         String token = (String) session.getAttribute("UserInfo");
         Map<String, String> user = TokenList(token);
 
         for (String str : arr) model.addAttribute(str, user.get(str));
+
+        if (!cookieFinder.shopInquiryCookieFind(req, pno)) {
+            Cookie cookie = new Cookie(String.valueOf(pno), String.valueOf(pno));
+            cookie.setMaxAge(30 * 60);
+            res.addCookie(cookie);
+
+            productService.ProductInquiryAdd(pno);
+        }
+
+        Cookie recom = cookieFinder.recomCookieFind(req);
+        if (recom == null) model.addAttribute("recom", "");
+        else {
+            model.addAttribute("recom", recom.getValue());
+            model.addAttribute("recomList", productService.RecomList(recom.getValue()));
+        }
 
         Product product = productService.ProductDetail(pno);
 
@@ -124,6 +166,23 @@ public class ShopController {
         pageRequestDTO.setSize(5);
         PageResponseDTO<ProductCmtDTO> responseDTO = productCmtService.ProductCmtList(pageRequestDTO,pno);
         model.addAttribute("cmt",responseDTO);
+
+        Cookie approach = new Cookie(user.get("id")+"|"+pno, pno+"");
+        approach.setMaxAge(60*60*24);
+        approach.setPath("/");
+        res.addCookie(approach);
+
+        Cookie[] cookies = req.getCookies();
+        List<ProductDTO> productDTOS = new ArrayList<>();
+
+        for(Cookie c:cookies) {
+            if(c.getValue().length() < 10 && TokenList(token).get("id").equals(c.getName().split("\\|")[0])) {
+                ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue()));
+                productDTOS.add(productDTO);
+            }
+        }
+
+        model.addAttribute("lately",productDTOS);
 
         return "views/shop/productDetail";
     }
