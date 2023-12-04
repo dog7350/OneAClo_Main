@@ -118,13 +118,15 @@ public class ShopController {
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 
-        Cookie[] cookies = req.getCookies();
         List<ProductDTO> productDTOS = new ArrayList<>();
 
-        for(Cookie c:cookies) {
-            if(c.getValue().length() < 10 && TokenList(token).get("id").equals(c.getName().split("\\|")[0])) {
-                ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue()));
-                productDTOS.add(productDTO);
+        if (req.getCookies() != null) {
+            Cookie[] cookies = req.getCookies();
+            for (Cookie c : cookies) {
+                if (c.getValue().length() < 10 && TokenList(token).get("id").equals(c.getName().split("\\|")[0])) {
+                    ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue()));
+                    productDTOS.add(productDTO);
+                }
             }
         }
 
@@ -172,13 +174,15 @@ public class ShopController {
         approach.setPath("/");
         res.addCookie(approach);
 
-        Cookie[] cookies = req.getCookies();
         List<ProductDTO> productDTOS = new ArrayList<>();
 
-        for(Cookie c:cookies) {
-            if(c.getValue().length() < 10 && TokenList(token).get("id").equals(c.getName().split("\\|")[0])) {
-                ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue()));
-                productDTOS.add(productDTO);
+        if (req.getCookies() != null) {
+            Cookie[] cookies = req.getCookies();
+            for (Cookie c : cookies) {
+                if (c.getValue().length() < 10 && TokenList(token).get("id").equals(c.getName().split("\\|")[0])) {
+                    ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue()));
+                    productDTOS.add(productDTO);
+                }
             }
         }
 
