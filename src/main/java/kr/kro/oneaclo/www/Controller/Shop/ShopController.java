@@ -127,7 +127,7 @@ public class ShopController {
             for (Cookie c : cookies) {
                 String id = TokenList(token).get("id");
                 if (id != null){
-                    if (c.getValue().length() < 10 && id.equals(c.getName().split("\\|")[0])) {
+                    if (c.getValue().length() < 10 && id.equals(URLDecoder.decode(c.getName()).split("\\|")[0])) {
                         ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue()));
                         productDTOS.add(productDTO);
                     }

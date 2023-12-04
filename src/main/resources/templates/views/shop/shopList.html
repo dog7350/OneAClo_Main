@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}">
     <script src="/common/alarm/alarm.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="/views/shop/css/ShopList.css">
 
     <section th:if="${recom == ''}">
         <script src="/views/main/js/Recom.js"></script>
@@ -20,9 +22,6 @@
             </div>
         </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <link rel="stylesheet" href="/views/shop/css/ShopList.css">
     <section id="services" class="services">
         <div class="container" data-aos="fade-up">
             <div class="section-title">
