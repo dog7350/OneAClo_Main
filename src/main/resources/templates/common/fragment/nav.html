@@ -38,7 +38,7 @@
             <li><a class="nav-link scrollto" href="/shop/list?searchOption=bcategory&searchValue=원피스">원피스</a></li>
             <li><a class="nav-link scrollto" href="/shop/list?searchOption=bcategory&searchValue=스커트">스커트</a></li>
 
-            <li id="BoardMenu" class="dropdown"><a href="#">게시판<i class="bi bi-chevron-down"></i></a>
+            <li id="BoardMenu" class="dropdown"><a href="/board/list">게시판<i class="bi bi-chevron-down"></i></a>
                 <ul>
                     <li><a href="/board/list">자유 게시판</a></li>
                     <li th:if="${session.UserInfo != null}"><a th:href="@{/qna/chat(id=${id})}">QnA 게시판</a></li>

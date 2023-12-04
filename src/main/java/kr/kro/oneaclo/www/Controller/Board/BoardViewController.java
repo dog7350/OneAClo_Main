@@ -32,9 +32,14 @@ public class BoardViewController {
     private void UserModelInfo(HttpSession session, Model model, String want) {model.addAttribute(want, tokenProcess.getMembersToken(String.valueOf(session.getAttribute("UserInfo")), want));}
 
     @GetMapping("/list")
-    public String list(Model model, PageRequestDTO pageRequestDTO) {
+    public String list(Model model, HttpSession session, PageRequestDTO pageRequestDTO) {
         PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
         model.addAttribute("BoardList",responseDTO);
+
+        String[] arr ={"id","auth"};
+        for(String list:arr) {
+            UserModelInfo(session, model, list);
+        }
 
         int step = boardService.StepMax();
         model.addAttribute("StepValue",step);
