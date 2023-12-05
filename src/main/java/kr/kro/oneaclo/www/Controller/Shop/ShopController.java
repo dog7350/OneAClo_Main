@@ -180,10 +180,12 @@ public class ShopController {
         PageResponseDTO<ProductCmtDTO> responseDTO = productCmtService.ProductCmtList(pageRequestDTO, pno);
         model.addAttribute("cmt", responseDTO);
 
-        Cookie approach = new Cookie(URLEncoder.encode(user.get("id"))+"|"+pno, pno+"");
-        approach.setMaxAge(60 * 60 * 24);
-        approach.setPath("/");
-        res.addCookie(approach);
+        if (user.get("id") != null) {
+            Cookie approach = new Cookie(URLEncoder.encode(user.get("id")) + "|" + pno, pno + "");
+            approach.setMaxAge(60 * 60 * 24);
+            approach.setPath("/");
+            res.addCookie(approach);
+        }
 
         List<ProductDTO> productDTOS = new ArrayList<>();
         if (req.getCookies() != null) {

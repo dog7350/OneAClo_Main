@@ -64,7 +64,7 @@ public class BoardViewController {
             model.addAttribute("FileName",boardFileDTO.getFilename());
         }
 
-        return "views/Board/BoardInfo";
+        return "views/board/BoardInfo";
     }
     @GetMapping("/p/BoardWrite")
     public String BoardWrite(Model model, HttpSession session) {
