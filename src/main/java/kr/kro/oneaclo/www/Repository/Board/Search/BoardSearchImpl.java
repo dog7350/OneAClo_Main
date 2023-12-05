@@ -67,11 +67,14 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
     public Integer StepMax() {
         QBoard board = QBoard.board;
         JPQLQuery<Board> query = from(board);
-
-        int num = query
-                .select(board.step.max())
-                .from(board)
-                .fetchOne();
-        return num;
+        if(query.fetchCount() == 0) {
+            return 0;
+        }else {
+            return query
+                    .where(board.bno.gt(1))
+                    .select(board.step.max())
+                    .from(board)
+                    .fetchOne();
+        }
     }
 }
