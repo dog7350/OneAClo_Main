@@ -71,7 +71,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
             return 0;
         }else {
             return query
-                    .where(board.bno.gt(1))
+                    .where(board.bno.gt(0))
                     .select(board.step.max())
                     .from(board)
                     .fetchOne();
