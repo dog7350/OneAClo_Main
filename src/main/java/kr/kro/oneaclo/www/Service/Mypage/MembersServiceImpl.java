@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -36,12 +38,8 @@ public class MembersServiceImpl implements MembersService{
         if(!UserProfile.isEmpty()) {
             String[] result = Objects.requireNonNull(UserProfile.getOriginalFilename()).split("\\.");
             dto.setProfile(dto.getId()+"_Profile."+result[1]);
-            File NameFilter = new File(dto.getProfile());
-            try{
-                UserProfile.transferTo(NameFilter);
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
+
+            fileUtils.MemberProfileUpload(UserProfile, dto.getProfile());
         }else {
             dto.setProfile("D_Profile.jpg");
         }
@@ -99,12 +97,8 @@ public class MembersServiceImpl implements MembersService{
         if(!NewProfile.isEmpty()) {
             String[] FileName = Objects.requireNonNull(NewProfile.getOriginalFilename()).split("\\.");
             members.ProfileChange(id+"_Profile."+FileName[1]);
-            File NameFilter = new File(members.getProfile());
-            try{
-                NewProfile.transferTo(NameFilter);
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
+
+            fileUtils.MemberProfileUpload(NewProfile, members.getProfile());
         }else {
             members.ProfileChange("D_Profile.jpg");
         }

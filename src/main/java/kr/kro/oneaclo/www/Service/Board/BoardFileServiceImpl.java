@@ -37,18 +37,16 @@ public class BoardFileServiceImpl implements BoardFileService {
     @Override
     public void FileTotalSave(BoardFileDTO boardFileDTO, MultipartFile multipartFile) {
         Optional<Board> result = boardRepository.findByBno(boardFileDTO.getBno());
+        String fileName = FileNameCoding(boardFileDTO.getBno(), multipartFile.getOriginalFilename());
+
         Board board = result.orElseThrow();
         BoardFile boardFile = BoardFile.builder()
                 .bno(board)
-                .filename(FileNameCoding(boardFileDTO.getBno(), boardFileDTO.getFilename()))
+                .filename(fileName)
                 .build();
-        File BoardFile = new File(FileNameCoding(boardFileDTO.getBno(), multipartFile.getOriginalFilename()));
-        try {
-            multipartFile.transferTo(BoardFile);
-            boardFileRepository.save(boardFile);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        boardFileRepository.save(boardFile);
+
+        fileUtils.BoardFileUpload(multipartFile, fileName);
     }
 
 
@@ -66,17 +64,15 @@ public class BoardFileServiceImpl implements BoardFileService {
         } else {
             if (!multipartFile.isEmpty()) {
                 boardFileRepository.deleteById(new BoardFileId(board, BeforeFileDTO.getFilename()));
-                File NewBoardFile = new File(FileNameCoding(board.getBno(), multipartFile.getOriginalFilename()));
+                String fileName = FileNameCoding(board.getBno(), multipartFile.getOriginalFilename());
+
                 BoardFile ModifyFile = BoardFile.builder()
                         .bno(board)
-                        .filename(FileNameCoding(board.getBno(), multipartFile.getOriginalFilename()))
+                        .filename(fileName)
                         .build();
                 boardFileRepository.save(ModifyFile);
-                try {
-                    multipartFile.transferTo(NewBoardFile);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+
+                fileUtils.BoardFileUpload(multipartFile, fileName);
             }
         }
     }

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -44,5 +45,24 @@ public class FileUtils {
         }
 
         return fileName;
+    }
+
+    public void MemberProfileUpload(MultipartFile file, String fileName) {
+        File NameFilter = new File(path + "/profile/" + fileName);
+        try{
+            file.transferTo(NameFilter);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void BoardFileUpload(MultipartFile file, String fileName) {
+        File boardFile = new File(path + "/file/" + fileName);
+
+        try {
+            file.transferTo(boardFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
