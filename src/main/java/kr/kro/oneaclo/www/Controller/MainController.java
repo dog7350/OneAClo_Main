@@ -51,7 +51,10 @@ public class MainController {
         }
 
         Cookie recom = cookieFinder.recomCookieFind(req);
-        if (recom == null) model.addAttribute("recom", "");
+        if (recom == null) {
+            model.addAttribute("recom", "");
+            model.addAttribute("recomList", new ArrayList<>());
+        }
         else {
             model.addAttribute("recom", recom.getValue());
             model.addAttribute("recomList", productService.RecomList(recom.getValue()));

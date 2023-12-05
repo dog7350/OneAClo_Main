@@ -92,7 +92,10 @@ public class ShopController {
         for (String str : arr) model.addAttribute(str, user.get(str));
 
         Cookie recom = cookieFinder.recomCookieFind(req);
-        if (recom == null) model.addAttribute("recom", "");
+        if (recom == null) {
+            model.addAttribute("recom", "");
+            model.addAttribute("recomList", new ArrayList<>());
+        }
         else {
             model.addAttribute("recom", recom.getValue());
             model.addAttribute("recomList", productService.RecomList(recom.getValue()));
@@ -156,7 +159,10 @@ public class ShopController {
         }
 
         Cookie recom = cookieFinder.recomCookieFind(req);
-        if (recom == null) model.addAttribute("recom", "");
+        if (recom == null) {
+            model.addAttribute("recom", "");
+            model.addAttribute("recomList", new ArrayList<>());
+        }
         else {
             model.addAttribute("recom", recom.getValue());
             model.addAttribute("recomList", productService.RecomList(recom.getValue()));

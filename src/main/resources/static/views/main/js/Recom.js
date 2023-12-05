@@ -22,6 +22,7 @@ const RecomAiStart = () => {
         headers: {'Content-Type' : 'Application/JSON'},
         body: JSON.stringify(data)
     }).then((res) => res.json()).then((json) => {
+        console.clear();
         PrintRecom(json.category);
     }).catch(error => { console.log("Error : ", error) });
 }
