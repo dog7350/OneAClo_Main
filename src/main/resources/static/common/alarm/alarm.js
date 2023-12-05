@@ -7,6 +7,7 @@ const stompSocket = () => {
     stompClient = Stomp.over(socket);
     stompClient.connect({}, (frame) => {
         let myId = frame.headers['user-name'];
+        console.clear();
 
         stompClient.subscribe("/realSend/order/" + myId, (data) => {
             let div = document.getElementById("alarmList");

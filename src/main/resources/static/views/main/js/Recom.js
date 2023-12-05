@@ -22,7 +22,9 @@ const RecomAiStart = () => {
         headers: {'Content-Type' : 'Application/JSON'},
         body: JSON.stringify(data)
     }).then((res) => res.json()).then((json) => {
-        PrintRecom(json.category);
+        console.clear();
+
+        if (json.category != "데이터가 너무 적습니다") PrintRecom(json.category);
     }).catch(error => { console.log("Error : ", error) });
 }
 
