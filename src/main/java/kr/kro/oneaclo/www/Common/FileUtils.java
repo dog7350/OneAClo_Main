@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 @Component
 @RequiredArgsConstructor
 public class FileUtils {
-    @Value("${spring.servlet.multipart.location}")
+    @Value("${real.upload.path}")
     public String path;
 
     public String QnaFileUpload(MultipartFile files, String id) {
