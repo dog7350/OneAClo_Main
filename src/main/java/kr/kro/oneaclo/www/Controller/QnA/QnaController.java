@@ -65,7 +65,7 @@ public class QnaController {
         for(Cookie c:cookies) {
             if(c.getValue().length() < 10 && TokenList(token).get("id").equals(c.getName().split("\\|")[0])) {
                 ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue()));
-                productDTOS.add(productDTO);
+                if (productDTO != null) productDTOS.add(productDTO);
             }
         }
 

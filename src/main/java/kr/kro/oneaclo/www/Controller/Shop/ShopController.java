@@ -129,7 +129,7 @@ public class ShopController {
                 if (id != null){
                     if (c.getValue().length() < 10 && id.equals(URLDecoder.decode(c.getName()).split("\\|")[0])) {
                         ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue()));
-                        productDTOS.add(productDTO);
+                        if (productDTO != null) productDTOS.add(productDTO);
                     }
                 }
             }
@@ -185,7 +185,7 @@ public class ShopController {
             for (Cookie c : cookies) {
                 if (c.getValue().length() < 10 && TokenList(token).get("id").equals(URLDecoder.decode(c.getName()).split("\\|")[0])) {
                     ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue()));
-                    productDTOS.add(productDTO);
+                    if (productDTO != null) productDTOS.add(productDTO);
                 }
             }
         }

@@ -139,7 +139,13 @@ public class MembersServiceImpl implements MembersService{
     @Override
     public ProductDTO ProductInfo(int pno) {
         Optional<Product> result = productRepository.findByPno(pno);
-        Product product = result.orElseThrow();
-        return modelMapper.map(product, ProductDTO.class);
+
+        Product product = null;
+        if (result.isPresent()) {
+            product = result.orElseThrow();
+            return modelMapper.map(product, ProductDTO.class);
+        }
+
+        return null;
     }
 }

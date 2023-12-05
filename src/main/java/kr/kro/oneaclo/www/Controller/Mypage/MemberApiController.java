@@ -84,8 +84,11 @@ public class MemberApiController {
         for(Cookie c:CartList) {
             if(c.getValue().length() < 10 && UserString(session,"id").equals(URLDecoder.decode(c.getName()).split("#")[0])) {
                 ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue().split("/")[0]));
-                productDTO.setCount(Integer.parseInt(c.getValue().split("/")[1]));
-                productDTOS.add(productDTO);
+
+                if (productDTO != null) {
+                    productDTO.setCount(Integer.parseInt(c.getValue().split("/")[1]));
+                    productDTOS.add(productDTO);
+                }
             }
         }
         model.addAttribute("cart",productDTOS);

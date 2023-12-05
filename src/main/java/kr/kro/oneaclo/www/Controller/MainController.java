@@ -72,7 +72,7 @@ public class MainController {
                 if (id != null){
                     if (c.getValue().length() < 10 && id.equals(URLDecoder.decode(c.getName()).split("\\|")[0])) {
                         ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue()));
-                        productDTOS.add(productDTO);
+                        if (productDTO != null) productDTOS.add(productDTO);
                     }
                 }
             }
