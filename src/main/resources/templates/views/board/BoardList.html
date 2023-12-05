@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko" layout:decorate="~{common/layout/Layout}" layout:fragment="~{Content}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-    <link rel="stylesheet" href="/views/board/css/BoardList.css">
-    <script th:inline="javascript" th:src="@{/views/board/js/BoardList.js}"></script>
-    <script src="/common/alarm/alarm.js"></script>
+<link rel="stylesheet" href="/views/board/css/BoardList.css">
+<script th:inline="javascript" th:src="@{/views/board/js/BoardList.js}"></script>
+<script src="/common/alarm/alarm.js"></script>
 
     <section class="contact" id="contact">
         <div class="container" data-aos="fade-up">
@@ -48,20 +48,20 @@
 
                             <table class="table">
                                 <thead>
-                                    <tr>
-                                        <th scope="col">Bno</th>
-                                        <th scope="col">Title</th>
-                                        <th scope="col">Writer</th>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">조회수</th>
-                                    </tr>
+                                <tr>
+                                    <th scope="col">Bno</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Writer</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">조회수</th>
+                                </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="list:${BoardList.dtoList}">
                                     <th scope="row" th:if="${list.btype =='f' && list.step == 0}">[[${list.bno}]]</th>
                                     <th class="text-danger" scope="row" th:if="${list.btype =='a'}">공지글</th>
                                     <th scope="row" th:if="${list.btype =='f' && list.step != 0}">
-                                            <i class="bi-arrow-up-left-square-fill" th:id="StepIcon1"></i>
+                                        <i class="bi-arrow-up-left-square-fill" th:id="StepIcon1"></i>
                                     </th>
 
                                     <td>
@@ -79,6 +79,9 @@
 
                                     <td th:if="${list.step == 0}">[[${list.inquiry}]]</td>
                                     <td th:if="${list.step != 0}"><div>[[${list.inquiry}]]</div></td>
+                                </tr>
+                                <tr th:if="${BoardList.dtoList == null}">
+                                    <th colspan="5" class="text-center">등록된 게시글이 없습니다</th>
                                 </tr>
                                 </tbody>
                             </table>

@@ -3,7 +3,7 @@ window.onload = () => {
     document.getElementById("totalPrice").innerHTML = document.getElementById("price").innerText;
     const url = new URL(window.location);
     const urlParams = url.searchParams;
-    var location = document.querySelector('#review').offsetTop;
+    var location = document.querySelector('#CmtBody').offsetTop;
     if(urlParams.get('page')) {
         scrollTo({top:location});
     }
