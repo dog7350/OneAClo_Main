@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="/views/shop/css/ShopList.css">
     <script src="/common/alarm/alarm.js"></script>
 
-    <section th:if="${recom == ''}">
+    <section th:if="${recom == ''}" style="display: none">
         <script src="/views/main/js/Recom.js"></script>
         <input id="recomInput" th:value="${recom}" hidden>
         <input id="recomId" th:value="${id}" hidden>
