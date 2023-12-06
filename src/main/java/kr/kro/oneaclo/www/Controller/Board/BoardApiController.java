@@ -54,8 +54,11 @@ public class BoardApiController {
     }
 
     @PostMapping("/p/BoardReplySave")
-    public String BoardReplySave(BoardDTO DTO,HttpSession session) {
+    public String BoardReplySave(BoardDTO DTO,HttpSession session,BoardFileDTO FileDTO,@RequestParam MultipartFile boardfile) {
         boardService.BoardReplySave(DTO,UserString(session,"id"));
+        if(!Objects.equals(FileDTO.getFilename(), "")) {
+            boardFileService.FileTotalSave(FileDTO,boardfile);
+        }
         return "redirect:/board/list";
     }
 
