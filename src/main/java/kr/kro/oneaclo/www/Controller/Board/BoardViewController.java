@@ -29,7 +29,13 @@ public class BoardViewController {
 
 
 
-    private void UserModelInfo(HttpSession session, Model model, String want) {model.addAttribute(want, tokenProcess.getMembersToken(String.valueOf(session.getAttribute("UserInfo")), want));}
+    private String UserModelInfo(HttpSession session, Model model, String want) {
+        String token = (String) session.getAttribute("UserInfo");
+
+        if (token != null) model.addAttribute(want, tokenProcess.getMembersToken(token, want));
+
+        return token;
+    }
 
     @GetMapping("/list")
     public String list(Model model, HttpSession session, PageRequestDTO pageRequestDTO) {
@@ -48,13 +54,13 @@ public class BoardViewController {
 
     @GetMapping("/p/BoardInfo")
     public String BoardInfo(@RequestParam int bno, Model model, HttpSession session, PageRequestDTO pageRequestDTO) {
+
         BoardDTO dto = boardService.BoardInfo(bno);
         model.addAttribute("dto",dto);
 
         String[] arr ={"id","auth"};
-        for(String list:arr) {
-            UserModelInfo(session, model, list);
-        }
+        for (String list:arr) UserModelInfo(session, model, list);
+
         pageRequestDTO.setSize(100);
         PageResponseDTO<BoardCmtDTO> responseDTO = boardCmtService.BoardCmtList(pageRequestDTO,bno);
         model.addAttribute("CmtList",responseDTO);

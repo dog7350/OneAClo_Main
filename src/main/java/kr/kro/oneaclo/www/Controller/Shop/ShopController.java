@@ -191,13 +191,15 @@ public class ShopController {
         if (req.getCookies() != null) {
             Cookie[] cookies = req.getCookies();
             for (Cookie c : cookies) {
-                if (c.getValue().length() < 10 && TokenList(token).get("id").equals(URLDecoder.decode(c.getName()).split("\\|")[0])) {
-                    ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue()));
-                    if (productDTO != null) productDTOS.add(productDTO);
+                String id = TokenList(token).get("id");
+                if (id != null) {
+                    if (c.getValue().length() < 10 && id.equals(URLDecoder.decode(c.getName()).split("\\|")[0])) {
+                        ProductDTO productDTO = membersService.ProductInfo(Integer.parseInt(c.getValue()));
+                        if (productDTO != null) productDTOS.add(productDTO);
+                    }
                 }
             }
         }
-
 
         model.addAttribute("lately",productDTOS);
 

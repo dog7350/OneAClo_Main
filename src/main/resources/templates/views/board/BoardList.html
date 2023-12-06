@@ -68,7 +68,7 @@
                                         <a class="text-secondary" onclick="inqUp()" th:data-Bno="${list.bno}" th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" th:if="${list.btype =='f' && list.step == 0}">[[${list.title}]]</a>
                                         <a class="text-danger"
                                            th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" th:if="${list.btype =='a' && list.step == 0}">[[${list.title}]]</a>
-                                        <a class="text-secondary" onclick="inqUp()" th:id="StepTitle1" th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" th:if="${list.btype =='f' && list.step != 0}">[[${list.title}]]</a>
+                                        <a class="text-secondary" onclick="inqUp()" th:data-Bno="${list.bno}" th:id="StepTitle1" th:href="@{'/board/p/BoardInfo?bno='+${list.bno}}" th:if="${list.btype =='f' && list.step != 0}">[[${list.title}]]</a>
                                     </td>
 
                                     <td th:if="${list.step == 0}">[[${list.writer.id}]]</td>

@@ -72,13 +72,13 @@ public class BoardTest {
         String[] add = {"아파트","주택","빌라"};
         Random random = new Random();
 
-        for(int i=0;i<600;i++) {
+        for(int i=0;i<300;i++) {
             MemberDTO memberDto = new MemberDTO();
-            memberDto.setId("테스터다"+i);
+            memberDto.setId("test"+i);
             memberDto.setPw("1234");
-            memberDto.setNick("닉네임"+i);
-            memberDto.setName("테스트"+i);
-            memberDto.setAge(random.nextInt(100)+10);
+            memberDto.setNick(nameCreate());
+            memberDto.setName(nameCreate());
+            memberDto.setAge(random.nextInt(40) + 10);
             memberDto.setGender(gender[random.nextInt(2)]);
             memberDto.setEmail("TEST"+i+"@naver.com");
             memberDto.setZipcode("123123");
@@ -94,6 +94,16 @@ public class BoardTest {
             membersRepository.save(members);
             memberInfoService.MemberInfoJoin(memberDto);
         }
+    }
+    String nameCreate() {
+        String[] ascii = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+        Random random = new Random();
+        String name = "";
+
+        for (int i = 0; i < 10; i++)
+            name += ascii[random.nextInt(26)];
+
+        return name;
     }
 
     @Test
