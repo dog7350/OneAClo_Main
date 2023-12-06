@@ -65,7 +65,7 @@
                             <input class="btn btn-outline-success" type="button" value="상품수정" th:onclick="|location.href='@{/admin/shopModify(pno=${product.getPno()})}'|">
                             <hr>
                         </th:block>
-                        <button class="btn btn-warning" type="button" onclick="BasketSend()">장바구니</button>
+                        <button class="btn btn-warning" type="button" th:if="${id != null}" onclick="BasketSend()">장바구니</button>
                         <button class="btn btn-success" type="button" th:pno="${product.getPno()}" th:onclick="buy(this.getAttribute('pno'))">바로구매</button>
                     </div>
                 </div>

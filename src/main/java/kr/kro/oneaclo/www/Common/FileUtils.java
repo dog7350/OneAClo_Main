@@ -78,4 +78,14 @@ public class FileUtils {
             e.printStackTrace();
         }
     }
+
+    public void BoardFileDelete(String fileName) {
+        File boardFile = new File(path + "/file/" + fileName);
+
+        try {
+            boardFile.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

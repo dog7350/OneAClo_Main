@@ -90,4 +90,16 @@ public class BoardFileServiceImpl implements BoardFileService {
             return null;
         }
     }
+
+    @Override
+    public void BoardFileDel(int bno) {
+        Optional<Board> BoardResult = boardRepository.findByBno(bno);
+        Board board = BoardResult.orElseThrow();
+        Optional<BoardFile> FileResult = boardFileRepository.findByBno(board);
+        if(FileResult.isPresent()) {
+            BoardFile boardFile = FileResult.orElseThrow();
+            boardFileRepository.deleteById(new BoardFileId(board, boardFile.getFilename()));
+            fileUtils.BoardFileDelete(boardFile.getFilename());
+        }
+    }
 }

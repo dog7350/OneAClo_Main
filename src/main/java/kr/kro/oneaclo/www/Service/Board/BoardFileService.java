@@ -7,4 +7,5 @@ public interface BoardFileService {
     void FileTotalSave(BoardFileDTO boardFileDTO,MultipartFile multipartFile);
     void FileTotalModify(BoardFileDTO BeforeFileDTO, BoardFileDTO InputFileDTO, MultipartFile multipartFile);
     BoardFileDTO BoardFileInfo(int bno);
+    void BoardFileDel(int bno);
 }

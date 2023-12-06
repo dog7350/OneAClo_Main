@@ -115,6 +115,7 @@ public class BoardApiController {
     //삭제 관련
     @GetMapping("/p/BoardDel")
     public String BoardDel(@RequestParam int bno) {
+        boardFileService.BoardFileDel(bno);
         boardService.BoardDel(bno);
         return "redirect:/board/list";
     }
