@@ -54,6 +54,7 @@ public class BoardViewController {
 
     @GetMapping("/p/BoardInfo")
     public String BoardInfo(@RequestParam int bno, Model model, HttpSession session, PageRequestDTO pageRequestDTO) {
+        if (session.getAttribute("UserInfo") == null) return "views/mypage/login/LoginForm";
 
         BoardDTO dto = boardService.BoardInfo(bno);
         model.addAttribute("dto",dto);
@@ -75,12 +76,16 @@ public class BoardViewController {
     @GetMapping("/p/BoardWrite")
     public String BoardWrite(Model model, HttpSession session) {
         String token = String.valueOf(session.getAttribute("UserInfo"));
+        if (token == null) return "views/mypage/login/LoginForm";
+
         model.addAttribute("Auth",tokenProcess.getMembersToken(token,"auth"));
         return "views/board/BoardWrite";
     }
 
     @GetMapping("/p/BoardModify")
-    public String BoardModify(@RequestParam int bno,Model model) {
+    public String BoardModify(@RequestParam int bno,Model model, HttpSession session) {
+        if (session.getAttribute("UserInfo") == null) return "views/mypage/login/LoginForm";
+
         BoardDTO boardDTO = boardService.BoardInfo(bno);
         model.addAttribute("dto",boardDTO);
         BoardFileDTO boardFileDTO = boardFileService.BoardFileInfo(bno);
@@ -91,7 +96,9 @@ public class BoardViewController {
     }
 
     @GetMapping("/p/BoardReply")
-    public String BoardReply(@RequestParam int bno,Model model) {
+    public String BoardReply(@RequestParam int bno,Model model, HttpSession session) {
+        if (session.getAttribute("UserInfo") == null) return "views/mypage/login/LoginForm";
+
         BoardDTO boardDTO = boardService.GetBoard(bno);
         model.addAttribute("dto",boardDTO);
         return "views/board/BoardReply";

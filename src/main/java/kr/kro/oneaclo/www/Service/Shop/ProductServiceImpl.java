@@ -65,7 +65,12 @@ public class ProductServiceImpl implements ProductService {
         if (searchOption.equals("pname")) pages = productRepository.findByPnameLikeOrderByPnoDesc(pageable, value);
         else if (searchOption.equals("bcategory")) pages = productRepository.findByBcategoryLikeOrderByPnoDesc(pageable, value);
         else if (searchOption.equals("mcategory")) pages = productRepository.findByMcategoryLikeOrderByPnoDesc(pageable, value);
-        else if (searchOption.equals("scategory")) pages = productRepository.findByScategoryLikeOrderByPnoDesc(pageable, value);
+        else if (searchOption.equals("scategory")) {
+            if (searchValue.equals("남자") || searchValue.equals("남성") || searchValue.equals("남")) value = "male";
+            else if (searchValue.equals("여자") || searchValue.equals("여성") || searchValue.equals("여")) value = "female";
+
+            pages = productRepository.findByScategoryLikeOrderByPnoDesc(pageable, value);
+        }
 
         return pages;
     }
