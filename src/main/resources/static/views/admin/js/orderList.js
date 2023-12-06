@@ -9,16 +9,9 @@ const statusBtn = (status, ono) => {
     if (statusGroup == undefined) return falseMsg("상태를 선택하세요.");
     else if (status == statusGroup) return falseMsg("현재와 같은 상태입니다.");
 
-    const data = {
-        ono : ono,
-        status : statusGroup
-    }
-
     if (confirm("상태를 반영하시겠습니까?")) {
-        fetch("/order/statusChange", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {"Content-Type": "Application/JSON"}
+        fetch("/order/statusChange?ono=" + ono + "&status=" + statusGroup, {
+            method: "GET",
         }).then((res) => {
             location.reload();
         });

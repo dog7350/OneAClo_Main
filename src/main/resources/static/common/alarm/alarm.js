@@ -1,6 +1,6 @@
 let stompClient = null;
 
-window.addEventListener('load', () => { stompSocket(); })
+//window.addEventListener('load', () => { stompSocket(); })
 
 const stompSocket = () => {
     let socket = new SockJS('/realtime');

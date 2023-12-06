@@ -1,6 +1,5 @@
 package kr.kro.oneaclo.www.Controller.Shop;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.kro.oneaclo.www.Common.TokenProcess;
@@ -9,13 +8,12 @@ import kr.kro.oneaclo.www.DTO.Shop.OrdersDTO;
 import kr.kro.oneaclo.www.Service.Logs.OrderLogService;
 import kr.kro.oneaclo.www.Service.Shop.OrdersService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping(value = "/order")
 @RequiredArgsConstructor
 public class OrderRestController {
@@ -55,9 +53,9 @@ public class OrderRestController {
         }
     }
 
-    @PostMapping("/statusChange")
-    public String StatusChange(@RequestBody HashMap<String, String> map) {
-        ordersService.orderStatusUpdate(Integer.parseInt(map.get("ono")), map.get("status"));
+    @GetMapping("/statusChange")
+    public String StatusChange(int ono, String status) {
+        ordersService.orderStatusUpdate(ono, status);
 
         return "success";
     }
