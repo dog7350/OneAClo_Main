@@ -42,6 +42,7 @@ public class ErrorHandler implements ErrorController {
 
             if (code == HttpStatus.NOT_FOUND.value()) return "views/common/e404";
             else if (code == HttpStatus.INTERNAL_SERVER_ERROR.value()) return "views/common/e500";
+            else System.out.println(code);
         }
 
         return "views/common/error";

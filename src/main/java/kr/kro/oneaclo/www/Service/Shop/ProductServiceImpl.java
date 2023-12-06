@@ -115,13 +115,8 @@ public class ProductServiceImpl implements ProductService {
         List<ProductFile> fileResult = productFileRepository.findAllByPno(result.get());
 
         Product product = result.orElseThrow();
-        File Origin = new File(product.getImg());
-        Origin.delete();
 
-        for (ProductFile pf : fileResult) {
-            File originFile = new File(pf.getFilename());
-            originFile.delete();
-        }
+        fileUtils.ShopUpdateFileDelete(product, fileResult);
 
         String thumbnailName = fileUtils.ShopFileUpload(thumbnail);
         product.ThumbnailChange(thumbnailName);

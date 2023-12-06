@@ -1,5 +1,7 @@
 package kr.kro.oneaclo.www.Common;
 
+import kr.kro.oneaclo.www.Entity.Shop.Product;
+import kr.kro.oneaclo.www.Entity.Shop.ProductFile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -10,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -45,6 +48,16 @@ public class FileUtils {
         }
 
         return fileName;
+    }
+
+    public void ShopUpdateFileDelete(Product product, List<ProductFile> fileResult) {
+        File Origin = new File(path + "/file/" + product.getImg());
+        Origin.delete();
+
+        for (ProductFile pf : fileResult) {
+            File originFile = new File(path + "/file/" + pf.getFilename());
+            originFile.delete();
+        }
     }
 
     public void MemberProfileUpload(MultipartFile file, String fileName) {
