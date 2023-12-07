@@ -27,16 +27,16 @@
                             </td>
                             <td th:text="${memberinfos.get(num).getId().getNick()}"></td>
                             <td th:text="${memberinfos.get(num).getName()}"></td>
-                            <td th:text="${memberinfos.get(num).getAge()}"></td>
+                            <td style="width: 50px;" th:text="${memberinfos.get(num).getAge()}"></td>
 
-                            <th:block th:if="${memberinfos.get(num).getGender() == 'male'}"><td>남자</td></th:block>
-                            <th:block th:if="${memberinfos.get(num).getGender() == 'female'}"><td>여자</td></th:block>
+                            <th:block th:if="${memberinfos.get(num).getGender() == 'male'}"><td style="width: 50px;">남자</td></th:block>
+                            <th:block th:if="${memberinfos.get(num).getGender() == 'female'}"><td style="width: 50px;">여자</td></th:block>
 
                             <td>
                                 <a class="adminHref" th:href="@{/admin/memberMail(email=${memberinfos.get(num).getEmail()})}" th:text="${memberinfos.get(num).getEmail()}"></a>
                             </td>
                             <td th:text="${memberinfos.get(num).getPhone()}"></td>
-                            <td th:text="${memberinfos.get(num).getZipcode()}"></td>
+                            <td th:text="${memberinfos.get(num).getZipcode()}" style="width: 90px;"></td>
                             <td th:text="${memberinfos.get(num).getAddress()}"></td>
                             <td th:text="${memberinfos.get(num).getDetailaddr()}"></td>
 
@@ -119,7 +119,7 @@
                                     }
                                 }
                             </script>
-                            <td class="tdBtn" onclick="optionClick(this)">
+                            <td class="tdBtn" onclick="optionClick(this)" style="width: 65px;">
                                 <span th:if="${memberinfos.get(num).getId().getAuth() == 'a'}">관리자</span>
                                 <span th:if="${memberinfos.get(num).getId().getAuth() == 'm'}">매니저</span>
                                 <span th:if="${memberinfos.get(num).getId().getAuth() == 'c'}">사용자</span>
@@ -131,7 +131,7 @@
                                 </div>
                             </td>
 
-                            <td class="tdBtn" onclick="optionClick(this)">
+                            <td class="tdBtn" onclick="optionClick(this)" style="width: 65px;">
                                 <span th:if="${memberinfos.get(num).getId().getActive() == 't'}">활성화</span>
                                 <span th:if="${memberinfos.get(num).getId().getActive() == 'f'}">정지</span>
 
@@ -141,7 +141,7 @@
                                 </div>
                             </td>
 
-                            <td class="tdBtn" th:id="${memberinfos.get(num).getId().getId()}" th:onclick="|deleteUser(this.getAttribute('id'))|">퇴출</td>
+                            <td class="tdBtn" th:id="${memberinfos.get(num).getId().getId()}" th:onclick="|deleteUser(this.getAttribute('id'))|" style="width: 50px;">퇴출</td>
                         </tr>
                         <tr>
                             <td colspan="13" style="text-align: center;">

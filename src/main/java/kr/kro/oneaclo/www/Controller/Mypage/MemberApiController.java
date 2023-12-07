@@ -92,6 +92,7 @@ public class MemberApiController {
             }
         }
         model.addAttribute("cart",productDTOS);
+        model.addAttribute("auth", UserString(session, "auth"));
 
         return "views/mypage/basket/BasketInfo";
     }
